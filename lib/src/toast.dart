@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 
 class KToast extends StatefulWidget {
   final Widget child;
+  final TextStyle textStyle;
+  final Color backgroundColor;
+  final double radius;
 
-  const KToast({Key key, this.child}) : super(key: key);
+  const KToast({Key key, this.child, this.textStyle, this.radius, this.backgroundColor}) : super(key: key);
 
   @override
   ToastWidgetState createState() {
@@ -37,8 +40,13 @@ class ToastWidgetState extends State<KToast> {
                 child: widget.child,
                 controller: controller,
               ),
-              IgnorePointer(
-                child: _Toast(controller: controller),
+              _ToastTheme(
+                child: IgnorePointer(
+                  child: _Toast(controller: controller),
+                ),
+                backgroundColor: widget.backgroundColor ?? Colors.grey,
+                radius: widget.radius ?? 15.0,
+                textStyle: widget.textStyle ?? const TextStyle(color: Colors.white, fontSize: 14.0),
               ),
             ],
           ),
@@ -88,14 +96,17 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var theme = _ToastTheme.of(context);
+    var radius = theme.radius ?? 15.0;
+
     return AnimatedOpacity(
       child: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(30.0),
         child: Material(
-          borderRadius: BorderRadius.circular(15.0),
-          color: Colors.grey,
-          textStyle: TextStyle(color: Colors.white),
+          borderRadius: BorderRadius.circular(radius),
+          color: theme.backgroundColor,
+          textStyle: theme.textStyle,
           child: Padding(
             child: Text(
               _text,
@@ -129,7 +140,8 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
 class ToastProvider extends InheritedWidget {
   final Widget child;
   final ToastController controller;
-  ToastProvider({this.child, this.controller});
+
+  ToastProvider({this.child, this.controller}) : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
@@ -143,6 +155,22 @@ class ToastProvider extends InheritedWidget {
   static void toast(BuildContext context, String msg, {int second = 2}) {
     of(context).controller?.valueChange(msg, second: second);
   }
+}
+
+class _ToastTheme extends InheritedWidget {
+  final TextStyle textStyle;
+  final Color backgroundColor;
+  final double radius;
+  final Widget child;
+
+  _ToastTheme({this.child, this.textStyle, this.backgroundColor, this.radius}) : super(child: child);
+
+  static _ToastTheme of(BuildContext context) {
+    return context.inheritFromWidgetOfExactType(_ToastTheme);
+  }
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
 }
 
 showToast(BuildContext context, Object msg, {int second = 2}) {

@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return KToast( //2. wrap your app with KToast
+      textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
+      backgroundColor: Colors.grey,
+      radius: 10.0,
       child: new MaterialApp(
         title: 'Flutter Demo',
         theme: new ThemeData(
