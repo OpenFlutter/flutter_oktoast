@@ -3,6 +3,10 @@
 A package for flutter.
 It is a pule dart package.No channel.
 
+## screenshot
+
+![image](https://github.com/CaiJingLong/some_asset/blob/master/ktoast1.gif)
+
 ## use
 
 ```dart
