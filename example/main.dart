@@ -1,67 +1,13 @@
-# ktoast
-
-A library for flutter.
-
-A pure dart toast Library.
-
-## screenshot
-
-![image](https://github.com/CaiJingLong/some_asset/blob/master/ktoast2.gif)
-
-## use
-
-1.  add library to your pubspec.yaml
-
-```yaml
-dependencies:
-  ktoast: ^1.0.0
-```
-
-2.  import library in dart file
-
-```dart
-import 'package:ktoast/ktoast.dart';
-```
-
-3.  wrap your app widget
-
-```dart
-...
-KToast(
-  /// set toast style
-  child:MaterialApp()
-);
-...
-```
-
-4.  call method `showToast`
-
-```dart
-showToast(context, "content", second: 2, position: ToastPosition.bottom);
-```
-
-## properties
-
-```properties
-textStyle: the toast text style
-radius: the toast background color radius
-backgroundColor: the background color
-position: the toast align and padding
-child: the application
-```
-
-## examples
-
-```dart
 import 'package:flutter/material.dart';
-import 'package:ktoast/ktoast.dart';  // 1. import library
+import 'package:ktoast/ktoast.dart'; // 1. import library
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-@override
+  @override
   Widget build(BuildContext context) {
-    return KToast( //2. wrap your app with KToast
+    return KToast(
+      //2. wrap your app with KToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
@@ -79,7 +25,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
-@override
+  @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
@@ -88,7 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-    showToast(context, "$_counter", second: 2, position: ToastPosition.bottom); //3. show toast
+    showToast(context, "$_counter",
+        second: 2, position: ToastPosition.bottom); //3. show toast
   }
 
   @override
@@ -113,7 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
                     },
                   ),
                 ),
@@ -132,4 +80,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-```

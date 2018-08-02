@@ -1,6 +1,6 @@
 name: ktoast
-description: A pule flutter toast library, easy to use.
-version: 0.0.3
+description: A pule flutter toast library, easy to use. You can use this library to achieve the same effect as Android toast.
+version: 1.0.0
 author: Caijinglong<cjl_spy@163.com>
 homepage: https://github.com/Caijinglong/flutter_ktoast
 email: cjl_spy@163.com
