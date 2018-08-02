@@ -9,6 +9,38 @@ It is a pule dart package.No channel.
 
 ## use
 
+1.  add library to your pubspec.yaml
+
+```yaml
+dependencies:
+  ktoast: ^0.0.2
+```
+
+2.  import library in dart file
+
+```dart
+import 'package:ktoast/ktoast.dart';
+```
+
+3.  wrap your app widget
+
+```dart
+...
+KToast(
+  /// set toast style
+  child:MaterialApp()
+);
+...
+```
+
+4.  call `showToast()` method
+
+```dart
+showToast(context, "$_counter", second: 2); //3. show toast
+```
+
+## examples
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:ktoast/ktoast.dart';  // 1. import library
@@ -16,7 +48,7 @@ import 'package:ktoast/ktoast.dart';  // 1. import library
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  @override
+@override
   Widget build(BuildContext context) {
     return KToast( //2. wrap your app with KToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
@@ -36,7 +68,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
-  @override
+@override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
