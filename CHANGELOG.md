@@ -1,5 +1,9 @@
 # Change log
 
+## [1.0.0] first release version
+
+stable version
+
 ## [0.0.3] add the toast position
 
 the toast can set position
