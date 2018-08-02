@@ -34,10 +34,10 @@ KToast(
 ...
 ```
 
-4.  call `showToast()` method
+4.  call method `showToast`
 
 ```dart
-showToast(context, "$_counter", second: 2); //3. show toast
+showToast(context, "content", second: 2, position: ToastPosition.bottom);
 ```
 
 ## properties
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-    showToast(context, "$_counter", second: 5); //3. show toast
+    showToast(context, "$_counter", second: 2, position: ToastPosition.bottom); //3. show toast
   }
 
   @override
