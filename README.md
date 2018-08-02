@@ -1,7 +1,8 @@
 # ktoast
 
-A package for flutter.
-It is a pule dart package.No channel.
+A library for flutter.
+
+A pure dart toast Library.
 
 ## screenshot
 
@@ -13,7 +14,7 @@ It is a pule dart package.No channel.
 
 ```yaml
 dependencies:
-  ktoast: ^0.0.2
+  ktoast: ^0.0.3
 ```
 
 2.  import library in dart file
@@ -37,6 +38,16 @@ KToast(
 
 ```dart
 showToast(context, "$_counter", second: 2); //3. show toast
+```
+
+## properties
+
+```properties
+textStyle: the toast text style
+radius: the toast background color radius
+backgroundColor: the background color
+position: the toast align and padding
+child: the application
 ```
 
 ## examples

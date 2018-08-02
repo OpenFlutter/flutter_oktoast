@@ -1,7 +1,6 @@
 library ktoast;
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class KToast extends StatefulWidget {
@@ -9,8 +8,8 @@ class KToast extends StatefulWidget {
   final TextStyle textStyle;
   final Color backgroundColor;
   final double radius;
-
-  const KToast({Key key, this.child, this.textStyle, this.radius, this.backgroundColor}) : super(key: key);
+  final ToastPosition defaultPosition;
+  const KToast({Key key, this.child, this.textStyle, this.radius, this.backgroundColor, this.defaultPosition}) : super(key: key);
 
   @override
   ToastWidgetState createState() {
@@ -47,6 +46,7 @@ class ToastWidgetState extends State<KToast> {
                 backgroundColor: widget.backgroundColor ?? Colors.grey,
                 radius: widget.radius ?? 15.0,
                 textStyle: widget.textStyle ?? const TextStyle(color: Colors.white, fontSize: 14.0),
+                position: widget.defaultPosition ?? ToastPosition.center,
               ),
             ],
           ),
@@ -63,7 +63,7 @@ class ToastController {
   }
 }
 
-typedef void ValueChange(String msg, {int second});
+typedef void ValueChange(String msg, {int second, ToastPosition position});
 
 class _Toast extends StatefulWidget {
   final ToastController controller;
@@ -80,6 +80,8 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
   double _opacity = 0.0;
 
   Timer timer;
+
+  ToastPosition position;
 
   @override
   void initState() {
@@ -98,11 +100,14 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     var theme = _ToastTheme.of(context);
     var radius = theme.radius ?? 15.0;
-
+    ToastPosition position = this.position ?? theme.position;
     return AnimatedOpacity(
       child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(30.0),
+        alignment: position.align,
+        padding: EdgeInsets.symmetric(
+          horizontal: 30.0,
+          vertical: position.offset.abs(),
+        ),
         child: Material(
           borderRadius: BorderRadius.circular(radius),
           color: theme.backgroundColor,
@@ -121,10 +126,11 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
     );
   }
 
-  void _onChange(String msg, {int second}) async {
+  void _onChange(String msg, {int second, ToastPosition position}) async {
     setState(() {
       _opacity = 0.8;
       this._text = msg;
+      this.position = position;
     });
 
     timer?.cancel();
@@ -152,8 +158,8 @@ class ToastProvider extends InheritedWidget {
     return context.inheritFromWidgetOfExactType(ToastProvider);
   }
 
-  static void toast(BuildContext context, String msg, {int second = 2}) {
-    of(context).controller?.valueChange(msg, second: second);
+  static void toast(BuildContext context, String msg, {int second = 2, ToastPosition position = ToastPosition.center}) {
+    of(context).controller?.valueChange(msg, second: second, position: position);
   }
 }
 
@@ -163,7 +169,9 @@ class _ToastTheme extends InheritedWidget {
   final double radius;
   final Widget child;
 
-  _ToastTheme({this.child, this.textStyle, this.backgroundColor, this.radius}) : super(child: child);
+  final ToastPosition position;
+
+  _ToastTheme({this.child, this.textStyle, this.backgroundColor, this.radius, this.position}) : super(child: child);
 
   static _ToastTheme of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(_ToastTheme);
@@ -173,7 +181,20 @@ class _ToastTheme extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 }
 
-showToast(BuildContext context, Object msg, {int second = 2}) {
+showToast(BuildContext context, Object msg, {int second = 2, ToastPosition position = ToastPosition.center}) {
   String m = msg?.toString() ?? "null";
-  ToastProvider.toast(context, m, second: second);
+  ToastProvider.toast(context, m, second: second, position: position);
+}
+
+class ToastPosition {
+  final AlignmentGeometry align;
+  final double offset;
+
+  const ToastPosition({this.align = Alignment.center, this.offset = 0.0});
+
+  static const center = const ToastPosition();
+
+  static const bottom = const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
+
+  static const top = const ToastPosition(align: Alignment.topCenter, offset: 75.0);
 }
