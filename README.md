@@ -14,7 +14,7 @@ A pure dart toast Library.
 
 ```yaml
 dependencies:
-  ktoast: ^1.0.0
+  oktoast: ^1.0.1+1
 ```
 
 2.  import library in dart file
