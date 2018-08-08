@@ -1,5 +1,9 @@
 # Change log
 
+## [1.0.1] rename library name
+
+now libray is oktoast
+
 ## [1.0.0] first release version
 
 stable version

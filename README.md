@@ -20,7 +20,7 @@ dependencies:
 2.  import library in dart file
 
 ```dart
-import 'package:ktoast/ktoast.dart';
+import 'package:oktoast/oktoast.dart';
 ```
 
 3.  wrap your app widget
@@ -54,14 +54,15 @@ child: the application
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:ktoast/ktoast.dart';  // 1. import library
+import 'package:oktoast/oktoast.dart'; // 1. import library
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-@override
+  @override
   Widget build(BuildContext context) {
-    return KToast( //2. wrap your app with KToast
+    return OKToast(
+      //2. wrap your app with KToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
@@ -79,7 +80,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
-@override
+  @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 

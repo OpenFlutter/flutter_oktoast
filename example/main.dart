@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ktoast/ktoast.dart'; // 1. import library
+import 'package:oktoast/oktoast.dart'; // 1. import library
 
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return KToast(
+    return OKToast(
       //2. wrap your app with KToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
@@ -34,8 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-    showToast(context, "$_counter",
-        second: 2, position: ToastPosition.bottom); //3. show toast
+    showToast(context, "$_counter", second: 2, position: ToastPosition.bottom); //3. show toast
   }
 
   @override
@@ -60,8 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
                     },
                   ),
                 ),

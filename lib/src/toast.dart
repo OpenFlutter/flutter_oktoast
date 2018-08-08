@@ -1,22 +1,15 @@
-library ktoast;
+library oktoast;
 
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-class KToast extends StatefulWidget {
+class OKToast extends StatefulWidget {
   final Widget child;
   final TextStyle textStyle;
   final Color backgroundColor;
   final double radius;
   final ToastPosition defaultPosition;
-  const KToast(
-      {Key key,
-      this.child,
-      this.textStyle,
-      this.radius,
-      this.backgroundColor,
-      this.defaultPosition})
-      : super(key: key);
+  const OKToast({Key key, this.child, this.textStyle, this.radius, this.backgroundColor, this.defaultPosition}) : super(key: key);
 
   @override
   ToastWidgetState createState() {
@@ -24,7 +17,7 @@ class KToast extends StatefulWidget {
   }
 }
 
-class ToastWidgetState extends State<KToast> {
+class ToastWidgetState extends State<OKToast> {
   ToastController controller = ToastController();
 
   @override
@@ -52,8 +45,7 @@ class ToastWidgetState extends State<KToast> {
                 ),
                 backgroundColor: widget.backgroundColor ?? Colors.grey,
                 radius: widget.radius ?? 15.0,
-                textStyle: widget.textStyle ??
-                    const TextStyle(color: Colors.white, fontSize: 14.0),
+                textStyle: widget.textStyle ?? const TextStyle(color: Colors.white, fontSize: 14.0),
                 position: widget.defaultPosition ?? ToastPosition.center,
               ),
             ],
@@ -166,11 +158,8 @@ class ToastProvider extends InheritedWidget {
     return context.inheritFromWidgetOfExactType(ToastProvider);
   }
 
-  static void toast(BuildContext context, String msg,
-      {int second = 2, ToastPosition position = ToastPosition.center}) {
-    of(context)
-        .controller
-        ?.valueChange(msg, second: second, position: position);
+  static void toast(BuildContext context, String msg, {int second = 2, ToastPosition position = ToastPosition.center}) {
+    of(context).controller?.valueChange(msg, second: second, position: position);
   }
 }
 
@@ -182,13 +171,7 @@ class _ToastTheme extends InheritedWidget {
 
   final ToastPosition position;
 
-  _ToastTheme(
-      {this.child,
-      this.textStyle,
-      this.backgroundColor,
-      this.radius,
-      this.position})
-      : super(child: child);
+  _ToastTheme({this.child, this.textStyle, this.backgroundColor, this.radius, this.position}) : super(child: child);
 
   static _ToastTheme of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(_ToastTheme);
@@ -198,8 +181,7 @@ class _ToastTheme extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 }
 
-showToast(BuildContext context, Object msg,
-    {int second = 2, ToastPosition position = ToastPosition.center}) {
+showToast(BuildContext context, Object msg, {int second = 2, ToastPosition position = ToastPosition.center}) {
   String m = msg?.toString() ?? "null";
   ToastProvider.toast(context, m, second: second, position: position);
 }
@@ -212,9 +194,7 @@ class ToastPosition {
 
   static const center = const ToastPosition();
 
-  static const bottom =
-      const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
+  static const bottom = const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
 
-  static const top =
-      const ToastPosition(align: Alignment.topCenter, offset: 75.0);
+  static const top = const ToastPosition(align: Alignment.topCenter, offset: 75.0);
 }
