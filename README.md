@@ -1,4 +1,4 @@
-# ktoast
+# oktoast
 
 A library for flutter.
 
@@ -14,7 +14,7 @@ A pure dart toast Library.
 
 ```yaml
 dependencies:
-  oktoast: ^1.0.1+1
+  oktoast: ^1.0.1+2
 ```
 
 2.  import library in dart file
@@ -26,18 +26,16 @@ import 'package:oktoast/oktoast.dart';
 3.  wrap your app widget
 
 ```dart
-...
-KToast(
+OKToast(
   /// set toast style
   child:MaterialApp()
 );
-...
 ```
 
 4.  call method `showToast`
 
 ```dart
-showToast(context, "content", second: 2, position: ToastPosition.bottom);
+showToast(context, "content", second: 2, position: ToastPosition.bottom); // position and second have default value, is optional
 ```
 
 ## properties

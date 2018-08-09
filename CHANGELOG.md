@@ -1,5 +1,9 @@
 # Change log
 
+## [1.0.1+2]
+
+update readme
+
 ## [1.0.1+1]
 
 update readme
