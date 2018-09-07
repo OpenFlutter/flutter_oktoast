@@ -127,6 +127,8 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
   }
 
   void _onChange(String msg, {int second, ToastPosition position}) async {
+    position ??= _ToastTheme.of(context).position;
+
     setState(() {
       _opacity = 0.8;
       this._text = msg;
@@ -158,7 +160,7 @@ class ToastProvider extends InheritedWidget {
     return context.inheritFromWidgetOfExactType(ToastProvider);
   }
 
-  static void toast(BuildContext context, String msg, {int second = 2, ToastPosition position = ToastPosition.center}) {
+  static void toast(BuildContext context, String msg, {int second = 2, ToastPosition position}) {
     of(context).controller?.valueChange(msg, second: second, position: position);
   }
 }
@@ -181,7 +183,7 @@ class _ToastTheme extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 }
 
-showToast(BuildContext context, Object msg, {int second = 2, ToastPosition position = ToastPosition.center}) {
+showToast(BuildContext context, Object msg, {int second = 2, ToastPosition position}) {
   String m = msg?.toString() ?? "null";
   ToastProvider.toast(context, m, second: second, position: position);
 }

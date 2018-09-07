@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.2
+
+fix `defaultPosition` is invalid.
+
 ## [1.0.1+2]
 
 update readme
