@@ -1,5 +1,10 @@
 # Change log
 
+## 1.0.3
+
+update the textAlign : TextAlign.center
+update the overflow: TextOverflow.ellipsis,
+
 ## 1.0.2
 
 fix `defaultPosition` is invalid.

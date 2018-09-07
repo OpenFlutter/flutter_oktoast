@@ -1,5 +1,8 @@
 # oktoast
 
+[![pub package](https://img.shields.io/pub/v/oktoast.svg)](https://pub.dartlang.org/packages/oktoast)
+![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
+
 A library for flutter.
 
 A pure dart toast Library.
@@ -14,7 +17,7 @@ A pure dart toast Library.
 
 ```yaml
 dependencies:
-  oktoast: ^1.0.1+2
+  oktoast: ^1.0.3
 ```
 
 2.  import library in dart file

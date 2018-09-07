@@ -116,6 +116,8 @@ class __ToastState extends State<_Toast> with SingleTickerProviderStateMixin {
             child: Text(
               _text,
               maxLines: 4,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
             ),
             padding: EdgeInsets.all(10.0),
           ),
