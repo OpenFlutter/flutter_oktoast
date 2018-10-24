@@ -20,13 +20,17 @@ class OKToast extends StatefulWidget {
 
   final double radius;
 
+  final ToastPosition position;
+
   const OKToast({
     Key key,
-    this.child,
-    this.textStyle,
-    this.backgroundColor,
-    this.radius,
-  }) : super(key: key);
+    @required this.child,
+    this.textStyle = const TextStyle(fontSize: 15.0),
+    this.radius = 10.0,
+    this.position = ToastPosition.center,
+    Color backgroundColor,
+  })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
+        super(key: key);
 
   @override
   _OKToastState createState() => _OKToastState();
@@ -80,6 +84,7 @@ class _OKToastState extends State<OKToast> {
       backgroundColor: widget.backgroundColor,
       radius: widget.radius,
       textStyle: widget.textStyle,
+      position: widget.position,
     );
   }
 }
@@ -88,19 +93,25 @@ void showToast(
   String msg, {
   BuildContext context,
   Duration duration = _defaultDuration,
-  ToastPosition position = ToastPosition.center,
+  ToastPosition position,
   TextStyle textStyle,
+  Color backgroundColor,
+  double radius,
 }) {
   context ??= _contextMap.values.first;
 
-  textStyle ??= DefaultTextStyle.of(context).style ?? TextStyle(fontSize: 15.0);
+  textStyle ??= _ToastTheme.of(context).textStyle ?? TextStyle(fontSize: 15.0);
+  position ??= _ToastTheme.of(context).position;
+  backgroundColor ??= _ToastTheme.of(context).backgroundColor;
+  radius ??= _ToastTheme.of(context).radius;
 
-  Widget widget = Center(
+  Widget widget = Align(
+    alignment: position.align,
     child: Container(
       margin: const EdgeInsets.all(50.0),
       decoration: BoxDecoration(
-        color: Colors.black87,
-        borderRadius: BorderRadius.circular(5.0),
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(radius),
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 8.0,
@@ -194,7 +205,7 @@ class ToastPosition {
 
   const ToastPosition({this.align = Alignment.center, this.offset = 0.0});
 
-  static const center = const ToastPosition();
+  static const center = const ToastPosition(align: Alignment.center, offset: 0.0);
 
   static const bottom = const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
 
@@ -208,6 +219,8 @@ class _ToastTheme extends InheritedWidget {
 
   final double radius;
 
+  final ToastPosition position;
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
@@ -215,6 +228,7 @@ class _ToastTheme extends InheritedWidget {
     this.textStyle,
     this.backgroundColor,
     this.radius,
+    this.position,
     Widget child,
   }) : super(child: child);
 
