@@ -1,5 +1,9 @@
 # Change log
 
+## 1.0.4
+
+support flutter sdk 0.10 ,fix bug
+
 ## 1.0.3
 
 update the textAlign : TextAlign.center

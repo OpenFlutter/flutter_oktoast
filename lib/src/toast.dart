@@ -32,25 +32,25 @@ class ToastWidgetState extends State<OKToast> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetsApp(
-      builder: (ctx, w) => Stack(
-            children: <Widget>[
-              ToastProvider(
-                child: widget.child,
-                controller: controller,
-              ),
-              _ToastTheme(
-                child: IgnorePointer(
-                  child: _Toast(controller: controller),
-                ),
-                backgroundColor: widget.backgroundColor ?? Colors.grey,
-                radius: widget.radius ?? 15.0,
-                textStyle: widget.textStyle ?? const TextStyle(color: Colors.white, fontSize: 14.0),
-                position: widget.defaultPosition ?? ToastPosition.center,
-              ),
-            ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Stack(
+        children: <Widget>[
+          ToastProvider(
+            child: widget.child,
+            controller: controller,
           ),
-      color: Colors.white,
+          _ToastTheme(
+            child: IgnorePointer(
+              child: _Toast(controller: controller),
+            ),
+            backgroundColor: widget.backgroundColor ?? Colors.grey,
+            radius: widget.radius ?? 15.0,
+            textStyle: widget.textStyle ?? const TextStyle(color: Colors.white, fontSize: 14.0),
+            position: widget.defaultPosition ?? ToastPosition.center,
+          ),
+        ],
+      ),
     );
   }
 }
