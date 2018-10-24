@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-    showToast(context, "$_counter", second: 2, position: ToastPosition.bottom); //3. show toast
+    showToast("$_counter", duration: Duration(seconds: 2), position: ToastPosition.bottom); //3. show toast
   }
 
   @override
