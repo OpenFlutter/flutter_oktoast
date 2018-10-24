@@ -1,5 +1,8 @@
 # Change log
 
+## 2.0.0
+use BuildContext cache. then `showToast` not need context, you can use the `showToast` in anywhere.
+
 ## 1.0.4
 
 support flutter sdk 0.10 ,fix bug

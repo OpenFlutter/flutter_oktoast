@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      //2. wrap your app with KToast
+      //2. wrap your app with OKToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
@@ -34,7 +34,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-    showToast(context, "$_counter", second: 2, position: ToastPosition.bottom); //3. show toast
+
+    // 3.1 use showToast method
+    showToast(
+      "$_counter",
+      duration: Duration(seconds: 2),
+      position: ToastPosition.bottom,
+      backgroundColor: Colors.black.withOpacity(0.8),
+      radius: 13.0,
+      textStyle: TextStyle(fontSize: 18.0),
+    );
+
+    showToast(
+      "$_counter",
+      duration: Duration(seconds: 2),
+      position: ToastPosition.top,
+      backgroundColor: Colors.black.withOpacity(0.8),
+      radius: 3.0,
+      textStyle: TextStyle(fontSize: 30.0),
+    );
+
+    // 3.2 use showToastWidget method
+    Widget widget = Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: Container(
+          width: 40.0,
+          height: 40.0,
+           color: Colors.grey.withOpacity(0.3),
+          child: Icon(
+            Icons.add,
+            size: 30.0,
+            color: Colors.green,
+          ),
+        ),
+      ),
+    );
+    showToastWidget(
+      widget,
+      duration: Duration(seconds: 3),
+    );
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -59,7 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
                     },
                   ),
                 ),

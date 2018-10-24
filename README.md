@@ -7,9 +7,20 @@ A library for flutter.
 
 A pure dart toast Library.
 
+You can completely customize the style of toast.
+
 ## screenshot
 
 ![image](https://github.com/CaiJingLong/some_asset/blob/master/ktoast2.gif)
+
+![image](https://github.com/CaiJingLong/some_asset/blob/master/oktoast_2.png)
+
+## about version 1.X.X
+if you use oktoast 1.X.X ,Please use the 1.X branch, and read version readme.
+
+Proposed migration to 2.X.X version. The new version does not require buildContext. 
+
+And you can completely customize the style of toast, because now you can use `showToastWidget`.
 
 ## use
 
@@ -17,7 +28,7 @@ A pure dart toast Library.
 
 ```yaml
 dependencies:
-  oktoast: ^1.0.4
+  oktoast: ^2.0.0
 ```
 
 2.  import library in dart file
@@ -30,7 +41,7 @@ import 'package:oktoast/oktoast.dart';
 
 ```dart
 OKToast(
-  /// set toast style
+  /// set toast style, optional
   child:MaterialApp()
 );
 ```
@@ -38,10 +49,19 @@ OKToast(
 4.  call method `showToast`
 
 ```dart
-showToast(context, "content", second: 2, position: ToastPosition.bottom); // position and second have default value, is optional
+showToast("content");
+
+// position and second have default value, is optional
+
+showToastWidget(Text('hello oktoast'));
+```
+
+```dart
 ```
 
 ## properties
+
+oktoast have default style, and you also can custom textStyle.
 
 ```properties
 textStyle: the toast text style
@@ -63,7 +83,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      //2. wrap your app with KToast
+      //2. wrap your app with OKToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
@@ -90,7 +110,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-    showToast(context, "$_counter", second: 2, position: ToastPosition.bottom); //3. show toast
+
+    // 3.1 use showToast method
+    showToast(
+      "$_counter",
+      duration: Duration(seconds: 2),
+      position: ToastPosition.bottom,
+      backgroundColor: Colors.black.withOpacity(0.8),
+      radius: 13.0,
+      textStyle: TextStyle(fontSize: 18.0),
+    );
+
+    showToast(
+      "$_counter",
+      duration: Duration(seconds: 2),
+      position: ToastPosition.top,
+      backgroundColor: Colors.black.withOpacity(0.8),
+      radius: 3.0,
+      textStyle: TextStyle(fontSize: 30.0),
+    );
+
+    // 3.2 use showToastWidget method to custom widget
+    Widget widget = Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: Container(
+          width: 40.0,
+          height: 40.0,
+           color: Colors.grey.withOpacity(0.3),
+          child: Icon(
+            Icons.add,
+            size: 30.0,
+            color: Colors.green,
+          ),
+        ),
+      ),
+    );
+    showToastWidget(
+      widget,
+      duration: Duration(seconds: 3),
+    );
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -115,7 +178,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
                     },
                   ),
                 ),
@@ -134,4 +198,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
 ```
