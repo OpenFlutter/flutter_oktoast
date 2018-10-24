@@ -11,9 +11,9 @@ You can completely customize the style of toast.
 
 ## screenshot
 
-<img src="https://github.com/CaiJingLong/some_asset/blob/master/ktoast2.gif" width="50%" height="50%"/>
+<img src="https://github.com/CaiJingLong/some_asset/blob/master/ktoast2.gif" width="35%" height="35%"/>
 
-<img src="https://github.com/CaiJingLong/some_asset/blob/master/oktoast_2.png" width="50%" height="50%"/>
+<img src="https://github.com/CaiJingLong/some_asset/blob/master/oktoast_2.png" width="35%" height="35%"/>
 
 ## about version 1.X.X
 if you use oktoast 1.X.X ,Please use the 1.X branch, and read version readme.
