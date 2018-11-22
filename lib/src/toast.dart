@@ -25,7 +25,7 @@ class OKToast extends StatefulWidget {
   const OKToast({
     Key key,
     @required this.child,
-    this.textStyle = const TextStyle(fontSize: 15.0),
+    this.textStyle,
     this.radius = 10.0,
     this.position = ToastPosition.center,
     Color backgroundColor,
@@ -79,11 +79,21 @@ class _OKToastState extends State<OKToast> {
       textDirection: TextDirection.ltr,
     );
 
+    var typography = Typography(platform: TargetPlatform.android);
+    final TextTheme defaultTextTheme = typography.white;
+
+    TextStyle textStyle = widget.textStyle ??
+        defaultTextTheme.body1.copyWith(
+          fontSize: 15.0,
+          fontWeight: FontWeight.normal,
+          color: Colors.white,
+        );
+
     return _ToastTheme(
       child: w,
       backgroundColor: widget.backgroundColor,
       radius: widget.radius,
-      textStyle: widget.textStyle,
+      textStyle: textStyle,
       position: widget.position,
     );
   }
@@ -205,11 +215,14 @@ class ToastPosition {
 
   const ToastPosition({this.align = Alignment.center, this.offset = 0.0});
 
-  static const center = const ToastPosition(align: Alignment.center, offset: 0.0);
+  static const center =
+      const ToastPosition(align: Alignment.center, offset: 0.0);
 
-  static const bottom = const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
+  static const bottom =
+      const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
 
-  static const top = const ToastPosition(align: Alignment.topCenter, offset: 75.0);
+  static const top =
+      const ToastPosition(align: Alignment.topCenter, offset: 75.0);
 }
 
 class _ToastTheme extends InheritedWidget {
@@ -232,5 +245,6 @@ class _ToastTheme extends InheritedWidget {
     Widget child,
   }) : super(child: child);
 
-  static _ToastTheme of(BuildContext context) => context.inheritFromWidgetOfExactType(_ToastTheme);
+  static _ToastTheme of(BuildContext context) =>
+      context.inheritFromWidgetOfExactType(_ToastTheme);
 }

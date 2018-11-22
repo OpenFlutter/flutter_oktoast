@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Container(
           width: 40.0,
           height: 40.0,
-           color: Colors.grey.withOpacity(0.3),
+          color: Colors.grey.withOpacity(0.3),
           child: Icon(
             Icons.add,
             size: 30.0,
@@ -75,9 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       duration: Duration(seconds: 3),
     );
 
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
