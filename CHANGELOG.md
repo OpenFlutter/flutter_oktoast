@@ -1,11 +1,19 @@
 # Change log
 
+## 2.1.0
+
+add new params to helper user listen toast dismiss
+
+showToast and showToastWidget will return `ToastFuture` the toastFuture call `dismiss()` to dismiss toast.
+
 ## 2.0.1
+
 oktoast support page level.
 
 you can use oktoast wrap your Scaffold.
 
 ## 2.0.0
+
 use BuildContext cache. then `showToast` not need context, you can use the `showToast` in anywhere.
 
 ## 1.0.4

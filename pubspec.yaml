@@ -1,6 +1,6 @@
 name: oktoast
-description: A pure flutter toast library, easy to use. You can use this library to achieve the same effect as Android toast. Support custom style/widget.
-version: 2.0.1
+description: A pure flutter toast library  Support custom style/widget. Easy to use. You can use this library to achieve the same effect as Android toast.
+version: 2.1.0
 author: Caijinglong<cjl_spy@163.com>
 homepage: https://github.com/OpenFlutter/flutter_oktoast
 email: cjl_spy@163.com

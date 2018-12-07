@@ -70,10 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-    showToastWidget(
+    ToastFuture toastFuture = showToastWidget(
       widget,
       duration: Duration(seconds: 3),
+      onDismiss: () {
+        print("the toast dismiss"); // the method will be called on toast dismiss.
+      },
     );
+
+    // can use future
+    Future.delayed(Duration(seconds: 1), () {
+      toastFuture.dismiss(); // dismiss
+    });
 
     setState(() {});
   }
@@ -100,8 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
                     },
                   ),
                 ),

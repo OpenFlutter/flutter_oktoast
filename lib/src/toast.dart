@@ -99,7 +99,7 @@ class _OKToastState extends State<OKToast> {
   }
 }
 
-void showToast(
+ToastFuture showToast(
   String msg, {
   BuildContext context,
   Duration duration = _defaultDuration,
@@ -107,6 +107,7 @@ void showToast(
   TextStyle textStyle,
   Color backgroundColor,
   double radius,
+  VoidCallback onDismiss,
 }) {
   context ??= _contextMap.values.first;
 
@@ -136,20 +137,24 @@ void showToast(
     ),
   );
 
-  showToastWidget(
+  return showToastWidget(
     widget,
     context: context,
     duration: duration,
+    onDismiss: onDismiss,
   );
 }
 
-void showToastWidget(
+ToastFuture showToastWidget(
   Widget widget, {
   BuildContext context,
   Duration duration = _defaultDuration,
+  VoidCallback onDismiss,
 }) {
   context ??= _contextMap.values.first;
-  var entry = OverlayEntry(builder: (ctx) {
+  OverlayEntry entry;
+  ToastFuture future;
+  entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
       child: _ToastContainer(
         duration: duration,
@@ -158,17 +163,20 @@ void showToastWidget(
     );
   });
 
+  future = ToastFuture._(entry, onDismiss);
+
   Future.delayed(duration, () {
-    entry.remove();
+    future.dismiss();
   });
 
   Overlay.of(context).insert(entry);
+
+  return future;
 }
 
 class _ToastContainer extends StatefulWidget {
   final Duration duration;
   final Widget child;
-
   const _ToastContainer({Key key, this.duration, this.child}) : super(key: key);
 
   @override
@@ -182,12 +190,18 @@ class __ToastContainerState extends State<_ToastContainer> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 30), () {
+      if (!mounted) {
+        return;
+      }
       setState(() {
         opacity = 1.0;
       });
     });
 
     Future.delayed(widget.duration - _opacityDuration, () {
+      if (!mounted) {
+        return;
+      }
       setState(() {
         opacity = 0.0;
       });
@@ -215,14 +229,11 @@ class ToastPosition {
 
   const ToastPosition({this.align = Alignment.center, this.offset = 0.0});
 
-  static const center =
-      const ToastPosition(align: Alignment.center, offset: 0.0);
+  static const center = const ToastPosition(align: Alignment.center, offset: 0.0);
 
-  static const bottom =
-      const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
+  static const bottom = const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
 
-  static const top =
-      const ToastPosition(align: Alignment.topCenter, offset: 75.0);
+  static const top = const ToastPosition(align: Alignment.topCenter, offset: 75.0);
 }
 
 class _ToastTheme extends InheritedWidget {
@@ -245,6 +256,23 @@ class _ToastTheme extends InheritedWidget {
     Widget child,
   }) : super(child: child);
 
-  static _ToastTheme of(BuildContext context) =>
-      context.inheritFromWidgetOfExactType(_ToastTheme);
+  static _ToastTheme of(BuildContext context) => context.inheritFromWidgetOfExactType(_ToastTheme);
+}
+
+class ToastFuture {
+  final OverlayEntry _entry;
+  final VoidCallback _onDismiss;
+
+  bool _isShow = true;
+
+  ToastFuture._(this._entry, this._onDismiss);
+
+  void dismiss() {
+    if (!_isShow) {
+      return;
+    }
+    _isShow = false;
+    _entry.remove();
+    _onDismiss?.call();
+  }
 }
