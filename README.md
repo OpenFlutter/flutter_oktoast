@@ -11,14 +11,23 @@ You can completely customize the style of toast.
 
 ## screenshot
 
+default
+![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161700.png)
+
+custom position and widget
+![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161742.png)
+
+gif:
+
 <img src="https://github.com/CaiJingLong/some_asset/blob/master/ktoast2.gif" width="35%" height="35%"/>
 
 <img src="https://github.com/CaiJingLong/some_asset/blob/master/oktoast_2.png" width="35%" height="35%"/>
 
 ## about version 1.X.X
+
 if you use oktoast 1.X.X ,Please use the 1.X branch, and read version readme.
 
-Proposed migration to 2.X.X version. The new version does not require buildContext. 
+Proposed migration to 2.X.X version. The new version does not require buildContext.
 
 And you can completely customize the style of toast, because now you can use `showToastWidget`.
 
@@ -28,7 +37,7 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ```yaml
 dependencies:
-  oktoast: ^2.0.1
+  oktoast: ^2.1.0
 ```
 
 2.  import library in dart file
@@ -57,6 +66,7 @@ showToastWidget(Text('hello oktoast'));
 ```
 
 ```dart
+
 ```
 
 ## properties
@@ -69,7 +79,12 @@ radius: the toast background color radius
 backgroundColor: the background color
 position: the toast align and padding
 child: the application
+onDismiss: on toast dismiss will be called.
 ```
+
+about return type:  
+`showToast` and `showToastWidget` change return type from `void` to `ToastFuture` in version 2.1.0  
+The `ToastFuture` can be use to dismiss the toast.
 
 ## examples
 
@@ -146,10 +161,19 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-    showToastWidget(
+
+    ToastFuture toastFuture = showToastWidget(
       widget,
       duration: Duration(seconds: 3),
+      onDismiss: () {
+        print("the toast dismiss"); // the method will be called on toast dismiss.
+      },
     );
+
+    // can use future
+    Future.delayed(Duration(seconds: 1), () {
+      toastFuture.dismiss(); // dismiss
+    });
 
     setState(() {
 
