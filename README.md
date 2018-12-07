@@ -19,9 +19,7 @@ custom position and widget
 
 gif:
 
-<img src="https://github.com/CaiJingLong/some_asset/blob/master/ktoast2.gif" width="35%" height="35%"/>
-
-<img src="https://github.com/CaiJingLong/some_asset/blob/master/oktoast_2.png" width="35%" height="35%"/>
+![pic](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/ktoast2.gif)
 
 ## about version 1.X.X
 
