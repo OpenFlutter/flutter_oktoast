@@ -1,5 +1,13 @@
 # Change log
 
+## 2.1.1
+
+use manager to manage ToastFuture
+
+add a method `dismissAllToast` to dismiss all toast.
+
+add a param with showToast to dismiss other toast.
+
 ## 2.1.0
 
 add new params to helper user listen toast dismiss
@@ -22,7 +30,7 @@ support flutter sdk 0.10 ,fix bug
 
 ## 1.0.3
 
-update the textAlign : TextAlign.center
+update the textAlign : TextAlign.center  
 update the overflow: TextOverflow.ellipsis,
 
 ## 1.0.2

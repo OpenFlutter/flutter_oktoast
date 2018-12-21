@@ -3,6 +3,7 @@ library oktoast;
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:oktoast/src/toast_manager.dart';
 
 LinkedHashMap<_OKToastState, BuildContext> _contextMap = LinkedHashMap();
 const _defaultDuration = Duration(
@@ -99,6 +100,7 @@ class _OKToastState extends State<OKToast> {
   }
 }
 
+/// show toast with [msg],
 ToastFuture showToast(
   String msg, {
   BuildContext context,
@@ -108,6 +110,7 @@ ToastFuture showToast(
   Color backgroundColor,
   double radius,
   VoidCallback onDismiss,
+  bool dismissOtherToast = false,
 }) {
   context ??= _contextMap.values.first;
 
@@ -142,14 +145,17 @@ ToastFuture showToast(
     context: context,
     duration: duration,
     onDismiss: onDismiss,
+    dismissOtherToast: dismissOtherToast,
   );
 }
 
+/// show [widget] with oktoast
 ToastFuture showToastWidget(
   Widget widget, {
   BuildContext context,
   Duration duration = _defaultDuration,
   VoidCallback onDismiss,
+  bool dismissOtherToast = false,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
@@ -163,6 +169,10 @@ ToastFuture showToastWidget(
     );
   });
 
+  if (dismissOtherToast == true) {
+    ToastManager().dismissAll();
+  }
+
   future = ToastFuture._(entry, onDismiss);
 
   Future.delayed(duration, () {
@@ -170,6 +180,7 @@ ToastFuture showToastWidget(
   });
 
   Overlay.of(context).insert(entry);
+  ToastManager().addFuture(future);
 
   return future;
 }
@@ -259,6 +270,7 @@ class _ToastTheme extends InheritedWidget {
   static _ToastTheme of(BuildContext context) => context.inheritFromWidgetOfExactType(_ToastTheme);
 }
 
+/// use the [dismiss] to dismiss toast.
 class ToastFuture {
   final OverlayEntry _entry;
   final VoidCallback _onDismiss;
@@ -274,5 +286,6 @@ class ToastFuture {
     _isShow = false;
     _entry.remove();
     _onDismiss?.call();
+    ToastManager().removeFuture(this);
   }
 }
