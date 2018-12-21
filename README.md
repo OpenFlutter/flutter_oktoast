@@ -1,7 +1,6 @@
 # oktoast
 
-[![pub package](https://img.shields.io/pub/v/oktoast.svg)](https://pub.dartlang.org/packages/oktoast)
-![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
+[![pub package](https://img.shields.io/pub/v/oktoast.svg)](https://pub.dartlang.org/packages/oktoast)![GitHub](https://img.shields.io/github/license/OpenFlutter/flutter_oktoast.svg)[![GitHub stars](https://img.shields.io/github/stars/OpenFlutter/flutter_oktoast.svg?style=social&label=Stars)](https://github.com/OpenFlutter/flutter_oktoast)
 
 A library for flutter.
 
@@ -35,7 +34,7 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ```yaml
 dependencies:
-  oktoast: ^2.1.0
+  oktoast: ^2.1.1
 ```
 
 2.  import library in dart file
@@ -223,3 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 ```
+
+---
+
+Since version `2.1.1`, you can use `dismissAllToast()` to dismiss all toast.
