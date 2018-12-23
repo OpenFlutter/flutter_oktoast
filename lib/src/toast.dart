@@ -23,12 +23,15 @@ class OKToast extends StatefulWidget {
 
   final ToastPosition position;
 
+  final bool dismissOtherOnShow;
+
   const OKToast({
     Key key,
     @required this.child,
     this.textStyle,
     this.radius = 10.0,
     this.position = ToastPosition.center,
+    this.dismissOtherOnShow = false,
     Color backgroundColor,
   })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
         super(key: key);
@@ -96,6 +99,7 @@ class _OKToastState extends State<OKToast> {
       radius: widget.radius,
       textStyle: textStyle,
       position: widget.position,
+      dismissOtherOnShow: widget.dismissOtherOnShow,
     );
   }
 }
@@ -110,7 +114,7 @@ ToastFuture showToast(
   Color backgroundColor,
   double radius,
   VoidCallback onDismiss,
-  bool dismissOtherToast = false,
+  bool dismissOtherToast,
 }) {
   context ??= _contextMap.values.first;
 
@@ -155,7 +159,7 @@ ToastFuture showToastWidget(
   BuildContext context,
   Duration duration = _defaultDuration,
   VoidCallback onDismiss,
-  bool dismissOtherToast = false,
+  bool dismissOtherToast,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
@@ -168,6 +172,8 @@ ToastFuture showToastWidget(
       ),
     );
   });
+
+  dismissOtherToast ??= _ToastTheme.of(context).dismissOtherOnShow ?? false;
 
   if (dismissOtherToast == true) {
     ToastManager().dismissAll();
@@ -226,6 +232,7 @@ class __ToastContainerState extends State<_ToastContainer> {
 
   @override
   Widget build(BuildContext context) {
+    // print("mq bottom = ${MediaQuery.of(context).viewInsets.bottom}");
     return AnimatedOpacity(
       duration: _opacityDuration,
       child: widget.child,
@@ -240,11 +247,14 @@ class ToastPosition {
 
   const ToastPosition({this.align = Alignment.center, this.offset = 0.0});
 
-  static const center = const ToastPosition(align: Alignment.center, offset: 0.0);
+  static const center =
+      const ToastPosition(align: Alignment.center, offset: 0.0);
 
-  static const bottom = const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
+  static const bottom =
+      const ToastPosition(align: Alignment.bottomCenter, offset: -30.0);
 
-  static const top = const ToastPosition(align: Alignment.topCenter, offset: 75.0);
+  static const top =
+      const ToastPosition(align: Alignment.topCenter, offset: 75.0);
 }
 
 class _ToastTheme extends InheritedWidget {
@@ -256,6 +266,8 @@ class _ToastTheme extends InheritedWidget {
 
   final ToastPosition position;
 
+  final bool dismissOtherOnShow;
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
@@ -265,9 +277,11 @@ class _ToastTheme extends InheritedWidget {
     this.radius,
     this.position,
     Widget child,
+    this.dismissOtherOnShow,
   }) : super(child: child);
 
-  static _ToastTheme of(BuildContext context) => context.inheritFromWidgetOfExactType(_ToastTheme);
+  static _ToastTheme of(BuildContext context) =>
+      context.inheritFromWidgetOfExactType(_ToastTheme);
 }
 
 /// use the [dismiss] to dismiss toast.
