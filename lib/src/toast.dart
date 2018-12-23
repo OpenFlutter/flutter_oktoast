@@ -1,6 +1,7 @@
 library oktoast;
 
 import 'dart:collection';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:oktoast/src/toast_manager.dart';
@@ -25,6 +26,8 @@ class OKToast extends StatefulWidget {
 
   final bool dismissOtherOnShow;
 
+  final bool movingOnWindowChange;
+
   const OKToast({
     Key key,
     @required this.child,
@@ -32,6 +35,7 @@ class OKToast extends StatefulWidget {
     this.radius = 10.0,
     this.position = ToastPosition.center,
     this.dismissOtherOnShow = false,
+    this.movingOnWindowChange = true,
     Color backgroundColor,
   })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
         super(key: key);
@@ -100,6 +104,7 @@ class _OKToastState extends State<OKToast> {
       textStyle: textStyle,
       position: widget.position,
       dismissOtherOnShow: widget.dismissOtherOnShow,
+      movingOnWindowChange: widget.movingOnWindowChange,
     );
   }
 }
@@ -164,11 +169,15 @@ ToastFuture showToastWidget(
   context ??= _contextMap.values.first;
   OverlayEntry entry;
   ToastFuture future;
+
+  var movingOnWindowChange =
+      _ToastTheme.of(context)?.movingOnWindowChange ?? false;
   entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
       child: _ToastContainer(
         duration: duration,
         child: widget,
+        movingOnWindowChange: movingOnWindowChange,
       ),
     );
   });
@@ -194,14 +203,23 @@ ToastFuture showToastWidget(
 class _ToastContainer extends StatefulWidget {
   final Duration duration;
   final Widget child;
-  const _ToastContainer({Key key, this.duration, this.child}) : super(key: key);
+  final bool movingOnWindowChange;
+  const _ToastContainer({
+    Key key,
+    this.duration,
+    this.child,
+    this.movingOnWindowChange = false,
+  }) : super(key: key);
 
   @override
   __ToastContainerState createState() => __ToastContainerState();
 }
 
-class __ToastContainerState extends State<_ToastContainer> {
+class __ToastContainerState extends State<_ToastContainer>
+    with WidgetsBindingObserver {
   double opacity = 0.0;
+
+  bool get movingOnWindowChange => widget.movingOnWindowChange;
 
   @override
   void initState() {
@@ -223,20 +241,40 @@ class __ToastContainerState extends State<_ToastContainer> {
         opacity = 0.0;
       });
     });
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    setState(() {});
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // print("mq bottom = ${MediaQuery.of(context).viewInsets.bottom}");
-    return AnimatedOpacity(
+    Widget w = AnimatedOpacity(
       duration: _opacityDuration,
       child: widget.child,
       opacity: opacity,
+    );
+
+    if (movingOnWindowChange != true) {
+      return w;
+    }
+
+    var mediaQueryData = MediaQueryData.fromWindow(ui.window);
+
+    return AnimatedContainer(
+      padding: EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
+      duration: _opacityDuration,
+      child: w,
     );
   }
 }
@@ -268,6 +306,8 @@ class _ToastTheme extends InheritedWidget {
 
   final bool dismissOtherOnShow;
 
+  final bool movingOnWindowChange;
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
@@ -278,6 +318,7 @@ class _ToastTheme extends InheritedWidget {
     this.position,
     Widget child,
     this.dismissOtherOnShow,
+    this.movingOnWindowChange,
   }) : super(child: child);
 
   static _ToastTheme of(BuildContext context) =>

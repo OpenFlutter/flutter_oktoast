@@ -1,5 +1,9 @@
 # Change log
 
+## 2.1.3
+
+When ui.window's size changes, toast is moved.
+
 ## 2.1.2
 
 Now, `OKToast` add a params `dismissOtherOnShow` to dismiss other toast.
