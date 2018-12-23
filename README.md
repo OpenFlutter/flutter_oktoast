@@ -36,7 +36,7 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ```yaml
 dependencies:
-  oktoast: ^2.1.1
+  oktoast: ^2.1.2
 ```
 
 2.  import library in dart file
@@ -79,6 +79,7 @@ backgroundColor: the background color
 position: the toast align and padding
 child: the application
 onDismiss: on toast dismiss will be called.
+dismissOtherOnShow: If true, other toasts will be dismissed. Default false.
 ```
 
 about return type:  

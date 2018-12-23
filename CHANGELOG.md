@@ -1,5 +1,9 @@
 # Change log
 
+## 2.1.2
+
+Now, `OKToast` add a params `dismissOtherOnShow` to dismiss other toast.
+
 ## 2.1.1
 
 use manager to manage ToastFuture
