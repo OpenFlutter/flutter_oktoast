@@ -24,6 +24,8 @@ class OKToast extends StatefulWidget {
 
   final ToastPosition position;
 
+  final TextDirection textDirection;
+
   final bool dismissOtherOnShow;
 
   final bool movingOnWindowChange;
@@ -34,6 +36,7 @@ class OKToast extends StatefulWidget {
     this.textStyle,
     this.radius = 10.0,
     this.position = ToastPosition.center,
+    this.textDirection,
     this.dismissOtherOnShow = false,
     this.movingOnWindowChange = true,
     Color backgroundColor,
@@ -69,6 +72,8 @@ class _OKToastState extends State<OKToast> {
       ],
     );
 
+    TextDirection direction = widget.textDirection ?? TextDirection.ltr;
+
     Widget w = Directionality(
       child: Stack(children: <Widget>[
         overlay,
@@ -84,7 +89,7 @@ class _OKToastState extends State<OKToast> {
           ),
         )
       ]),
-      textDirection: TextDirection.ltr,
+      textDirection: direction,
     );
 
     var typography = Typography(platform: TargetPlatform.android);
@@ -105,6 +110,7 @@ class _OKToastState extends State<OKToast> {
       position: widget.position,
       dismissOtherOnShow: widget.dismissOtherOnShow,
       movingOnWindowChange: widget.movingOnWindowChange,
+      textDirection: direction,
     );
   }
 }
@@ -119,7 +125,8 @@ ToastFuture showToast(
   Color backgroundColor,
   double radius,
   VoidCallback onDismiss,
-  bool dismissOtherToast,
+  TextDirection textDirection = TextDirection.ltr,
+  bool dismissOtherToast = false,
 }) {
   context ??= _contextMap.values.first;
 
@@ -128,6 +135,9 @@ ToastFuture showToast(
   backgroundColor ??= _ToastTheme.of(context).backgroundColor;
   radius ??= _ToastTheme.of(context).radius;
 
+  var direction = textDirection ??
+      _ToastTheme.of(context).textDirection ??
+      TextDirection.ltr;
   Widget widget = Align(
     alignment: position.align,
     child: Container(
@@ -141,9 +151,12 @@ ToastFuture showToast(
         vertical: 4.0,
       ),
       child: ClipRect(
-        child: Text(
-          msg,
-          style: textStyle,
+        child: Directionality(
+          textDirection: direction,
+          child: Text(
+            msg,
+            style: textStyle,
+          ),
         ),
       ),
     ),
@@ -165,6 +178,7 @@ ToastFuture showToastWidget(
   Duration duration = _defaultDuration,
   VoidCallback onDismiss,
   bool dismissOtherToast,
+  TextDirection textDirection = TextDirection.ltr,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
@@ -176,8 +190,13 @@ ToastFuture showToastWidget(
     return IgnorePointer(
       child: _ToastContainer(
         duration: duration,
-        child: widget,
         movingOnWindowChange: movingOnWindowChange,
+        child: Directionality(
+          textDirection: textDirection ??
+              _ToastTheme.of(context).textDirection ??
+              TextDirection.ltr,
+          child: widget,
+        ),
       ),
     );
   });
@@ -204,6 +223,7 @@ class _ToastContainer extends StatefulWidget {
   final Duration duration;
   final Widget child;
   final bool movingOnWindowChange;
+
   const _ToastContainer({
     Key key,
     this.duration,
@@ -308,6 +328,8 @@ class _ToastTheme extends InheritedWidget {
 
   final bool movingOnWindowChange;
 
+  final TextDirection textDirection;
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
@@ -316,10 +338,12 @@ class _ToastTheme extends InheritedWidget {
     this.backgroundColor,
     this.radius,
     this.position,
-    Widget child,
     this.dismissOtherOnShow,
     this.movingOnWindowChange,
-  }) : super(child: child);
+    TextDirection textDirection,
+    Widget child,
+  })  : textDirection = textDirection ?? TextDirection.ltr,
+        super(child: child);
 
   static _ToastTheme of(BuildContext context) =>
       context.inheritFromWidgetOfExactType(_ToastTheme);
