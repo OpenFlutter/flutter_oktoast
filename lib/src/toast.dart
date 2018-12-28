@@ -125,7 +125,7 @@ ToastFuture showToast(
   Color backgroundColor,
   double radius,
   VoidCallback onDismiss,
-  TextDirection textDirection = TextDirection.ltr,
+  TextDirection textDirection,
   bool dismissOtherToast = false,
 }) {
   context ??= _contextMap.values.first;
@@ -138,6 +138,7 @@ ToastFuture showToast(
   var direction = textDirection ??
       _ToastTheme.of(context).textDirection ??
       TextDirection.ltr;
+
   Widget widget = Align(
     alignment: position.align,
     child: Container(
@@ -151,12 +152,9 @@ ToastFuture showToast(
         vertical: 4.0,
       ),
       child: ClipRect(
-        child: Directionality(
-          textDirection: direction,
-          child: Text(
-            msg,
-            style: textStyle,
-          ),
+        child: Text(
+          msg,
+          style: textStyle,
         ),
       ),
     ),
@@ -168,6 +166,7 @@ ToastFuture showToast(
     duration: duration,
     onDismiss: onDismiss,
     dismissOtherToast: dismissOtherToast,
+    textDirection: direction,
   );
 }
 
@@ -178,7 +177,7 @@ ToastFuture showToastWidget(
   Duration duration = _defaultDuration,
   VoidCallback onDismiss,
   bool dismissOtherToast,
-  TextDirection textDirection = TextDirection.ltr,
+  TextDirection textDirection,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
@@ -186,15 +185,18 @@ ToastFuture showToastWidget(
 
   var movingOnWindowChange =
       _ToastTheme.of(context)?.movingOnWindowChange ?? false;
+
+  var direction = textDirection ??
+      _ToastTheme.of(context).textDirection ??
+      TextDirection.ltr;
+
   entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
       child: _ToastContainer(
         duration: duration,
         movingOnWindowChange: movingOnWindowChange,
         child: Directionality(
-          textDirection: textDirection ??
-              _ToastTheme.of(context).textDirection ??
-              TextDirection.ltr,
+          textDirection: direction,
           child: widget,
         ),
       ),
