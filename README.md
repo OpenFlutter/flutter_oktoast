@@ -32,20 +32,20 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ## use
 
-1.  add library to your pubspec.yaml
+1. add library to your pubspec.yaml
 
 ```yaml
 dependencies:
-  oktoast: ^2.1.3
+  oktoast: ^2.1.4
 ```
 
-2.  import library in dart file
+1. import library in dart file
 
 ```dart
 import 'package:oktoast/oktoast.dart';
 ```
 
-3.  wrap your app widget
+1. wrap your app widget
 
 ```dart
 OKToast(
@@ -54,7 +54,7 @@ OKToast(
 );
 ```
 
-4.  call method `showToast`
+1. call method `showToast`
 
 ```dart
 showToast("content");
@@ -81,6 +81,7 @@ child: the application
 onDismiss: on toast dismiss will be called.
 dismissOtherOnShow: If true, other toasts will be dismissed. Default false.
 movingOnWindowChange: If true, when the size changes, toast is moved. Default true.
+textDirection: TextDirection.ltr or TextDirection.rtl.
 ```
 
 about return type:  

@@ -1,5 +1,9 @@
 # Change log
 
+## 2.1.4
+
+add textDirection params
+
 ## 2.1.3
 
 When ui.window's size changes, toast is moved.
