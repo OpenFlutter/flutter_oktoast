@@ -69,8 +69,8 @@ stable version
 
 the toast can set position
 
-1.  showToast
-2.  defaultPosition
+1. showToast
+2. defaultPosition
 
 ## [0.0.2] - add toast style
 
