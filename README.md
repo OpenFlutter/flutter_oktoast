@@ -39,13 +39,13 @@ dependencies:
   oktoast: ^2.1.4
 ```
 
-1. import library in dart file
+2. import library in dart file
 
 ```dart
 import 'package:oktoast/oktoast.dart';
 ```
 
-1. wrap your app widget
+3. wrap your app widget
 
 ```dart
 OKToast(
@@ -54,7 +54,7 @@ OKToast(
 );
 ```
 
-1. call method `showToast`
+4. call method `showToast`
 
 ```dart
 showToast("content");
