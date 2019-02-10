@@ -1,5 +1,6 @@
 library oktoast;
 
+import 'dart:async';
 import 'dart:collection';
 import 'dart:ui' as ui;
 
@@ -165,6 +166,7 @@ ToastFuture showToast(
     context: context,
     duration: duration,
     onDismiss: onDismiss,
+    position: position,
     dismissOtherToast: dismissOtherToast,
     textDirection: direction,
   );
@@ -178,10 +180,12 @@ ToastFuture showToastWidget(
   VoidCallback onDismiss,
   bool dismissOtherToast,
   TextDirection textDirection,
+  ToastPosition position,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
   ToastFuture future;
+  position ??= _ToastTheme.of(context).position;
 
   var movingOnWindowChange =
       _ToastTheme.of(context)?.movingOnWindowChange ?? false;
@@ -194,6 +198,7 @@ ToastFuture showToastWidget(
     return IgnorePointer(
       child: _ToastContainer(
         duration: duration,
+        position: position,
         movingOnWindowChange: movingOnWindowChange,
         child: Directionality(
           textDirection: direction,
@@ -225,12 +230,14 @@ class _ToastContainer extends StatefulWidget {
   final Duration duration;
   final Widget child;
   final bool movingOnWindowChange;
+  final ToastPosition position;
 
   const _ToastContainer({
     Key key,
     this.duration,
     this.child,
     this.movingOnWindowChange = false,
+    this.position,
   }) : super(key: key);
 
   @override
@@ -242,6 +249,8 @@ class __ToastContainerState extends State<_ToastContainer>
   double opacity = 0.0;
 
   bool get movingOnWindowChange => widget.movingOnWindowChange;
+
+  double get offset => widget.position.offset;
 
   @override
   void initState() {
@@ -270,7 +279,7 @@ class __ToastContainerState extends State<_ToastContainer>
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    setState(() {});
+    if (this.mounted) setState(() {});
   }
 
   @override
@@ -292,12 +301,25 @@ class __ToastContainerState extends State<_ToastContainer>
     }
 
     var mediaQueryData = MediaQueryData.fromWindow(ui.window);
-
-    return AnimatedContainer(
+    Widget container = AnimatedContainer(
       padding: EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
       duration: _opacityDuration,
       child: w,
     );
+
+    if (offset > 0) {
+      container = Padding(
+        padding: EdgeInsets.only(top: offset),
+        child: container,
+      );
+    } else if (offset < 0) {
+      container = Padding(
+        padding: EdgeInsets.only(bottom: offset.abs()),
+        child: container,
+      );
+    }
+
+    return container;
   }
 }
 
