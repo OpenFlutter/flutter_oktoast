@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
       widget,
       duration: Duration(seconds: 3),
       onDismiss: () {
-        print("the toast dismiss"); // the method will be called on toast dismiss.
+        print(
+            "the toast dismiss"); // the method will be called on toast dismiss.
       },
     );
 
@@ -108,7 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
                     },
                   ),
                 ),

@@ -36,7 +36,7 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ```yaml
 dependencies:
-  oktoast: ^2.1.4
+  oktoast: ^2.1.5
 ```
 
 2. import library in dart file
