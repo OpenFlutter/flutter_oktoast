@@ -1,5 +1,9 @@
 # Change log
 
+## 2.1.5
+
+fix `ToastPosition` offset params
+
 ## 2.1.4
 
 add textDirection params
