@@ -123,6 +123,7 @@ ToastFuture showToast(
   Duration duration = _defaultDuration,
   ToastPosition position,
   TextStyle textStyle,
+  EdgeInsetsGeometry textPadding,
   Color backgroundColor,
   double radius,
   VoidCallback onDismiss,
@@ -132,6 +133,10 @@ ToastFuture showToast(
   context ??= _contextMap.values.first;
 
   textStyle ??= _ToastTheme.of(context).textStyle ?? TextStyle(fontSize: 15.0);
+  textPadding ??= const EdgeInsets.symmetric(
+    horizontal: 8.0,
+    vertical: 4.0,
+  );
   position ??= _ToastTheme.of(context).position;
   backgroundColor ??= _ToastTheme.of(context).backgroundColor;
   radius ??= _ToastTheme.of(context).radius;
@@ -148,10 +153,7 @@ ToastFuture showToast(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(radius),
       ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8.0,
-        vertical: 4.0,
-      ),
+      padding: textPadding,
       child: ClipRect(
         child: Text(
           msg,
