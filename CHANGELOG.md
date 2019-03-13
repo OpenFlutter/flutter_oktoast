@@ -1,5 +1,9 @@
 # Change log
 
+## 2.1.6
+
+add textPadding for showToast method.
+
 ## 2.1.5
 
 fix `ToastPosition` offset params

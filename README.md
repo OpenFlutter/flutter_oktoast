@@ -32,20 +32,20 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ## use
 
-1. add library to your pubspec.yaml
+### 1. add library to your pubspec.yaml
 
 ```yaml
 dependencies:
-  oktoast: ^2.1.5
+  oktoast: ^2.1.6
 ```
 
-2. import library in dart file
+### 2. import library in dart file
 
 ```dart
 import 'package:oktoast/oktoast.dart';
 ```
 
-3. wrap your app widget
+### 3. wrap your app widget
 
 ```dart
 OKToast(
@@ -54,7 +54,7 @@ OKToast(
 );
 ```
 
-4. call method `showToast`
+### 4. call method `showToast`
 
 ```dart
 showToast("content");
@@ -64,28 +64,62 @@ showToast("content");
 showToastWidget(Text('hello oktoast'));
 ```
 
-```dart
+## Explain
 
-```
+There are two reasons why you need to wrap MaterialApp
+
+1. Because this ensures that toast can be displayed in front of all other controls
+2. Context can be cached so that it can be invoked anywhere without passing in context
 
 ## properties
 
-oktoast have default style, and you also can custom textStyle.
+### OKToast params
 
-```properties
-textStyle: the toast text style
-radius: the toast background color radius
-backgroundColor: the background color
-position: the toast align and padding
-child: the application
-onDismiss: on toast dismiss will be called.
-dismissOtherOnShow: If true, other toasts will be dismissed. Default false.
-movingOnWindowChange: If true, when the size changes, toast is moved. Default true.
-textDirection: TextDirection.ltr or TextDirection.rtl.
-```
+oktoast have default style, and you also can custom style.
+
+|         name         |     type      |   need   |                             desc                              |
+| :------------------: | :-----------: | :------: | :-----------------------------------------------------------: |
+|        child         |    Widget     | required |                     Usually Material App                      |
+|      textStyle       |   TextStyle   | optional |                                                               |
+|        radius        |    double     | optional |                                                               |
+|   backgroundColor    |     Color     | optional |                        backroundColor                         |
+|       position       | ToastPosition | optional |                                                               |
+|  dismissOtherOnShow  |     bool      | optional |    If true, other toasts will be dismissed. Default false.    |
+| movingOnWindowChange |     bool      | optional | If true, when the size changes, toast is moved. Default true. |
+|    textDirection     | TextDirection | optional |                                                               |
+
+### showToast
+
+Display text on toast
+
+|       name        |        type        |   need   | desc  |
+| :---------------: | :----------------: | :------: | :---: |
+|        msg        |       String       | required |       |
+|      context      |    BuildContext    | optional |       |
+|     duration      |      Duration      | optional |       |
+|     position      |   ToastPosition    | optional |       |
+|     textStyle     |     TextStyle      | optional |       |
+|    textPadding    | EdgeInsetsGeometry | optional |       |
+|  backgroundColor  |       Color        | optional |       |
+|      radius       |       double       | optional |       |
+|     onDismiss     |      Function      | optional |       |
+|   textDirection   |   TextDirection    | optional |       |
+| dismissOtherToast |        bool        | optional |       |
+
+### showToastWidget
+
+Display custom widgets on toast
+
+param see showToast
+
+### dismissAllToast
+
+dismiss all toast
+
+### method return
 
 about return type:  
-`showToast` and `showToastWidget` change return type from `void` to `ToastFuture` in version 2.1.0  
+`showToast` and `showToastWidget` return type is `ToastFuture`,
 The `ToastFuture` can be use to dismiss the toast.
 
 ## examples
@@ -101,9 +135,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
       //2. wrap your app with OKToast
-      textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
-      backgroundColor: Colors.grey,
-      radius: 10.0,
       child: new MaterialApp(
         title: 'Flutter Demo',
         theme: new ThemeData(
@@ -227,7 +258,3 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 ```
-
----
-
-Since version `2.1.1`, you can use `dismissAllToast()` to dismiss all toast.
