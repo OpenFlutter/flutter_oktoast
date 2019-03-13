@@ -11,3 +11,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 
 *.iml
 .vscode
+.idea
