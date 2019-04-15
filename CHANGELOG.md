@@ -1,5 +1,16 @@
 # Change log
 
+## 2.1.7
+
+Add for `OKToast`:
+
+- textAlign
+- textPadding
+
+Add for `showToast`:
+
+- textAlign
+
 ## 2.1.6
 
 add textPadding for showToast method.

@@ -36,7 +36,7 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ```yaml
 dependencies:
-  oktoast: ^2.1.6
+  oktoast: ^2.1.7
 ```
 
 ### 2. import library in dart file
@@ -77,34 +77,37 @@ There are two reasons why you need to wrap MaterialApp
 
 oktoast have default style, and you also can custom style.
 
-|         name         |     type      |   need   |                             desc                              |
-| :------------------: | :-----------: | :------: | :-----------------------------------------------------------: |
-|        child         |    Widget     | required |                     Usually Material App                      |
-|      textStyle       |   TextStyle   | optional |                                                               |
-|        radius        |    double     | optional |                                                               |
-|   backgroundColor    |     Color     | optional |                        backroundColor                         |
-|       position       | ToastPosition | optional |                                                               |
-|  dismissOtherOnShow  |     bool      | optional |    If true, other toasts will be dismissed. Default false.    |
-| movingOnWindowChange |     bool      | optional | If true, when the size changes, toast is moved. Default true. |
-|    textDirection     | TextDirection | optional |                                                               |
+|         name         |        type        |   need   |                             desc                              |
+| :------------------: | :----------------: | :------: | :-----------------------------------------------------------: |
+|        child         |       Widget       | required |                     Usually Material App                      |
+|      textStyle       |     TextStyle      | optional |                                                               |
+|        radius        |       double       | optional |                                                               |
+|   backgroundColor    |       Color        | optional |                        backroundColor                         |
+|       position       |   ToastPosition    | optional |                                                               |
+|  dismissOtherOnShow  |        bool        | optional |    If true, other toasts will be dismissed. Default false.    |
+| movingOnWindowChange |        bool        | optional | If true, when the size changes, toast is moved. Default true. |
+|    textDirection     |   TextDirection    | optional |                                                               |
+|     textPadding      | EdgeInsetsGeometry | optional |                     Outer margin of text                      |
+|      textAlign       |     TextAlign      | optional |          When the text wraps, the align of the text.          |
 
 ### showToast
 
 Display text on toast
 
-|       name        |        type        |   need   | desc  |
-| :---------------: | :----------------: | :------: | :---: |
-|        msg        |       String       | required |       |
-|      context      |    BuildContext    | optional |       |
-|     duration      |      Duration      | optional |       |
-|     position      |   ToastPosition    | optional |       |
-|     textStyle     |     TextStyle      | optional |       |
-|    textPadding    | EdgeInsetsGeometry | optional |       |
-|  backgroundColor  |       Color        | optional |       |
-|      radius       |       double       | optional |       |
-|     onDismiss     |      Function      | optional |       |
-|   textDirection   |   TextDirection    | optional |       |
-| dismissOtherToast |        bool        | optional |       |
+|       name        |        type        |   need   | desc |
+| :---------------: | :----------------: | :------: | :--: |
+|        msg        |       String       | required |      |
+|      context      |    BuildContext    | optional |      |
+|     duration      |      Duration      | optional |      |
+|     position      |   ToastPosition    | optional |      |
+|     textStyle     |     TextStyle      | optional |      |
+|    textPadding    | EdgeInsetsGeometry | optional |      |
+|  backgroundColor  |       Color        | optional |      |
+|      radius       |       double       | optional |      |
+|     onDismiss     |      Function      | optional |      |
+|   textDirection   |   TextDirection    | optional |      |
+| dismissOtherToast |        bool        | optional |      |
+|     textAlign     |     TextAlign      | optional |      |
 
 ### showToastWidget
 
