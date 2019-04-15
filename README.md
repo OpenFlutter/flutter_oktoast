@@ -1,5 +1,6 @@
 # oktoast
 
+[![oktoast](https://img.shields.io/badge/OpenFlutter-OKToast-blue.svg)](https://github.com/OpenFlutter/flutter_oktoast)
 [![pub package](https://img.shields.io/pub/v/oktoast.svg)](https://pub.dartlang.org/packages/oktoast)
 ![GitHub](https://img.shields.io/github/license/OpenFlutter/flutter_oktoast.svg)
 [![GitHub stars](https://img.shields.io/github/stars/OpenFlutter/flutter_oktoast.svg?style=social&label=Stars)](https://github.com/OpenFlutter/flutter_oktoast)
