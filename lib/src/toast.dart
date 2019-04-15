@@ -7,6 +7,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:oktoast/src/toast_manager.dart';
 
+part './toast_future.dart';
+
 LinkedHashMap<_OKToastState, BuildContext> _contextMap = LinkedHashMap();
 const _defaultDuration = Duration(
   milliseconds: 2300,
@@ -31,6 +33,10 @@ class OKToast extends StatefulWidget {
 
   final bool movingOnWindowChange;
 
+  final EdgeInsets textPadding;
+
+  final TextAlign textAlign;
+
   const OKToast({
     Key key,
     @required this.child,
@@ -41,6 +47,8 @@ class OKToast extends StatefulWidget {
     this.dismissOtherOnShow = false,
     this.movingOnWindowChange = true,
     Color backgroundColor,
+    this.textPadding,
+    this.textAlign,
   })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
         super(key: key);
 
@@ -103,6 +111,13 @@ class _OKToastState extends State<OKToast> {
           color: Colors.white,
         );
 
+    TextAlign textAlign = widget.textAlign ?? TextAlign.center;
+    EdgeInsets textPadding = widget.textPadding ??
+        const EdgeInsets.symmetric(
+          horizontal: 8.0,
+          vertical: 4.0,
+        );
+
     return _ToastTheme(
       child: w,
       backgroundColor: widget.backgroundColor,
@@ -112,6 +127,8 @@ class _OKToastState extends State<OKToast> {
       dismissOtherOnShow: widget.dismissOtherOnShow,
       movingOnWindowChange: widget.movingOnWindowChange,
       textDirection: direction,
+      textAlign: textAlign,
+      textPadding: textPadding,
     );
   }
 }
@@ -129,14 +146,16 @@ ToastFuture showToast(
   VoidCallback onDismiss,
   TextDirection textDirection,
   bool dismissOtherToast = false,
+  TextAlign textAlign,
 }) {
   context ??= _contextMap.values.first;
 
   textStyle ??= _ToastTheme.of(context).textStyle ?? TextStyle(fontSize: 15.0);
-  textPadding ??= const EdgeInsets.symmetric(
-    horizontal: 8.0,
-    vertical: 4.0,
-  );
+
+  textAlign = _ToastTheme.of(context).textAlign;
+
+  textPadding ??= _ToastTheme.of(context).textPadding;
+
   position ??= _ToastTheme.of(context).position;
   backgroundColor ??= _ToastTheme.of(context).backgroundColor;
   radius ??= _ToastTheme.of(context).radius;
@@ -158,6 +177,7 @@ ToastFuture showToast(
         child: Text(
           msg,
           style: textStyle,
+          textAlign: textAlign,
         ),
       ),
     ),
@@ -356,6 +376,10 @@ class _ToastTheme extends InheritedWidget {
 
   final TextDirection textDirection;
 
+  final EdgeInsets textPadding;
+
+  final TextAlign textAlign;
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
@@ -366,6 +390,8 @@ class _ToastTheme extends InheritedWidget {
     this.position,
     this.dismissOtherOnShow,
     this.movingOnWindowChange,
+    this.textPadding,
+    this.textAlign,
     TextDirection textDirection,
     Widget child,
   })  : textDirection = textDirection ?? TextDirection.ltr,
@@ -373,24 +399,4 @@ class _ToastTheme extends InheritedWidget {
 
   static _ToastTheme of(BuildContext context) =>
       context.inheritFromWidgetOfExactType(_ToastTheme);
-}
-
-/// use the [dismiss] to dismiss toast.
-class ToastFuture {
-  final OverlayEntry _entry;
-  final VoidCallback _onDismiss;
-
-  bool _isShow = true;
-
-  ToastFuture._(this._entry, this._onDismiss);
-
-  void dismiss() {
-    if (!_isShow) {
-      return;
-    }
-    _isShow = false;
-    _entry.remove();
-    _onDismiss?.call();
-    ToastManager().removeFuture(this);
-  }
 }
