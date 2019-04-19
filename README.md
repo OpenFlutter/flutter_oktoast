@@ -11,6 +11,8 @@ A pure dart toast Library.
 
 You can completely customize the style of toast.
 
+[中文博客介绍](https://www.kikt.top/posts/flutter/toast/oktoast/)
+
 ## screenshot
 
 default
