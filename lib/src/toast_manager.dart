@@ -28,6 +28,6 @@ class ToastManager {
 }
 
 /// use the method to dismiss all toast.
-void dismissAllToast() {
-  ToastManager().dismissAll();
+void dismissAllToast({bool showAnim = false}) {
+  ToastManager().dismissAll(showAnim: showAnim);
 }

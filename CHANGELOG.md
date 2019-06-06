@@ -1,5 +1,13 @@
 # Change log
 
+## 2.1.8
+
+Add param `showAnim` param for dismiss method:
+
+- dismissAllToast
+- ToastManager.dismissAll
+- ToastFuture.dismiss
+
 ## 2.1.7
 
 Add for `OKToast`:
