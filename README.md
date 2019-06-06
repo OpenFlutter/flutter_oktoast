@@ -128,6 +128,12 @@ about return type:
 `showToast` and `showToastWidget` return type is `ToastFuture`,
 The `ToastFuture` can be use to dismiss the toast.
 
+### For all dismiss toast method
+
+An optional parameter `showAnim` is added to control whether fading animation is required for dismiss.
+
+The praram default value is `false`.
+
 ## examples
 
 ```dart
