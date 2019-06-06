@@ -216,12 +216,15 @@ ToastFuture showToastWidget(
       _ToastTheme.of(context).textDirection ??
       TextDirection.ltr;
 
+  GlobalKey<__ToastContainerState> key = GlobalKey();
+
   entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
       child: _ToastContainer(
         duration: duration,
         position: position,
         movingOnWindowChange: movingOnWindowChange,
+        key: key,
         child: Directionality(
           textDirection: direction,
           child: widget,
@@ -236,7 +239,7 @@ ToastFuture showToastWidget(
     ToastManager().dismissAll();
   }
 
-  future = ToastFuture._(entry, onDismiss);
+  future = ToastFuture._(entry, onDismiss, key);
 
   Future.delayed(duration, () {
     future.dismiss();
@@ -342,6 +345,12 @@ class __ToastContainerState extends State<_ToastContainer>
     }
 
     return container;
+  }
+
+  void showDismissAnim() {
+    setState(() {
+      opacity = 0.0;
+    });
   }
 }
 
