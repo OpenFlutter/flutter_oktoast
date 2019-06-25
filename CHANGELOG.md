@@ -1,5 +1,11 @@
 # Change log
 
+## 2.1.9
+
+Fix:
+
+- `position` is not valid in `showToastWidget`.
+
 ## 2.1.8
 
 Add param `showAnim` param for dismiss method:
