@@ -164,21 +164,18 @@ ToastFuture showToast(
       _ToastTheme.of(context).textDirection ??
       TextDirection.ltr;
 
-  Widget widget = Align(
-    alignment: position.align,
-    child: Container(
-      margin: const EdgeInsets.all(50.0),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      padding: textPadding,
-      child: ClipRect(
-        child: Text(
-          msg,
-          style: textStyle,
-          textAlign: textAlign,
-        ),
+  Widget widget = Container(
+    margin: const EdgeInsets.all(50.0),
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(radius),
+    ),
+    padding: textPadding,
+    child: ClipRect(
+      child: Text(
+        msg,
+        style: textStyle,
+        textAlign: textAlign,
       ),
     ),
   );
@@ -217,6 +214,11 @@ ToastFuture showToastWidget(
       TextDirection.ltr;
 
   GlobalKey<__ToastContainerState> key = GlobalKey();
+
+  widget = Align(
+    child: widget,
+    alignment: position.align,
+  );
 
   entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
@@ -326,20 +328,27 @@ class __ToastContainerState extends State<_ToastContainer>
     }
 
     var mediaQueryData = MediaQueryData.fromWindow(ui.window);
-    Widget container = AnimatedContainer(
-      padding: EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
-      duration: _opacityDuration,
-      child: w,
-    );
+    Widget container = w;
 
+    var edgeInsets = EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom);
     if (offset > 0) {
-      container = Padding(
-        padding: EdgeInsets.only(top: offset),
+      var padding = EdgeInsets.only(top: offset) + edgeInsets;
+
+      container = AnimatedPadding(
+        duration: _opacityDuration,
+        padding: padding,
         child: container,
       );
     } else if (offset < 0) {
-      container = Padding(
-        padding: EdgeInsets.only(bottom: offset.abs()),
+      container = AnimatedPadding(
+        duration: _opacityDuration,
+        padding: EdgeInsets.only(bottom: offset.abs()) + edgeInsets,
+        child: container,
+      );
+    } else {
+      container = AnimatedPadding(
+        duration: _opacityDuration,
+        padding: edgeInsets,
         child: container,
       );
     }
@@ -368,6 +377,11 @@ class ToastPosition {
 
   static const top =
       const ToastPosition(align: Alignment.topCenter, offset: 75.0);
+
+  @override
+  String toString() {
+    return "ToastPosition [ align = $align, offset = $offset ] ";
+  }
 }
 
 class _ToastTheme extends InheritedWidget {
