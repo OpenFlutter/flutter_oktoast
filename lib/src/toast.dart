@@ -330,19 +330,25 @@ class __ToastContainerState extends State<_ToastContainer>
     var mediaQueryData = MediaQueryData.fromWindow(ui.window);
     Widget container = w;
 
-    print("on change");
-
+    var edgeInsets = EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom);
     if (offset > 0) {
+      var padding = EdgeInsets.only(top: offset) + edgeInsets;
+
       container = AnimatedPadding(
         duration: _opacityDuration,
-        padding: EdgeInsets.only(top: offset) +
-            EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
+        padding: padding,
         child: container,
       );
     } else if (offset < 0) {
       container = AnimatedPadding(
         duration: _opacityDuration,
-        padding: EdgeInsets.only(bottom: offset.abs()),
+        padding: EdgeInsets.only(bottom: offset.abs()) + edgeInsets,
+        child: container,
+      );
+    } else {
+      container = AnimatedPadding(
+        duration: _opacityDuration,
+        padding: edgeInsets,
         child: container,
       );
     }
