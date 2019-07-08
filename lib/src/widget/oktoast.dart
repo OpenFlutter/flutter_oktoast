@@ -21,6 +21,8 @@ class OKToast extends StatefulWidget {
 
   final TextAlign textAlign;
 
+  final bool handleTouth;
+
   const OKToast({
     Key key,
     @required this.child,
@@ -33,6 +35,7 @@ class OKToast extends StatefulWidget {
     Color backgroundColor,
     this.textPadding,
     this.textAlign,
+    this.handleTouth = false,
   })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
         super(key: key);
 
@@ -113,6 +116,7 @@ class _OKToastState extends State<OKToast> {
       textDirection: direction,
       textAlign: textAlign,
       textPadding: textPadding,
+      handleTouch: widget.handleTouth,
     );
   }
 }

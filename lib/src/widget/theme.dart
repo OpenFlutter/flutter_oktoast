@@ -19,6 +19,8 @@ class _ToastTheme extends InheritedWidget {
 
   final TextAlign textAlign;
 
+  final bool handleTouch;
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
@@ -32,6 +34,7 @@ class _ToastTheme extends InheritedWidget {
     this.textPadding,
     this.textAlign,
     TextDirection textDirection,
+    this.handleTouch,
     Widget child,
   })  : textDirection = textDirection ?? TextDirection.ltr,
         super(child: child);

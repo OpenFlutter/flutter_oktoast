@@ -84,15 +84,18 @@ ToastFuture showToastWidget(
   Widget widget, {
   BuildContext context,
   Duration duration = _defaultDuration,
+  ToastPosition position,
   VoidCallback onDismiss,
   bool dismissOtherToast,
   TextDirection textDirection,
-  ToastPosition position,
+  bool handleTouch,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
   ToastFuture future;
   position ??= _ToastTheme.of(context).position;
+
+  handleTouch ??= _ToastTheme.of(context).handleTouch;
 
   var movingOnWindowChange =
       _ToastTheme.of(context)?.movingOnWindowChange ?? false;
@@ -110,6 +113,7 @@ ToastFuture showToastWidget(
 
   entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
+      ignoring: !handleTouch,
       child: _ToastContainer(
         duration: duration,
         position: position,

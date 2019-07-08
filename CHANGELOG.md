@@ -1,5 +1,15 @@
 # Change log
 
+## 2.2.0
+
+New feature:
+
+- handleTouch: Caller can use this property to respond to click events.
+
+Change:
+
+- This is a **breaking change** : The default value of dismissOtherToast of showToast is changed to better match the OKToast overall settings. .
+
 ## 2.1.9
 
 Fix:
