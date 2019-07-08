@@ -1,5 +1,6 @@
 library oktoast;
 
-export 'src/toast.dart'
-    show showToast, showToastWidget, OKToast, ToastPosition, ToastFuture;
-export 'src/toast_manager.dart' show dismissAllToast;
+export 'src/core/toast.dart'
+    show showToast, showToastWidget, OKToast, ToastFuture, dismissAllToast;
+
+export 'src/core/position.dart';

@@ -1,4 +1,4 @@
-part of oktoast;
+part of 'toast.dart';
 
 /// use the [dismiss] to dismiss toast.
 class ToastFuture {

@@ -78,7 +78,7 @@ There are two reasons why you need to wrap MaterialApp
 
 ### OKToast params
 
-oktoast have default style, and you also can custom style.
+oktoast have default style, and you also can custom style or other behavior.
 
 |         name         |        type        |   need   |                             desc                              |
 | :------------------: | :----------------: | :------: | :-----------------------------------------------------------: |
@@ -92,6 +92,7 @@ oktoast have default style, and you also can custom style.
 |    textDirection     |   TextDirection    | optional |                                                               |
 |     textPadding      | EdgeInsetsGeometry | optional |                     Outer margin of text                      |
 |      textAlign       |     TextAlign      | optional |          When the text wraps, the align of the text.          |
+|     handleTouch      |        bool        | optional | Default is false, if it's true, can responed use touch event. |
 
 ### showToast
 
@@ -117,6 +118,17 @@ Display text on toast
 Display custom widgets on toast
 
 param see showToast
+
+|       name        |     type      |   need   |                             desc                              |
+| :---------------: | :-----------: | :------: | :-----------------------------------------------------------: |
+|      widget       |    Widget     | required |                The widget you want to display.                |
+|      context      | BuildContext  | optional |                                                               |
+|     duration      |   Duration    | optional |                                                               |
+|     position      | ToastPosition | optional |                                                               |
+|     onDismiss     |   Function    | optional |                                                               |
+| dismissOtherToast |     bool      | optional |                                                               |
+|   textDirection   | TextDirection | optional |                                                               |
+|    handleTouch    |     bool      | optional | Default is false, if it's true, can responed use touch event. |
 
 ### dismissAllToast
 
