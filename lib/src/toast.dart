@@ -145,7 +145,7 @@ ToastFuture showToast(
   double radius,
   VoidCallback onDismiss,
   TextDirection textDirection,
-  bool dismissOtherToast = false,
+  bool dismissOtherToast,
   TextAlign textAlign,
 }) {
   context ??= _contextMap.values.first;
