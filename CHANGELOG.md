@@ -1,5 +1,40 @@
 # Change log
 
+## 2.2.0
+
+New feature:
+
+- handleTouch: Caller can use this property to respond to click events.
+
+Change:
+
+- This is a **breaking change** : The default value of dismissOtherToast of showToast is changed to better match the OKToast overall settings. .
+
+## 2.1.9
+
+Fix:
+
+- `position` is not valid in `showToastWidget`.
+
+## 2.1.8
+
+Add param `showAnim` param for dismiss method:
+
+- dismissAllToast
+- ToastManager.dismissAll
+- ToastFuture.dismiss
+
+## 2.1.7
+
+Add for `OKToast`:
+
+- textAlign
+- textPadding
+
+Add for `showToast`:
+
+- textAlign
+
 ## 2.1.6
 
 add textPadding for showToast method.

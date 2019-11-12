@@ -12,9 +12,9 @@ class ToastManager {
 
   Set<ToastFuture> toastSet = Set();
 
-  void dismissAll() {
+  void dismissAll({bool showAnim = false}) {
     toastSet.toList().forEach((v) {
-      v.dismiss();
+      v.dismiss(showAnim: showAnim);
     });
   }
 
@@ -25,9 +25,4 @@ class ToastManager {
   void addFuture(ToastFuture future) {
     toastSet.add(future);
   }
-}
-
-/// use the method to dismiss all toast.
-void dismissAllToast() {
-  ToastManager().dismissAll();
 }
