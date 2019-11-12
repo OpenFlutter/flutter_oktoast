@@ -79,7 +79,7 @@ class _OKToastState extends State<OKToast> {
           top: 0.0,
           bottom: 0.0,
           child: IgnorePointer(
-            child: Container(
+            child: Material(
               color: Colors.black.withOpacity(0.0),
             ),
           ),
