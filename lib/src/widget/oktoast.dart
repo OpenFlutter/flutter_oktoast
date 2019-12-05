@@ -78,11 +78,7 @@ class _OKToastState extends State<OKToast> {
           right: 0.0,
           top: 0.0,
           bottom: 0.0,
-          child: IgnorePointer(
-            child: Material(
-              color: Colors.black.withOpacity(0.0),
-            ),
-          ),
+          child: IgnorePointer(),
         )
       ]),
       textDirection: direction,
