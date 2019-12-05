@@ -40,7 +40,7 @@ ToastFuture showToast(
 
   textStyle ??= _ToastTheme.of(context).textStyle ?? TextStyle(fontSize: 15.0);
 
-  textAlign = _ToastTheme.of(context).textAlign;
+  textAlign ??= _ToastTheme.of(context).textAlign;
 
   textPadding ??= _ToastTheme.of(context).textPadding;
 
@@ -48,9 +48,7 @@ ToastFuture showToast(
   backgroundColor ??= _ToastTheme.of(context).backgroundColor;
   radius ??= _ToastTheme.of(context).radius;
 
-  var direction = textDirection ??
-      _ToastTheme.of(context).textDirection ??
-      TextDirection.ltr;
+  textDirection ??= _ToastTheme.of(context).textDirection ?? TextDirection.ltr;
 
   Widget widget = Container(
     margin: const EdgeInsets.all(50.0),
@@ -75,7 +73,7 @@ ToastFuture showToast(
     onDismiss: onDismiss,
     position: position,
     dismissOtherToast: dismissOtherToast,
-    textDirection: direction,
+    textDirection: textDirection,
   );
 }
 
