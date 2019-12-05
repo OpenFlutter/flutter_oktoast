@@ -37,6 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     _counter++;
 
+    setState(() {});
+  }
+
+  void _showToast() {
     // 3.1 use showToast method
     showToast(
       "$_counter",
@@ -85,8 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration(seconds: 1), () {
       toastFuture.dismiss(); // dismiss
     });
-
-    setState(() {});
   }
 
   @override
@@ -110,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
+                    child: Text("New page"),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (ctx) => MyHomePage()));
@@ -120,7 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: RaisedButton(
                     onPressed: _incrementCounter,
-                    child: Text('toast'),
+                    child: Text('Add'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    onPressed: _showToast,
+                    child: Text('Toast'),
                   ),
                 ),
               ],
