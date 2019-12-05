@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       backgroundColor: Colors.grey,
       radius: 10.0,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Demo for OKToast',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ktoast demo"),
+        title: Text("Example for OKToast"),
       ),
       body: Stack(
         children: <Widget>[
