@@ -1,5 +1,11 @@
 # Change log
 
+## 2.2.1
+
+Fix:
+
+- `textAlign` of method `showToast`.
+
 ## 2.2.0
 
 New feature:
