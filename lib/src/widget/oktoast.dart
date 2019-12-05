@@ -1,26 +1,37 @@
 part of '../core/toast.dart';
 
 class OKToast extends StatefulWidget {
+  /// Usually should be [MaterialApp] or [CupertinoApp].
   final Widget child;
 
+  /// Default textStyle of [showToast].
   final TextStyle textStyle;
 
+  /// Default backgroundColor of [showToast].
   final Color backgroundColor;
 
+  /// Default radius of [showToast].
   final double radius;
 
+  /// Default align and padding of [showToast].
   final ToastPosition position;
 
+  /// Default textDirection of [showToast].
   final TextDirection textDirection;
 
+  /// Default dismissOtherOnShow of [showToast].
   final bool dismissOtherOnShow;
 
+  /// When the screen size changes due to the soft keyboard / rotation screen, toast will reposition.
   final bool movingOnWindowChange;
 
+  /// TDefault textAlign of [textPadding].
   final EdgeInsets textPadding;
 
+  /// Default textAlign of [showToast].
   final TextAlign textAlign;
 
+  /// Whether toast can respond to click events.
   final bool handleTouth;
 
   const OKToast({
@@ -29,7 +40,7 @@ class OKToast extends StatefulWidget {
     this.textStyle,
     this.radius = 10.0,
     this.position = ToastPosition.center,
-    this.textDirection,
+    this.textDirection = TextDirection.ltr,
     this.dismissOtherOnShow = false,
     this.movingOnWindowChange = true,
     Color backgroundColor,
@@ -71,16 +82,7 @@ class _OKToastState extends State<OKToast> {
     TextDirection direction = widget.textDirection ?? TextDirection.ltr;
 
     Widget w = Directionality(
-      child: Stack(children: <Widget>[
-        overlay,
-        Positioned(
-          left: 0.0,
-          right: 0.0,
-          top: 0.0,
-          bottom: 0.0,
-          child: IgnorePointer(),
-        )
-      ]),
+      child: overlay,
       textDirection: direction,
     );
 
