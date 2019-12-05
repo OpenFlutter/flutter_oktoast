@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart'; // 1. import library
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
-      child: new MaterialApp(
+      child: MaterialApp(
         title: 'Flutter Demo',
-        theme: new ThemeData(
+        theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: new MyHomePage(),
+        home: MyHomePage(),
       ),
     );
   }
@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -91,19 +91,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("ktoast demo"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ktoast demo"),
       ),
       body: Stack(
         children: <Widget>[
-          new Center(
+          Center(
             child: ListView(
               children: <Widget>[
-                new Text(
+                Text(
                   'You have pushed the button this many times:',
                 ),
-                new Text(
+                Text(
                   '$_counter',
                   style: Theme.of(context).textTheme.display1,
                 ),
