@@ -111,27 +111,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: RaisedButton(
-                    child: Text("New page"),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => MyHomePage()));
-                    },
+                  child: Tooltip(
+                    message: "Toast status when using this to test routing.",
+                    child: RaisedButton(
+                      child: Text("New page"),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                      },
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: RaisedButton(
-                    onPressed: _incrementCounter,
-                    child: Text('Add'),
+                  child: Tooltip(
+                    message: "Add number.",
+                    child: RaisedButton(
+                      onPressed: _incrementCounter,
+                      child: Text('Add'),
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: RaisedButton(
-                    onPressed: _showToast,
-                    child: Text('Toast'),
+                  child: Tooltip(
+                    message: "Show toast.",
+                    child: RaisedButton(
+                      onPressed: _showToast,
+                      child: Text('Toast'),
+                    ),
                   ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: "Use TextField to test the toast of softkey."),
                 ),
               ],
             ),
