@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
         ),
         home: MyHomePage(),
       ),
+      animationCurve: Curves.easeIn,
+      animationBuilder: Miui10AnimBuilder(),
+      animationDuration: Duration(milliseconds: 200),
     );
   }
 }
@@ -49,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 13.0,
       textStyle: TextStyle(fontSize: 18.0),
+      animationBuilder: Miui10AnimBuilder(),
     );
 
     showToast(

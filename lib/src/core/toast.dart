@@ -5,22 +5,23 @@ import 'dart:collection';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:oktoast/oktoast.dart';
 
 import 'position.dart';
 import 'toast_manager.dart';
 
 part 'toast_future.dart';
+
 part '../widget/theme.dart';
+
 part '../widget/oktoast.dart';
+
 part '../widget/container.dart';
 
 LinkedHashMap<_OKToastState, BuildContext> _contextMap = LinkedHashMap();
 const _defaultDuration = Duration(
   milliseconds: 2300,
 );
-
-const _opacityDuration = Duration(milliseconds: 250);
 
 /// show toast with [msg],
 ToastFuture showToast(
@@ -36,6 +37,9 @@ ToastFuture showToast(
   TextDirection textDirection,
   bool dismissOtherToast,
   TextAlign textAlign,
+  OKToastAnimationBuilder animationBuilder,
+  Duration animationDuration,
+  Curve animationCurve,
 }) {
   context ??= _contextMap.values.first;
 
@@ -69,12 +73,14 @@ ToastFuture showToast(
 
   return showToastWidget(
     widget,
+    animationBuilder: animationBuilder,
     context: context,
     duration: duration,
     onDismiss: onDismiss,
     position: position,
     dismissOtherToast: dismissOtherToast,
     textDirection: textDirection,
+    animationCurve: animationCurve,
   );
 }
 
@@ -88,20 +94,25 @@ ToastFuture showToastWidget(
   bool dismissOtherToast,
   TextDirection textDirection,
   bool handleTouch,
+  OKToastAnimationBuilder animationBuilder,
+  Duration animationDuration,
+  Curve animationCurve,
 }) {
   context ??= _contextMap.values.first;
   OverlayEntry entry;
   ToastFuture future;
-  position ??= _ToastTheme.of(context).position;
+  final theme = _ToastTheme.of(context);
 
-  handleTouch ??= _ToastTheme.of(context).handleTouch;
+  position ??= theme.position;
+  handleTouch ??= theme.handleTouch;
+  animationBuilder ??= theme.animationBuilder;
+  animationDuration ??=
+      theme.animationDuration ?? const Duration(milliseconds: 250);
+  animationCurve ??= theme.animationCurve ?? Curves.easeIn;
 
-  var movingOnWindowChange =
-      _ToastTheme.of(context)?.movingOnWindowChange ?? false;
+  final movingOnWindowChange = theme?.movingOnWindowChange ?? false;
 
-  var direction = textDirection ??
-      _ToastTheme.of(context).textDirection ??
-      TextDirection.ltr;
+  final direction = textDirection ?? theme.textDirection ?? TextDirection.ltr;
 
   GlobalKey<__ToastContainerState> key = GlobalKey();
 
@@ -113,26 +124,29 @@ ToastFuture showToastWidget(
   entry = OverlayEntry(builder: (ctx) {
     return IgnorePointer(
       ignoring: !handleTouch,
-      child: _ToastContainer(
-        duration: duration,
-        position: position,
-        movingOnWindowChange: movingOnWindowChange,
-        key: key,
-        child: Directionality(
-          textDirection: direction,
+      child: Directionality(
+        textDirection: direction,
+        child: _ToastContainer(
+          duration: duration,
+          position: position,
+          movingOnWindowChange: movingOnWindowChange,
+          key: key,
           child: widget,
+          animationBuilder: animationBuilder,
+          animationDuration: animationDuration,
+          animationCurve: animationCurve,
         ),
       ),
     );
   });
 
-  dismissOtherToast ??= _ToastTheme.of(context).dismissOtherOnShow ?? false;
+  dismissOtherToast ??= theme.dismissOtherOnShow ?? false;
 
   if (dismissOtherToast == true) {
     ToastManager().dismissAll();
   }
 
-  future = ToastFuture._(entry, onDismiss, key);
+  future = ToastFuture._(entry, onDismiss, key, animationDuration);
 
   Future.delayed(duration, () {
     future.dismiss();

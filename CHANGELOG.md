@@ -1,5 +1,11 @@
 # Change log
 
+## 2.3.0
+
+New feature:
+
+- Add animation for show/hide the oktoast.
+
 ## 2.2.1
 
 Fix:
