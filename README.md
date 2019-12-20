@@ -41,7 +41,7 @@ latest version: [![pub package](https://img.shields.io/pub/v/oktoast.svg)](https
 
 ```yaml
 dependencies:
-  oktoast: ^2.2.1 # such as version, you need use the latest version of pub.
+  oktoast: ^2.3.0 # such as version, you need use the latest version of pub.
 ```
 
 ### 2. Import library in dart file
@@ -82,59 +82,70 @@ There are two reasons why you need to wrap MaterialApp
 
 oktoast have default style, and you also can custom style or other behavior.
 
-|         name         |        type        |   need   |                             desc                              |
-| :------------------: | :----------------: | :------: | :-----------------------------------------------------------: |
-|        child         |       Widget       | required |                     Usually Material App                      |
-|      textStyle       |     TextStyle      | optional |                                                               |
-|        radius        |       double       | optional |                                                               |
-|   backgroundColor    |       Color        | optional |                        backroundColor                         |
-|       position       |   ToastPosition    | optional |                                                               |
-|  dismissOtherOnShow  |        bool        | optional |    If true, other toasts will be dismissed. Default false.    |
-| movingOnWindowChange |        bool        | optional | If true, when the size changes, toast is moved. Default true. |
-|    textDirection     |   TextDirection    | optional |                                                               |
-|     textPadding      | EdgeInsetsGeometry | optional |                     Outer margin of text                      |
-|      textAlign       |     TextAlign      | optional |          When the text wraps, the align of the text.          |
-|     handleTouch      |        bool        | optional | Default is false, if it's true, can responed use touch event. |
+|         name         |          type           |   need   |                             desc                              |
+| :------------------: | :---------------------: | :------: | :-----------------------------------------------------------: |
+|        child         |         Widget          | required |                     Usually Material App                      |
+|      textStyle       |        TextStyle        | optional |                                                               |
+|        radius        |         double          | optional |                                                               |
+|   backgroundColor    |          Color          | optional |                        backroundColor                         |
+|       position       |      ToastPosition      | optional |                                                               |
+|  dismissOtherOnShow  |          bool           | optional |    If true, other toasts will be dismissed. Default false.    |
+| movingOnWindowChange |          bool           | optional | If true, when the size changes, toast is moved. Default true. |
+|    textDirection     |      TextDirection      | optional |                                                               |
+|     textPadding      |   EdgeInsetsGeometry    | optional |                     Outer margin of text                      |
+|      textAlign       |        TextAlign        | optional |          When the text wraps, the align of the text.          |
+|     handleTouch      |          bool           | optional | Default is false, if it's true, can responed use touch event. |
+|   animationBuilder   | OKToastAnimationBuilder | optional |              Add animation to show / hide toast.              |
+|  animationDuration   |        Duration         | optional |                  The duration of animation.                   |
+|    animationCurve    |          Curve          | optional |                      Curve of animation.                      |
 
 ### Method `showToast`
 
-Display text on toast
+Display text on toast.
 
-|       name        |        type        |   need   | desc |
-| :---------------: | :----------------: | :------: | :--: |
-|        msg        |       String       | required |      |
-|      context      |    BuildContext    | optional |      |
-|     duration      |      Duration      | optional |      |
-|     position      |   ToastPosition    | optional |      |
-|     textStyle     |     TextStyle      | optional |      |
-|    textPadding    | EdgeInsetsGeometry | optional |      |
-|  backgroundColor  |       Color        | optional |      |
-|      radius       |       double       | optional |      |
-|     onDismiss     |      Function      | optional |      |
-|   textDirection   |   TextDirection    | optional |      |
-| dismissOtherToast |        bool        | optional |      |
-|     textAlign     |     TextAlign      | optional |      |
+Description of params see `OKToast`.
+
+|       name        |          type           |   need   |      desc      |
+| :---------------: | :---------------------: | :------: | :------------: |
+|        msg        |         String          | required | Text of toast. |
+|      context      |      BuildContext       | optional |                |
+|     duration      |        Duration         | optional |                |
+|     position      |      ToastPosition      | optional |                |
+|     textStyle     |        TextStyle        | optional |                |
+|    textPadding    |   EdgeInsetsGeometry    | optional |                |
+|  backgroundColor  |          Color          | optional |                |
+|      radius       |         double          | optional |                |
+|     onDismiss     |        Function         | optional |                |
+|   textDirection   |      TextDirection      | optional |                |
+| dismissOtherToast |          bool           | optional |                |
+|     textAlign     |        TextAlign        | optional |                |
+| animationBuilder  | OKToastAnimationBuilder | optional |                |
+| animationDuration |        Duration         | optional |                |
+|  animationCurve   |          Curve          | optional |                |
 
 ### Method `showToastWidget`
 
 Display custom widgets on toast
 
-param see showToast
+Description of params see `showToast`.
 
-|       name        |     type      |   need   |                             desc                              |
-| :---------------: | :-----------: | :------: | :-----------------------------------------------------------: |
-|      widget       |    Widget     | required |                The widget you want to display.                |
-|      context      | BuildContext  | optional |                                                               |
-|     duration      |   Duration    | optional |                                                               |
-|     position      | ToastPosition | optional |                                                               |
-|     onDismiss     |   Function    | optional |                                                               |
-| dismissOtherToast |     bool      | optional |                                                               |
-|   textDirection   | TextDirection | optional |                                                               |
-|    handleTouch    |     bool      | optional | Default is false, if it's true, can responed use touch event. |
+|       name        |          type           |   need   |              desc               |
+| :---------------: | :---------------------: | :------: | :-----------------------------: |
+|      widget       |         Widget          | required | The widget you want to display. |
+|      context      |      BuildContext       | optional |                                 |
+|     duration      |        Duration         | optional |                                 |
+|     position      |      ToastPosition      | optional |                                 |
+|     onDismiss     |        Function         | optional |                                 |
+| dismissOtherToast |          bool           | optional |                                 |
+|   textDirection   |      TextDirection      | optional |                                 |
+|    handleTouch    |          bool           | optional |                                 |
+| animationBuilder  | OKToastAnimationBuilder | optional |                                 |
+| animationDuration |        Duration         | optional |                                 |
+|  animationCurve   |          Curve          | optional |                                 |
 
 ### Method `dismissAllToast`
 
-dismiss all toast
+Dismiss all toast.
 
 ### Return value of `showToast` and `showToastWidget`
 
@@ -284,3 +295,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 ```
+
+## CHANGELOG
+
+[Link](https://github.com/OpenFlutter/flutter_oktoast/blob/master/CHANGELOG.md)
+
+## LICENSE
+
+[Apache-2.0](https://github.com/OpenFlutter/flutter_oktoast/blob/master/LICENSE)

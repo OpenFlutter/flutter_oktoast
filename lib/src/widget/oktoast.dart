@@ -34,10 +34,13 @@ class OKToast extends StatefulWidget {
   /// Whether toast can respond to click events.
   final bool handleTouth;
 
+  /// The animation builder of show/hide toast.
   final OKToastAnimationBuilder animationBuilder;
 
+  /// The animation duration of show/hide toast.
   final Duration animationDuration;
 
+  /// The animation curve of show/hide toast.
   final Curve animationCurve;
 
   const OKToast({
