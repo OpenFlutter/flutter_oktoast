@@ -98,6 +98,7 @@ oktoast have default style, and you also can custom style or other behavior.
 |   animationBuilder   | OKToastAnimationBuilder | optional |              Add animation to show / hide toast.              |
 |  animationDuration   |        Duration         | optional |                  The duration of animation.                   |
 |    animationCurve    |          Curve          | optional |                      Curve of animation.                      |
+|       duration       |        Duration         | optional |                  Default duration of toast.                   |
 
 ### Method `showToast`
 
