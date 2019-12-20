@@ -27,7 +27,7 @@ const _defaultDuration = Duration(
 ToastFuture showToast(
   String msg, {
   BuildContext context,
-  Duration duration = _defaultDuration,
+  Duration duration,
   ToastPosition position,
   TextStyle textStyle,
   EdgeInsetsGeometry textPadding,
@@ -43,17 +43,14 @@ ToastFuture showToast(
 }) {
   context ??= _contextMap.values.first;
 
-  textStyle ??= _ToastTheme.of(context).textStyle ?? TextStyle(fontSize: 15.0);
-
-  textAlign ??= _ToastTheme.of(context).textAlign;
-
-  textPadding ??= _ToastTheme.of(context).textPadding;
-
-  position ??= _ToastTheme.of(context).position;
-  backgroundColor ??= _ToastTheme.of(context).backgroundColor;
-  radius ??= _ToastTheme.of(context).radius;
-
-  textDirection ??= _ToastTheme.of(context).textDirection ?? TextDirection.ltr;
+  final theme = _ToastTheme.of(context);
+  textStyle ??= theme.textStyle ?? TextStyle(fontSize: 15.0);
+  textAlign ??= theme.textAlign;
+  textPadding ??= theme.textPadding;
+  position ??= theme.position;
+  backgroundColor ??= theme.backgroundColor;
+  radius ??= theme.radius;
+  textDirection ??= theme.textDirection ?? TextDirection.ltr;
 
   Widget widget = Container(
     margin: const EdgeInsets.all(50.0),
@@ -88,7 +85,7 @@ ToastFuture showToast(
 ToastFuture showToastWidget(
   Widget widget, {
   BuildContext context,
-  Duration duration = _defaultDuration,
+  Duration duration,
   ToastPosition position,
   VoidCallback onDismiss,
   bool dismissOtherToast,
@@ -109,6 +106,7 @@ ToastFuture showToastWidget(
   animationDuration ??=
       theme.animationDuration ?? const Duration(milliseconds: 250);
   animationCurve ??= theme.animationCurve ?? Curves.easeIn;
+  duration ??= theme.duration ?? _defaultDuration;
 
   final movingOnWindowChange = theme?.movingOnWindowChange ?? false;
 

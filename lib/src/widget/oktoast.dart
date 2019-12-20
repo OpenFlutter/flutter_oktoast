@@ -34,6 +34,8 @@ class OKToast extends StatefulWidget {
   /// Whether toast can respond to click events.
   final bool handleTouth;
 
+  final Duration duration;
+
   /// The animation builder of show/hide toast.
   final OKToastAnimationBuilder animationBuilder;
 
@@ -59,6 +61,7 @@ class OKToast extends StatefulWidget {
     this.animationBuilder,
     this.animationDuration = const Duration(milliseconds: 250),
     this.animationCurve,
+    this.duration,
   })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
         super(key: key);
 
@@ -130,6 +133,7 @@ class _OKToastState extends State<OKToast> {
       animationBuilder: widget.animationBuilder,
       animationDuration: widget.animationDuration,
       animationCurve: widget.animationCurve,
+      duration: widget.duration,
     );
   }
 }

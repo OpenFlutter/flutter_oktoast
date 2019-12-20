@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       animationCurve: Curves.easeIn,
       animationBuilder: Miui10AnimBuilder(),
       animationDuration: Duration(milliseconds: 200),
+      duration: Duration(seconds: 2, milliseconds: 500),
     );
   }
 }
@@ -47,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // 3.1 use showToast method
     showToast(
       "$_counter",
-      duration: Duration(seconds: 2),
       position: ToastPosition.bottom,
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 13.0,
