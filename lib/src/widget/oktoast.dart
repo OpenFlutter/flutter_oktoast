@@ -34,6 +34,12 @@ class OKToast extends StatefulWidget {
   /// Whether toast can respond to click events.
   final bool handleTouth;
 
+  final OKToastAnimationBuilder animationBuilder;
+
+  final Duration animationDuration;
+
+  final Curve animationCurve;
+
   const OKToast({
     Key key,
     @required this.child,
@@ -47,6 +53,9 @@ class OKToast extends StatefulWidget {
     this.textPadding,
     this.textAlign,
     this.handleTouth = false,
+    this.animationBuilder,
+    this.animationDuration = const Duration(milliseconds: 250),
+    this.animationCurve,
   })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
         super(key: key);
 
@@ -115,6 +124,9 @@ class _OKToastState extends State<OKToast> {
       textAlign: textAlign,
       textPadding: textPadding,
       handleTouch: widget.handleTouth,
+      animationBuilder: widget.animationBuilder,
+      animationDuration: widget.animationDuration,
+      animationCurve: widget.animationCurve,
     );
   }
 }

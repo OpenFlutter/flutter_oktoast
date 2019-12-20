@@ -6,11 +6,13 @@ class ToastFuture {
   final VoidCallback _onDismiss;
   bool _isShow = true;
   final GlobalKey<__ToastContainerState> _containerKey;
+  final Duration animationDuration;
 
   ToastFuture._(
     this._entry,
     this._onDismiss,
     this._containerKey,
+    this.animationDuration,
   );
 
   void dismiss({bool showAnim = false}) {
@@ -23,7 +25,7 @@ class ToastFuture {
 
     if (showAnim) {
       _containerKey.currentState.showDismissAnim();
-      Future.delayed(_opacityDuration, () {
+      Future.delayed(animationDuration, () {
         _entry.remove();
       });
     } else {
