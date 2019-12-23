@@ -10,13 +10,13 @@ import 'package:oktoast/oktoast.dart';
 import 'position.dart';
 import 'toast_manager.dart';
 
-part 'toast_future.dart';
-
-part '../widget/theme.dart';
+part '../widget/container.dart';
 
 part '../widget/oktoast.dart';
 
-part '../widget/container.dart';
+part '../widget/theme.dart';
+
+part 'toast_future.dart';
 
 LinkedHashMap<_OKToastState, BuildContext> _contextMap = LinkedHashMap();
 const _defaultDuration = Duration(
@@ -24,8 +24,7 @@ const _defaultDuration = Duration(
 );
 
 /// show toast with [msg],
-ToastFuture showToast(
-  String msg, {
+ToastFuture showToast(String msg, {
   BuildContext context,
   Duration duration,
   ToastPosition position,
@@ -40,6 +39,8 @@ ToastFuture showToast(
   OKToastAnimationBuilder animationBuilder,
   Duration animationDuration,
   Curve animationCurve,
+  double toastPadding,
+  bool fullWidth,
 }) {
   context ??= _contextMap.values.first;
 
@@ -52,7 +53,27 @@ ToastFuture showToast(
   radius ??= theme.radius;
   textDirection ??= theme.textDirection ?? TextDirection.ltr;
 
-  Widget widget = Container(
+  Widget widget = (fullWidth ?? false) ? Row(
+    children: <Widget>[
+      Expanded(
+          child: Container(
+            margin: EdgeInsets.all(toastPadding ?? 50.0),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(radius),
+            ),
+            padding: textPadding,
+            child: ClipRect(
+              child: Text(
+                msg,
+                style: textStyle,
+                textAlign: textAlign,
+              ),
+            ),
+          )
+      ),
+    ],
+  ) : Container(
     margin: const EdgeInsets.all(50.0),
     decoration: BoxDecoration(
       color: backgroundColor,
@@ -82,8 +103,7 @@ ToastFuture showToast(
 }
 
 /// show [widget] with oktoast
-ToastFuture showToastWidget(
-  Widget widget, {
+ToastFuture showToastWidget(Widget widget, {
   BuildContext context,
   Duration duration,
   ToastPosition position,
