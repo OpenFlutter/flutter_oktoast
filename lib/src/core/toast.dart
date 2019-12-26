@@ -74,7 +74,7 @@ ToastFuture showToast(String msg, {
       ),
     ],
   ) : Container(
-    margin: const EdgeInsets.all(50.0),
+    margin: EdgeInsets.all(toastPadding ?? 50.0),
     decoration: BoxDecoration(
       color: backgroundColor,
       borderRadius: BorderRadius.circular(radius),
