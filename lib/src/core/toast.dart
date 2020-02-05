@@ -4,7 +4,8 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Overlay, OverlayEntry;
+import 'package:oktoast/src/widget/overlay.dart';
 import 'package:oktoast/oktoast.dart';
 
 import 'position.dart';
