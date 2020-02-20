@@ -52,5 +52,5 @@ class _ToastTheme extends InheritedWidget {
         super(child: child);
 
   static _ToastTheme of(BuildContext context) =>
-      context.inheritFromWidgetOfExactType(_ToastTheme);
+      context.dependOnInheritedWidgetOfExactType<_ToastTheme>();
 }
