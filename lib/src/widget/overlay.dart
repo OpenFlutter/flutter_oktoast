@@ -233,20 +233,25 @@ class Overlay extends StatefulWidget {
     final OverlayState result = context.findAncestorStateOfType<OverlayState>();
     assert(() {
       if (debugRequiredFor != null && result == null) {
-        final List<DiagnosticsNode> information = <DiagnosticsNode>[
+        var list = <DiagnosticsNode>[
           ErrorSummary('No Overlay widget found.'),
           ErrorDescription(
               '${debugRequiredFor.runtimeType} widgets require an Overlay widget ancestor for correct operation.'),
           ErrorHint(
               'The most common way to add an Overlay to an application is to include a MaterialApp or Navigator widget in the runApp() call.'),
           DiagnosticsProperty<Widget>(
-              'The specific widget that failed to find an overlay was',
-              debugRequiredFor,
-              style: DiagnosticsTreeStyle.errorProperty),
-          if (context.widget != debugRequiredFor)
-            context.describeElement(
-                'The context from which that widget was searching for an overlay was')
+            'The specific widget that failed to find an overlay was',
+            debugRequiredFor,
+            style: DiagnosticsTreeStyle.errorProperty,
+          ),
         ];
+
+        if (context.widget != debugRequiredFor) {
+          list.add(context.describeElement(
+              'The context from which that widget was searching for an overlay was'));
+        }
+
+        final List<DiagnosticsNode> information = list;
 
         throw FlutterError.fromParts(information);
       }
@@ -659,9 +664,11 @@ class _RenderTheatre extends RenderBox
 
   @override
   List<DiagnosticsNode> debugDescribeChildren() {
-    final List<DiagnosticsNode> children = <DiagnosticsNode>[
-      if (child != null) child.toDiagnosticsNode(name: 'onstage'),
-    ];
+    final List<DiagnosticsNode> children = <DiagnosticsNode>[];
+
+    if (child != null) {
+      children.add(child.toDiagnosticsNode(name: 'onstage'));
+    }
 
     if (firstChild != null) {
       RenderBox child = firstChild;

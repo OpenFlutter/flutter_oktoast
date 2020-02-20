@@ -1,5 +1,9 @@
 # Change log
 
+## 2.3.1+1
+
+- Fix health for pub.
+
 ## 2.3.1
 
 - Fix [#46](https://github.com/OpenFlutter/flutter_oktoast/issues/46).
