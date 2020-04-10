@@ -39,7 +39,7 @@ ToastFuture showToast(String msg, {
   OKToastAnimationBuilder animationBuilder,
   Duration animationDuration,
   Curve animationCurve,
-  double toastPadding,
+  EdgeInsetsGeometry toastMargin,
   bool fullWidth,
 }) {
   context ??= _contextMap.values.first;
@@ -52,12 +52,14 @@ ToastFuture showToast(String msg, {
   backgroundColor ??= theme.backgroundColor;
   radius ??= theme.radius;
   textDirection ??= theme.textDirection ?? TextDirection.ltr;
+  toastMargin ??= EdgeInsets.all(50.0);
+  fullWidth ??= false;
 
-  Widget widget = (fullWidth ?? false) ? Row(
+  Widget widget = fullWidth ? Row(
     children: <Widget>[
       Expanded(
           child: Container(
-            margin: EdgeInsets.all(toastPadding ?? 50.0),
+            margin: toastMargin,
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(radius),
@@ -74,7 +76,7 @@ ToastFuture showToast(String msg, {
       ),
     ],
   ) : Container(
-    margin: EdgeInsets.all(toastPadding ?? 50.0),
+    margin: toastMargin,
     decoration: BoxDecoration(
       color: backgroundColor,
       borderRadius: BorderRadius.circular(radius),
