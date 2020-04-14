@@ -41,7 +41,7 @@ latest version: [![pub package](https://img.shields.io/pub/v/oktoast.svg)](https
 
 ```yaml
 dependencies:
-  oktoast: ^2.3.1 # such as version, you need use the latest version of pub.
+  oktoast: ^2.3.2 # such as version, you need use the latest version of pub.
 ```
 
 ### 2. Import library in dart file

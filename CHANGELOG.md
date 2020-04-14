@@ -1,5 +1,9 @@
 # Change log
 
+## 2.3.2
+
+Fixed a memory leak issue.
+
 ## 2.3.1+1
 
 - Fix health for pub.
