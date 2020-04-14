@@ -5,6 +5,7 @@ class ToastFuture {
   final OverlayEntry _entry;
   final VoidCallback _onDismiss;
   bool _isShow = true;
+  Timer timer;
   final GlobalKey<__ToastContainerState> _containerKey;
   final Duration animationDuration;
 
@@ -31,5 +32,8 @@ class ToastFuture {
     } else {
       _entry.remove();
     }
+
+    timer?.cancel();
+    timer = null;
   }
 }

@@ -147,7 +147,7 @@ ToastFuture showToastWidget(
 
   future = ToastFuture._(entry, onDismiss, key, animationDuration);
 
-  Future.delayed(duration, () {
+  future.timer = Timer(duration, (){
     future.dismiss();
   });
 
