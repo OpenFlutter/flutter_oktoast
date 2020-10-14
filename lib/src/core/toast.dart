@@ -72,6 +72,7 @@ ToastFuture showToast(
   return showToastWidget(
     widget,
     animationBuilder: animationBuilder,
+    animationDuration: animationDuration,
     context: context,
     duration: duration,
     onDismiss: onDismiss,
