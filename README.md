@@ -59,6 +59,19 @@ OKToast(
 );
 ```
 
+tips:
+If you happened error like: `No MediaQuery widget found`
+
+you can try to use next [code](https://github.com/OpenFlutter/flutter_oktoast/issues/53#issuecomment-628431625) to include `oktoast` to your App.
+
+```dart
+MaterialApp(builder: (context, widget) {
+  return OKToast(
+    child: widget,
+  );
+});
+```
+
 ### 4. Call method `showToast`
 
 ```dart
