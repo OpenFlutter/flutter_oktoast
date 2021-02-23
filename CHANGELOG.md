@@ -1,5 +1,9 @@
 # Change log
 
+## 3.0.0
+
+Null safty version.
+
 ## 2.3.2
 
 Fixed a memory leak issue.
