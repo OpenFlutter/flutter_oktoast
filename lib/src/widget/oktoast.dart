@@ -5,7 +5,7 @@ class OKToast extends StatefulWidget {
   final Widget child;
 
   /// Default textStyle of [showToast].
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// Default backgroundColor of [showToast].
   final Color backgroundColor;
@@ -26,43 +26,43 @@ class OKToast extends StatefulWidget {
   final bool movingOnWindowChange;
 
   /// TDefault textAlign of [textPadding].
-  final EdgeInsets textPadding;
+  final EdgeInsets? textPadding;
 
   /// Default textAlign of [showToast].
-  final TextAlign textAlign;
+  final TextAlign? textAlign;
 
   /// Whether toast can respond to click events.
   final bool handleTouth;
 
-  final Duration duration;
+  final Duration? duration;
 
   /// The animation builder of show/hide toast.
-  final OKToastAnimationBuilder animationBuilder;
+  final OKToastAnimationBuilder? animationBuilder;
 
   /// The animation duration of show/hide toast.
   final Duration animationDuration;
 
   /// The animation curve of show/hide toast.
-  final Curve animationCurve;
+  final Curve? animationCurve;
 
   const OKToast({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.textStyle,
     this.radius = 10.0,
     this.position = ToastPosition.center,
     this.textDirection = TextDirection.ltr,
     this.dismissOtherOnShow = false,
     this.movingOnWindowChange = true,
-    Color backgroundColor,
+    Color? backgroundColor,
     this.textPadding,
     this.textAlign,
     this.handleTouth = false,
     this.animationBuilder,
-    this.animationDuration = const Duration(milliseconds: 250),
+    this.animationDuration = _defaultAnimDuration,
     this.animationCurve,
     this.duration,
-  })  : this.backgroundColor = backgroundColor ?? const Color(0xDD000000),
+  })  : this.backgroundColor = backgroundColor ?? _defaultBackgroundColor,
         super(key: key);
 
   @override
@@ -94,22 +94,23 @@ class _OKToastState extends State<OKToast> {
       ],
     );
 
-    TextDirection direction = widget.textDirection ?? TextDirection.ltr;
+    TextDirection direction = widget.textDirection;
 
     Widget w = Directionality(
       child: overlay,
       textDirection: direction,
     );
 
-    var typography = Typography(platform: TargetPlatform.android);
+    var typography = Typography.material2018(platform: TargetPlatform.android);
     final TextTheme defaultTextTheme = typography.white;
 
     TextStyle textStyle = widget.textStyle ??
-        defaultTextTheme.body1.copyWith(
+        defaultTextTheme.bodyText2?.copyWith(
           fontSize: 15.0,
           fontWeight: FontWeight.normal,
           color: Colors.white,
-        );
+        ) ??
+        _defaultTextStyle;
 
     TextAlign textAlign = widget.textAlign ?? TextAlign.center;
     EdgeInsets textPadding = widget.textPadding ??
@@ -117,6 +118,9 @@ class _OKToastState extends State<OKToast> {
           horizontal: 8.0,
           vertical: 4.0,
         );
+
+    final OKToastAnimationBuilder animationBuilder =
+        widget.animationBuilder ?? _defaultBuildAnimation;
 
     return _ToastTheme(
       child: w,
@@ -130,10 +134,10 @@ class _OKToastState extends State<OKToast> {
       textAlign: textAlign,
       textPadding: textPadding,
       handleTouch: widget.handleTouth,
-      animationBuilder: widget.animationBuilder,
+      animationBuilder: animationBuilder,
       animationDuration: widget.animationDuration,
-      animationCurve: widget.animationCurve,
-      duration: widget.duration,
+      animationCurve: widget.animationCurve ?? Curves.easeIn,
+      duration: widget.duration ?? _defaultDuration,
     );
   }
 }

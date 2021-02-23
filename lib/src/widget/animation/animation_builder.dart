@@ -8,7 +8,7 @@ typedef Widget OKToastAnimationBuilder(
 );
 
 abstract class BaseAnimationBuilder {
-  BaseAnimationBuilder();
+  const BaseAnimationBuilder();
 
   Widget call(
     BuildContext context,

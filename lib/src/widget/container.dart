@@ -11,14 +11,14 @@ class _ToastContainer extends StatefulWidget {
   final Curve animationCurve;
 
   const _ToastContainer({
-    Key key,
-    this.duration,
-    this.child,
+    Key? key,
+    required this.duration,
+    required this.child,
     this.movingOnWindowChange = false,
-    this.position,
-    this.animationBuilder,
-    this.animationDuration,
-    this.animationCurve,
+    required this.position,
+    required this.animationBuilder,
+    required this.animationDuration,
+    required this.animationCurve,
   }) : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class __ToastContainerState extends State<_ToastContainer>
 
   Duration get animationDuration => widget.animationDuration;
 
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class __ToastContainerState extends State<_ToastContainer>
       _animateTo(0.0);
     });
 
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
@@ -64,30 +64,23 @@ class __ToastContainerState extends State<_ToastContainer>
 
   @override
   void dispose() {
-    _animationController?.dispose();
-    _animationController = null;
-    WidgetsBinding.instance.removeObserver(this);
+    _animationController.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget w;
-
-    if (widget.animationBuilder != null) {
-      w = _buildAnimationWidget();
-    } else {
-      w = AnimatedBuilder(
-        child: widget.child,
-        animation: _animationController,
-        builder: (BuildContext context, Widget child) {
-          return Opacity(
-            child: child,
-            opacity: _animationController.value,
-          );
-        },
-      );
-    }
+    Widget w = AnimatedBuilder(
+      child: widget.child,
+      animation: _animationController,
+      builder: (BuildContext context, Widget? child) {
+        return Opacity(
+          child: child,
+          opacity: _animationController.value,
+        );
+      },
+    );
 
     if (movingOnWindowChange != true) {
       return w;
@@ -131,31 +124,17 @@ class __ToastContainerState extends State<_ToastContainer>
       return;
     }
     if (value == 0) {
-      _animationController?.animateTo(
+      _animationController.animateTo(
         value,
         duration: animationDuration,
         curve: widget.animationCurve,
       );
     } else {
-      _animationController?.animateBack(
+      _animationController.animateBack(
         value,
         duration: animationDuration,
         curve: widget.animationCurve,
       );
     }
-  }
-
-  Widget _buildAnimationWidget() {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (BuildContext context, Widget child) {
-        return widget.animationBuilder(
-          context,
-          widget.child,
-          _animationController,
-          _animationController?.value ?? 0,
-        );
-      },
-    );
   }
 }

@@ -1,13 +1,13 @@
 import 'toast.dart';
 
 class ToastManager {
-  ToastManager._();
+  static ToastManager? _instance;
 
-  static ToastManager _instance;
+  ToastManager._();
 
   factory ToastManager() {
     _instance ??= ToastManager._();
-    return _instance;
+    return _instance!;
   }
 
   Set<ToastFuture> toastSet = Set();

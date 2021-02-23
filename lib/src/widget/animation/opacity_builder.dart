@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'animation_builder.dart';
 
 class OpacityAnimationBuilder extends BaseAnimationBuilder {
-  OpacityAnimationBuilder();
+  const OpacityAnimationBuilder();
 
   @override
   Widget buildWidget(BuildContext context, Widget child,

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -111,13 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Text(
                   '$_counter',
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
                     message: "Toast status when using this to test routing.",
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       child: Text("New page"),
                       onPressed: () {
                         Navigator.push(context,
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
                     message: "Add number.",
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: _incrementCounter,
                       child: Text('Add'),
                     ),
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
                     message: "Show toast.",
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: _showToast,
                       child: Text('Toast'),
                     ),
