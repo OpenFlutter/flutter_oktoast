@@ -6,7 +6,7 @@ class OffsetAnimationBuilder extends BaseAnimationBuilder {
   final double maxOffsetX;
   final double maxOffsetY;
 
-  OffsetAnimationBuilder({
+  const OffsetAnimationBuilder({
     this.maxOffsetX = 0,
     this.maxOffsetY = 100,
   });

@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      //2. wrap your app with OKToast
+      // 2-A: wrap your app with OKToast
       textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
@@ -26,10 +26,22 @@ class MyApp extends StatelessWidget {
       duration: Duration(seconds: 3),
     );
   }
+
+  // 2-B: Or wrap child of the builder method.
+  Widget buildApp() {
+    return MaterialApp(
+      home: MyHomePage(),
+      builder: (context, child) {
+        return OKToast(
+          child: child!,
+        );
+      },
+    );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -45,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showToast() {
-    // 3.1 use showToast method
+    // 3-A use showToast method
     showToast(
       "$_counter",
       position: ToastPosition.bottom,
@@ -64,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       textStyle: TextStyle(fontSize: 30.0),
     );
 
-    // 3.2 use showToastWidget method
+    // 3-B use showToastWidget method
     Widget widget = Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30.0),
@@ -85,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
       duration: Duration(seconds: 3),
       onDismiss: () {
         print(
-            "the toast dismiss"); // the method will be called on toast dismiss.
+            "the toast dismiss"); // The method will be called on toast dismiss.
       },
     );
 
@@ -111,13 +123,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Text(
                   '$_counter',
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
                     message: "Toast status when using this to test routing.",
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       child: Text("New page"),
                       onPressed: () {
                         Navigator.push(context,
@@ -130,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
                     message: "Add number.",
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: _incrementCounter,
                       child: Text('Add'),
                     ),
@@ -140,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
                     message: "Show toast.",
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: _showToast,
                       child: Text('Toast'),
                     ),

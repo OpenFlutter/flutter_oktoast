@@ -3,9 +3,9 @@ part of 'toast.dart';
 /// use the [dismiss] to dismiss toast.
 class ToastFuture {
   final OverlayEntry _entry;
-  final VoidCallback _onDismiss;
+  final VoidCallback? _onDismiss;
   bool _isShow = true;
-  Timer timer;
+  late Timer timer;
   final GlobalKey<__ToastContainerState> _containerKey;
   final Duration animationDuration;
 
@@ -25,7 +25,7 @@ class ToastFuture {
     ToastManager().removeFuture(this);
 
     if (showAnim) {
-      _containerKey.currentState.showDismissAnim();
+      _containerKey.currentState?.showDismissAnim();
       Future.delayed(animationDuration, () {
         _entry.remove();
       });
@@ -33,7 +33,6 @@ class ToastFuture {
       _entry.remove();
     }
 
-    timer?.cancel();
-    timer = null;
+    timer.cancel();
   }
 }

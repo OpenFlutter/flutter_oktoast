@@ -3,6 +3,8 @@ import 'dart:math' show min;
 import 'animation_builder.dart';
 
 class Miui10AnimBuilder extends BaseAnimationBuilder {
+  const Miui10AnimBuilder();
+
   @override
   Widget buildWidget(
     BuildContext context,
