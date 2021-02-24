@@ -25,7 +25,18 @@ gif:
 
 ![pic](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/ktoast2.gif)
 
-## About version 1.X.X
+## Versions
+
+### 3.x.x
+
+Starting from the 3.x version, oktoast provides a null-safety version, the specific introduction of null-safety can be viewed in [dart][dart-safe] or [flutter][flutter-safe].
+
+[flutter-safe]: https://flutter.dev/docs/null-safety
+[dart-safe]: https://dart.dev/null-safety
+
+The 2.3.2 version is the last version that does not support null-safety.
+
+### About version 1.X.X
 
 if you use oktoast 1.X.X ,Please use the 1.X branch, and read version readme.
 
@@ -41,7 +52,7 @@ latest version: [![pub package](https://img.shields.io/pub/v/oktoast.svg)](https
 
 ```yaml
 dependencies:
-  oktoast: ^2.3.2 # such as version, you need use the latest version of pub.
+  oktoast: ^3.0.0 # such as version, you need use the latest version of pub.
 ```
 
 ### 2. Import library in dart file
