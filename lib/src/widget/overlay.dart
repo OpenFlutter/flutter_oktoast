@@ -80,7 +80,9 @@ class OverlayEntry extends ChangeNotifier {
   bool get opaque => _opaque;
   bool _opaque;
   set opaque(bool value) {
-    if (_opaque == value) return;
+    if (_opaque == value) {
+      return;
+    }
     _opaque = value;
     _overlay?._didChangeEntryOpacity();
   }
@@ -102,7 +104,9 @@ class OverlayEntry extends ChangeNotifier {
   bool get maintainState => _maintainState;
   bool _maintainState;
   set maintainState(bool value) {
-    if (_maintainState == value) return;
+    if (_maintainState == value) {
+      return;
+    }
     _maintainState = value;
     assert(_overlay != null);
     _overlay!._didChangeEntryOpacity();
@@ -139,7 +143,9 @@ class OverlayEntry extends ChangeNotifier {
     assert(_overlay != null);
     final OverlayState overlay = _overlay!;
     _overlay = null;
-    if (!overlay.mounted) return;
+    if (!overlay.mounted) {
+      return;
+    }
 
     overlay._entries.remove(this);
     if (SchedulerBinding.instance!.schedulerPhase ==
@@ -323,8 +329,12 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
 
   int _insertionIndex(OverlayEntry? below, OverlayEntry? above) {
     assert(above == null || below == null);
-    if (below != null) return _entries.indexOf(below);
-    if (above != null) return _entries.indexOf(above) + 1;
+    if (below != null) {
+      return _entries.indexOf(below);
+    }
+    if (above != null) {
+      return _entries.indexOf(above) + 1;
+    }
     return _entries.length;
   }
 
@@ -361,7 +371,9 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
         'One or more of the specified entries are already present in the Overlay.');
     assert(entries.every((OverlayEntry entry) => entry._overlay == null),
         'One or more of the specified entries are already present in another Overlay.');
-    if (entries.isEmpty) return;
+    if (entries.isEmpty) {
+      return;
+    }
     for (final OverlayEntry entry in entries) {
       assert(entry._overlay == null);
       entry._overlay = this;
@@ -426,8 +438,12 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
         newEntriesList.every((OverlayEntry entry) =>
             _entries.indexOf(entry) == _entries.lastIndexOf(entry)),
         'One or more of the specified entries are specified multiple times.');
-    if (newEntriesList.isEmpty) return;
-    if (listEquals(_entries, newEntriesList)) return;
+    if (newEntriesList.isEmpty) {
+      return;
+    }
+    if (listEquals(_entries, newEntriesList)) {
+      return;
+    }
     final LinkedHashSet<OverlayEntry> old =
         LinkedHashSet<OverlayEntry>.from(_entries);
     for (final OverlayEntry entry in newEntriesList) {
@@ -463,7 +479,9 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
           result = true;
           break;
         }
-        if (candidate.opaque) break;
+        if (candidate.opaque) {
+          break;
+        }
       }
       return true;
     }());
@@ -492,7 +510,9 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
           key: entry._key,
           entry: entry,
         ));
-        if (entry.opaque) onstage = false;
+        if (entry.opaque) {
+          onstage = false;
+        }
       } else if (entry.maintainState) {
         children.add(_OverlayEntryWidget(
           key: entry._key,
@@ -603,7 +623,9 @@ class _RenderTheatre extends RenderBox
   Alignment? _resolvedAlignment;
 
   void _resolve() {
-    if (_resolvedAlignment != null) return;
+    if (_resolvedAlignment != null) {
+      return;
+    }
     _resolvedAlignment = AlignmentDirectional.topStart.resolve(textDirection);
   }
 
@@ -615,7 +637,9 @@ class _RenderTheatre extends RenderBox
   TextDirection get textDirection => _textDirection;
   TextDirection _textDirection;
   set textDirection(TextDirection value) {
-    if (_textDirection == value) return;
+    if (_textDirection == value) {
+      return;
+    }
     _textDirection = value;
     _markNeedResolution();
   }
@@ -767,7 +791,9 @@ class _RenderTheatre extends RenderBox
           return child!.hitTest(result, position: transformed!);
         },
       );
-      if (isHit) return true;
+      if (isHit) {
+        return true;
+      }
       child = childParentData.previousSibling;
     }
     return false;

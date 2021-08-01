@@ -12,6 +12,7 @@ import 'position.dart';
 import 'toast_manager.dart';
 
 part 'default_themes.dart';
+
 part 'toast_future.dart';
 
 part '../widget/theme.dart';
@@ -20,9 +21,10 @@ part '../widget/oktoast.dart';
 
 part '../widget/container.dart';
 
-LinkedHashMap<_OKToastState, BuildContext> _contextMap = LinkedHashMap();
+final LinkedHashMap<_OKToastState, BuildContext> _contextMap =
+    LinkedHashMap<_OKToastState, BuildContext>();
 
-/// show toast with [msg],
+/// Show toast with [msg],
 ToastFuture showToast(
   String msg, {
   BuildContext? context,
@@ -42,7 +44,7 @@ ToastFuture showToast(
 }) {
   context ??= _contextMap.values.first;
 
-  final theme = _ToastTheme.of(context);
+  final _ToastTheme theme = _ToastTheme.of(context);
   textStyle ??= theme.textStyle;
   textAlign ??= theme.textAlign;
   textPadding ??= theme.textPadding;
@@ -51,7 +53,7 @@ ToastFuture showToast(
   radius ??= theme.radius;
   textDirection ??= theme.textDirection;
 
-  Widget widget = Container(
+  final Widget widget = Container(
     margin: const EdgeInsets.all(50.0),
     decoration: BoxDecoration(
       color: backgroundColor,
@@ -59,11 +61,7 @@ ToastFuture showToast(
     ),
     padding: textPadding,
     child: ClipRect(
-      child: Text(
-        msg,
-        style: textStyle,
-        textAlign: textAlign,
-      ),
+      child: Text(msg, style: textStyle, textAlign: textAlign),
     ),
   );
 
@@ -81,7 +79,7 @@ ToastFuture showToast(
   );
 }
 
-/// show [widget] with oktoast
+/// Show [widget] with oktoast.
 ToastFuture showToastWidget(
   Widget widget, {
   BuildContext? context,
@@ -98,7 +96,7 @@ ToastFuture showToastWidget(
   context ??= _contextMap.values.first;
   OverlayEntry entry;
   ToastFuture future;
-  final theme = _ToastTheme.of(context);
+  final _ToastTheme theme = _ToastTheme.of(context);
 
   position ??= theme.position;
   handleTouch ??= theme.handleTouch;
@@ -107,18 +105,15 @@ ToastFuture showToastWidget(
   animationCurve ??= theme.animationCurve;
   duration ??= theme.duration;
 
-  final movingOnWindowChange = theme.movingOnWindowChange;
+  final bool movingOnWindowChange = theme.movingOnWindowChange;
 
-  final direction = textDirection ?? theme.textDirection;
+  final TextDirection direction = textDirection ?? theme.textDirection;
 
-  GlobalKey<__ToastContainerState> key = GlobalKey();
+  final GlobalKey<__ToastContainerState> key = GlobalKey();
 
-  widget = Align(
-    child: widget,
-    alignment: position.align,
-  );
+  widget = Align(child: widget, alignment: position.align);
 
-  entry = OverlayEntry(builder: (ctx) {
+  entry = OverlayEntry(builder: (BuildContext ctx) {
     return IgnorePointer(
       ignoring: !handleTouch!,
       child: Directionality(
@@ -155,7 +150,6 @@ ToastFuture showToastWidget(
   return future;
 }
 
-/// use the method to dismiss all toast.
 void dismissAllToast({bool showAnim = false}) {
   ToastManager().dismissAll(showAnim: showAnim);
 }

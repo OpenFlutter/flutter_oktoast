@@ -1,19 +1,16 @@
 import 'toast.dart';
 
 class ToastManager {
-  static ToastManager? _instance;
+  factory ToastManager() => _instance;
 
   ToastManager._();
 
-  factory ToastManager() {
-    _instance ??= ToastManager._();
-    return _instance!;
-  }
+  static late final ToastManager _instance = ToastManager._();
 
-  Set<ToastFuture> toastSet = Set();
+  final Set<ToastFuture> toastSet = <ToastFuture>{};
 
   void dismissAll({bool showAnim = false}) {
-    toastSet.toList().forEach((v) {
+    toastSet.toList().forEach((ToastFuture v) {
       v.dismiss(showAnim: showAnim);
     });
   }

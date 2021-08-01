@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-typedef Widget OKToastAnimationBuilder(
+typedef OKToastAnimationBuilder = Widget Function(
   BuildContext context,
   Widget child,
   AnimationController controller,
@@ -19,6 +19,10 @@ abstract class BaseAnimationBuilder {
     return buildWidget(context, child, controller, percent);
   }
 
-  Widget buildWidget(BuildContext context, Widget child,
-      AnimationController controller, double percent);
+  Widget buildWidget(
+    BuildContext context,
+    Widget child,
+    AnimationController controller,
+    double percent,
+  );
 }

@@ -1,7 +1,27 @@
 part of '../core/toast.dart';
 
 class OKToast extends StatefulWidget {
-  /// Usually should be [MaterialApp] or [CupertinoApp].
+  const OKToast({
+    Key? key,
+    required this.child,
+    this.textStyle,
+    this.radius = 10.0,
+    this.position = ToastPosition.center,
+    this.textDirection = TextDirection.ltr,
+    this.dismissOtherOnShow = false,
+    this.movingOnWindowChange = true,
+    Color? backgroundColor,
+    this.textPadding,
+    this.textAlign,
+    this.handleTouth = false,
+    this.animationBuilder,
+    this.animationDuration = _defaultAnimDuration,
+    this.animationCurve,
+    this.duration,
+  })  : backgroundColor = backgroundColor ?? _defaultBackgroundColor,
+        super(key: key);
+
+  /// Typically with a [WidgetsApp].
   final Widget child;
 
   /// Default textStyle of [showToast].
@@ -22,7 +42,8 @@ class OKToast extends StatefulWidget {
   /// Default dismissOtherOnShow of [showToast].
   final bool dismissOtherOnShow;
 
-  /// When the screen size changes due to the soft keyboard / rotation screen, toast will reposition.
+  /// When the screen size changes due to the soft keyboard / rotation screen,
+  /// toast will reposition.
   final bool movingOnWindowChange;
 
   /// TDefault textAlign of [textPadding].
@@ -45,36 +66,11 @@ class OKToast extends StatefulWidget {
   /// The animation curve of show/hide toast.
   final Curve? animationCurve;
 
-  const OKToast({
-    Key? key,
-    required this.child,
-    this.textStyle,
-    this.radius = 10.0,
-    this.position = ToastPosition.center,
-    this.textDirection = TextDirection.ltr,
-    this.dismissOtherOnShow = false,
-    this.movingOnWindowChange = true,
-    Color? backgroundColor,
-    this.textPadding,
-    this.textAlign,
-    this.handleTouth = false,
-    this.animationBuilder,
-    this.animationDuration = _defaultAnimDuration,
-    this.animationCurve,
-    this.duration,
-  })  : this.backgroundColor = backgroundColor ?? _defaultBackgroundColor,
-        super(key: key);
-
   @override
   _OKToastState createState() => _OKToastState();
 }
 
 class _OKToastState extends State<OKToast> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   void dispose() {
     _contextMap.remove(this);
@@ -83,10 +79,10 @@ class _OKToastState extends State<OKToast> {
 
   @override
   Widget build(BuildContext context) {
-    var overlay = Overlay(
-      initialEntries: [
+    final Overlay overlay = Overlay(
+      initialEntries: <OverlayEntry>[
         OverlayEntry(
-          builder: (ctx) {
+          builder: (BuildContext ctx) {
             _contextMap[this] = ctx;
             return widget.child;
           },
@@ -94,17 +90,17 @@ class _OKToastState extends State<OKToast> {
       ],
     );
 
-    TextDirection direction = widget.textDirection;
-
-    Widget w = Directionality(
+    final Widget w = Directionality(
       child: overlay,
-      textDirection: direction,
+      textDirection: widget.textDirection,
     );
 
-    var typography = Typography.material2018(platform: TargetPlatform.android);
+    final Typography typography = Typography.material2018(
+      platform: TargetPlatform.android,
+    );
     final TextTheme defaultTextTheme = typography.white;
 
-    TextStyle textStyle = widget.textStyle ??
+    final TextStyle textStyle = widget.textStyle ??
         defaultTextTheme.bodyText2?.copyWith(
           fontSize: 15.0,
           fontWeight: FontWeight.normal,
@@ -112,12 +108,9 @@ class _OKToastState extends State<OKToast> {
         ) ??
         _defaultTextStyle;
 
-    TextAlign textAlign = widget.textAlign ?? TextAlign.center;
-    EdgeInsets textPadding = widget.textPadding ??
-        const EdgeInsets.symmetric(
-          horizontal: 8.0,
-          vertical: 4.0,
-        );
+    final TextAlign textAlign = widget.textAlign ?? TextAlign.center;
+    final EdgeInsets textPadding = widget.textPadding ??
+        const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0);
 
     final OKToastAnimationBuilder animationBuilder =
         widget.animationBuilder ?? _defaultBuildAnimation;
@@ -130,7 +123,7 @@ class _OKToastState extends State<OKToast> {
       position: widget.position,
       dismissOtherOnShow: widget.dismissOtherOnShow,
       movingOnWindowChange: widget.movingOnWindowChange,
-      textDirection: direction,
+      textDirection: widget.textDirection,
       textAlign: textAlign,
       textPadding: textPadding,
       handleTouch: widget.handleTouth,

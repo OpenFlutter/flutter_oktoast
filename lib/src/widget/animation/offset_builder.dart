@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'animation_builder.dart';
 
 class OffsetAnimationBuilder extends BaseAnimationBuilder {
-  final double maxOffsetX;
-  final double maxOffsetY;
-
   const OffsetAnimationBuilder({
     this.maxOffsetX = 0,
     this.maxOffsetY = 100,
   });
+
+  final double maxOffsetX;
+  final double maxOffsetY;
 
   @override
   Widget buildWidget(

@@ -1,6 +1,17 @@
 part of '../core/toast.dart';
 
 class _ToastContainer extends StatefulWidget {
+  const _ToastContainer({
+    Key? key,
+    required this.duration,
+    required this.child,
+    required this.position,
+    required this.animationBuilder,
+    required this.animationDuration,
+    required this.animationCurve,
+    this.movingOnWindowChange = false,
+  }) : super(key: key);
+
   final Duration duration;
   final Widget child;
   final bool movingOnWindowChange;
@@ -9,17 +20,6 @@ class _ToastContainer extends StatefulWidget {
   final Duration animationDuration;
 
   final Curve animationCurve;
-
-  const _ToastContainer({
-    Key? key,
-    required this.duration,
-    required this.child,
-    this.movingOnWindowChange = false,
-    required this.position,
-    required this.animationBuilder,
-    required this.animationDuration,
-    required this.animationCurve,
-  }) : super(key: key);
 
   @override
   __ToastContainerState createState() => __ToastContainerState();
@@ -33,33 +33,31 @@ class __ToastContainerState extends State<_ToastContainer>
 
   Duration get animationDuration => widget.animationDuration;
 
-  late AnimationController _animationController;
+  late final AnimationController _animationController = AnimationController(
+    vsync: this,
+    duration: animationDuration,
+    reverseDuration: animationDuration,
+  );
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
 
-    _animationController = AnimationController(
-      vsync: this,
-      duration: animationDuration,
-      reverseDuration: animationDuration,
-    );
-
-    Future.delayed(const Duration(milliseconds: 30), () {
+    Future<void>.delayed(const Duration(milliseconds: 30), () {
       _animateTo(1.0);
     });
-
-    Future.delayed(widget.duration - animationDuration, () {
+    Future<void>.delayed(widget.duration - animationDuration, () {
       _animateTo(0.0);
     });
-
-    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    if (this.mounted) setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -71,27 +69,27 @@ class __ToastContainerState extends State<_ToastContainer>
 
   @override
   Widget build(BuildContext context) {
-    Widget w = AnimatedBuilder(
+    final Widget w = AnimatedBuilder(
       child: widget.child,
       animation: _animationController,
-      builder: (BuildContext context, Widget? child) {
-        return Opacity(
-          child: child,
-          opacity: _animationController.value,
-        );
-      },
+      builder: (_, Widget? child) => Opacity(
+        child: child,
+        opacity: _animationController.value,
+      ),
     );
 
     if (movingOnWindowChange != true) {
       return w;
     }
 
-    var mediaQueryData = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQueryData = MediaQueryData.fromWindow(ui.window);
     Widget container = w;
 
-    var edgeInsets = EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom);
+    final EdgeInsets edgeInsets = EdgeInsets.only(
+      bottom: mediaQueryData.viewInsets.bottom,
+    );
     if (offset > 0) {
-      var padding = EdgeInsets.only(top: offset) + edgeInsets;
+      final EdgeInsets padding = EdgeInsets.only(top: offset) + edgeInsets;
 
       container = AnimatedPadding(
         duration: animationDuration,

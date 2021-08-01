@@ -2,7 +2,7 @@
 
 ## 3.0.0
 
-Null safty version.
+Null safety version.
 
 ## 2.3.2
 
