@@ -84,28 +84,21 @@ class __ToastContainerState extends State<_ToastContainer>
       return w;
     }
 
+    final EdgeInsets? _offsetPadding;
+    if (offset > 0) {
+      _offsetPadding = EdgeInsets.only(top: offset);
+    } else if (offset < 0) {
+      _offsetPadding = EdgeInsets.only(bottom: offset.abs());
+    } else {
+      _offsetPadding = null;
+    }
     final EdgeInsets edgeInsets = EdgeInsets.only(
       bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
     );
 
-    if (offset > 0) {
-      final EdgeInsets padding = EdgeInsets.only(top: offset) + edgeInsets;
-      return AnimatedPadding(
-        duration: animationDuration,
-        padding: padding,
-        child: w,
-      );
-    }
-    if (offset < 0) {
-      return AnimatedPadding(
-        duration: animationDuration,
-        padding: EdgeInsets.only(bottom: offset.abs()) + edgeInsets  ,
-        child: w,
-      );
-    }
     return AnimatedPadding(
+      padding: (_offsetPadding ?? EdgeInsets.zero) + edgeInsets,
       duration: animationDuration,
-      padding: edgeInsets,
       child: w,
     );
   }
