@@ -1,20 +1,21 @@
 part of 'toast.dart';
 
-/// use the [dismiss] to dismiss toast.
+/// Use the [dismiss] to dismiss toast.
 class ToastFuture {
-  final OverlayEntry _entry;
-  final VoidCallback? _onDismiss;
-  bool _isShow = true;
-  late Timer timer;
-  final GlobalKey<__ToastContainerState> _containerKey;
-  final Duration animationDuration;
-
   ToastFuture._(
     this._entry,
     this._onDismiss,
     this._containerKey,
     this.animationDuration,
   );
+
+  final OverlayEntry _entry;
+  final VoidCallback? _onDismiss;
+  final GlobalKey<__ToastContainerState> _containerKey;
+  final Duration animationDuration;
+
+  late Timer timer;
+  bool _isShow = true;
 
   void dismiss({bool showAnim = false}) {
     if (!_isShow) {
@@ -26,9 +27,7 @@ class ToastFuture {
 
     if (showAnim) {
       _containerKey.currentState?.showDismissAnim();
-      Future.delayed(animationDuration, () {
-        _entry.remove();
-      });
+      Future<void>.delayed(animationDuration, _entry.remove);
     } else {
       _entry.remove();
     }

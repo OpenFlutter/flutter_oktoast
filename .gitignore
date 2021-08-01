@@ -13,3 +13,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 .vscode
 .idea
 .fvm
+pubspec.lock
