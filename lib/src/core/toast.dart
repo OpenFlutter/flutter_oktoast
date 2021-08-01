@@ -94,8 +94,6 @@ ToastFuture showToastWidget(
   Curve? animationCurve,
 }) {
   context ??= _contextMap.values.first;
-  OverlayEntry entry;
-  ToastFuture future;
   final _ToastTheme theme = _ToastTheme.of(context);
 
   position ??= theme.position;
@@ -113,16 +111,16 @@ ToastFuture showToastWidget(
 
   widget = Align(child: widget, alignment: position.align);
 
-  entry = OverlayEntry(builder: (BuildContext ctx) {
+  final OverlayEntry entry = OverlayEntry(builder: (BuildContext ctx) {
     return IgnorePointer(
       ignoring: !handleTouch!,
       child: Directionality(
         textDirection: direction,
         child: _ToastContainer(
+          key: key,
           duration: duration!,
           position: position!,
           movingOnWindowChange: movingOnWindowChange,
-          key: key,
           child: widget,
           animationBuilder: animationBuilder!,
           animationDuration: animationDuration!,
@@ -138,7 +136,12 @@ ToastFuture showToastWidget(
     ToastManager().dismissAll();
   }
 
-  future = ToastFuture._(entry, onDismiss, key, animationDuration);
+  final ToastFuture future = ToastFuture._(
+    entry,
+    onDismiss,
+    key,
+    animationDuration,
+  );
 
   future.timer = Timer(duration, () {
     future.dismiss();
