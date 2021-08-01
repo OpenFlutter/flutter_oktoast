@@ -70,17 +70,14 @@ class __ToastContainerState extends State<_ToastContainer>
   @override
   Widget build(BuildContext context) {
     final Widget w = AnimatedBuilder(
-      child: widget.child,
       animation: _animationController,
       builder: (_, Widget? child) => widget.animationBuilder(
         context,
-        Opacity(
-          child: widget.child,
-          opacity: _animationController.value,
-        ),
+        child!,
         _animationController,
         _animationController.value,
       ),
+      child: widget.child,
     );
 
     if (movingOnWindowChange != true) {
