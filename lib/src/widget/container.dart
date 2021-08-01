@@ -72,9 +72,14 @@ class __ToastContainerState extends State<_ToastContainer>
     final Widget w = AnimatedBuilder(
       child: widget.child,
       animation: _animationController,
-      builder: (_, Widget? child) => Opacity(
-        child: child,
-        opacity: _animationController.value,
+      builder: (_, Widget? child) => widget.animationBuilder(
+        context,
+        Opacity(
+          child: widget.child,
+          opacity: _animationController.value,
+        ),
+        _animationController,
+        _animationController.value,
       ),
     );
 
@@ -82,35 +87,30 @@ class __ToastContainerState extends State<_ToastContainer>
       return w;
     }
 
-    final MediaQueryData mediaQueryData = MediaQueryData.fromWindow(ui.window);
-    Widget container = w;
-
     final EdgeInsets edgeInsets = EdgeInsets.only(
-      bottom: mediaQueryData.viewInsets.bottom,
+      bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
     );
+
     if (offset > 0) {
       final EdgeInsets padding = EdgeInsets.only(top: offset) + edgeInsets;
-
-      container = AnimatedPadding(
+      return AnimatedPadding(
         duration: animationDuration,
         padding: padding,
-        child: container,
-      );
-    } else if (offset < 0) {
-      container = AnimatedPadding(
-        duration: animationDuration,
-        padding: EdgeInsets.only(bottom: offset.abs()) + edgeInsets,
-        child: container,
-      );
-    } else {
-      container = AnimatedPadding(
-        duration: animationDuration,
-        padding: edgeInsets,
-        child: container,
+        child: w,
       );
     }
-
-    return container;
+    if (offset < 0) {
+      return AnimatedPadding(
+        duration: animationDuration,
+        padding: EdgeInsets.only(bottom: offset.abs()) + edgeInsets  ,
+        child: w,
+      );
+    }
+    return AnimatedPadding(
+      duration: animationDuration,
+      padding: edgeInsets,
+      child: w,
+    );
   }
 
   void showDismissAnim() {
