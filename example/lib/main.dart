@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
       // 2-A: wrap your app with OKToast
-      textStyle: TextStyle(fontSize: 19.0, color: Colors.white),
+      textStyle: const TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       radius: 10.0,
       child: MaterialApp(
@@ -18,30 +18,26 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
       animationCurve: Curves.easeIn,
-      animationBuilder: Miui10AnimBuilder(),
-      animationDuration: Duration(milliseconds: 200),
-      duration: Duration(seconds: 3),
+      animationBuilder: const Miui10AnimBuilder(),
+      animationDuration: const Duration(milliseconds: 200),
+      duration: const Duration(seconds: 3),
     );
   }
 
   // 2-B: Or wrap child of the builder method.
   Widget buildApp() {
     return MaterialApp(
-      home: MyHomePage(),
-      builder: (context, child) {
-        return OKToast(
-          child: child!,
-        );
-      },
+      home: const MyHomePage(),
+      builder: (_, Widget? child) => OKToast(child: child!),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -59,32 +55,32 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showToast() {
     // 3-A use showToast method
     showToast(
-      "$_counter",
+      '$_counter',
       position: ToastPosition.bottom,
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 13.0,
-      textStyle: TextStyle(fontSize: 18.0),
-      animationBuilder: Miui10AnimBuilder(),
+      textStyle: const TextStyle(fontSize: 18.0),
+      animationBuilder: const Miui10AnimBuilder(),
     );
 
     showToast(
-      "$_counter",
-      duration: Duration(milliseconds: 3500),
+      '$_counter',
+      duration: const Duration(milliseconds: 3500),
       position: ToastPosition.top,
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 3.0,
-      textStyle: TextStyle(fontSize: 30.0),
+      textStyle: const TextStyle(fontSize: 30.0),
     );
 
     // 3-B use showToastWidget method
-    Widget widget = Center(
+    final Widget widget = Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30.0),
         child: Container(
           width: 40.0,
           height: 40.0,
           color: Colors.grey.withOpacity(0.3),
-          child: Icon(
+          child: const Icon(
             Icons.add,
             size: 30.0,
             color: Colors.green,
@@ -92,17 +88,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-    ToastFuture toastFuture = showToastWidget(
+    final ToastFuture toastFuture = showToastWidget(
       widget,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       onDismiss: () {
-        print(
-            "the toast dismiss"); // The method will be called on toast dismiss.
+        // The method will be called on toast dismiss.
+        print('Toast has been dismissed.');
       },
     );
 
     // can use future
-    Future.delayed(Duration(seconds: 2), () {
+    Future<void>.delayed(const Duration(seconds: 2), () {
       toastFuture.dismiss(); // dismiss
     });
   }
@@ -110,17 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Example for OKToast"),
-      ),
+      appBar: AppBar(title: const Text('Example for OKToast')),
       body: Stack(
         children: <Widget>[
           Center(
             child: ListView(
               children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
-                ),
+                const Text('You have pushed the button this many times:'),
                 Text(
                   '$_counter',
                   style: Theme.of(context).textTheme.headline4,
@@ -128,12 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
-                    message: "Toast status when using this to test routing.",
+                    message: 'Toast status when using this to test routing.',
                     child: ElevatedButton(
-                      child: Text("New page"),
+                      child: const Text('New page'),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (ctx) => MyHomePage()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (_) => const MyHomePage(),
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -141,26 +137,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
-                    message: "Add number.",
+                    message: 'Add number.',
                     child: ElevatedButton(
                       onPressed: _incrementCounter,
-                      child: Text('Add'),
+                      child: const Text('Add'),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Tooltip(
-                    message: "Show toast.",
+                    message: 'Show toast.',
                     child: ElevatedButton(
                       onPressed: _showToast,
-                      child: Text('Toast'),
+                      child: const Text('Toast'),
                     ),
                   ),
                 ),
-                TextField(
+                const TextField(
                   decoration: InputDecoration(
-                      hintText: "Use TextField to test the toast of softkey."),
+                    hintText: 'Use TextField to test the toast of soft keys.',
+                  ),
                 ),
               ],
             ),
