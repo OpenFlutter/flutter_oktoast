@@ -15,6 +15,13 @@ class ToastPosition {
   static const ToastPosition top =
       ToastPosition(align: Alignment.topCenter, offset: 75.0);
 
+  ToastPosition copyWith({AlignmentGeometry? align, double? offset}) {
+    return ToastPosition(
+      align: align ?? this.align,
+      offset: offset ?? this.offset,
+    );
+  }
+
   @override
   String toString() => 'ToastPosition(align: $align, offset: $offset)';
 }
