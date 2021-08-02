@@ -15,32 +15,27 @@ You can completely customize the style of toast.
 
 ## Screenshot
 
-default
-![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161700.png)
-
-custom position and widget
-![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161742.png)
-
-gif:
-
-![pic](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/ktoast2.gif)
+| Default | Custom | GIF |
+| ------- | ------ | --- |
+| ![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161700.png) | ![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161742.png) | ![pic](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/ktoast2.gif) |
 
 ## Versions
 
 ### 3.x.x
 
-Starting from the 3.x version, oktoast provides a null-safety version, the specific introduction of null-safety can be viewed in [dart][dart-safe] or [flutter][flutter-safe].
+Starting from the 3.x version, OkToast provides a null-safety version,
+the specific introduction of null-safety can be viewed in [dart][dart-safe] or [flutter][flutter-safe].
 
 [flutter-safe]: https://flutter.dev/docs/null-safety
 [dart-safe]: https://dart.dev/null-safety
 
 The 2.3.2 version is the last version that does not support null-safety.
 
-### About version 1.X.X
+### About version 1.x
 
-if you use oktoast 1.X.X ,Please use the 1.X branch, and read version readme.
+if you use OkToast 1.x, Please use the 1.x branch, and read version readme.
 
-Proposed migration to 2.X.X version. The new version does not require buildContext.
+Proposed migration to 2.x version. The new version does not require buildContext.
 
 And you can completely customize the style of toast, because now you can use `showToastWidget`.
 

@@ -1,12 +1,18 @@
 # Change log
 
+## 3.1.0
+
+- Integrate `animationBuilder` properly. (#81)
+- **BREAKING CHANGE**: `handleTouth` -> `handleTouch`.
+- Code cleanup.
+
 ## 3.0.0
 
-Null safety version.
+- Null safety version.
 
 ## 2.3.2
 
-Fixed a memory leak issue.
+- Fixed a memory leak issue.
 
 ## 2.3.1+1
 
