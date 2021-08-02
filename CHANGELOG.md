@@ -2,6 +2,7 @@
 
 ## 3.1.0
 
+- Support `copyWith` for `ToastPosition`. (#82)
 - Integrate `animationBuilder` properly. (#81)
 - **BREAKING CHANGE**: `handleTouth` -> `handleTouch`.
 - Code cleanup.
