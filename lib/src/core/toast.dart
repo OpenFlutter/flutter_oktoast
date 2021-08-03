@@ -42,7 +42,7 @@ ToastFuture showToast(
   Duration? animationDuration,
   Curve? animationCurve,
   BoxConstraints? constraints,
-  EdgeInsetsGeometry margin = const EdgeInsets.all(50),
+  EdgeInsetsGeometry? margin = const EdgeInsets.all(50),
 }) {
   context ??= _contextMap.values.first;
 
