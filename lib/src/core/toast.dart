@@ -41,6 +41,8 @@ ToastFuture showToast(
   OKToastAnimationBuilder? animationBuilder,
   Duration? animationDuration,
   Curve? animationCurve,
+  BoxConstraints? constraints,
+  EdgeInsetsGeometry margin = const EdgeInsets.all(50),
 }) {
   context ??= _contextMap.values.first;
 
@@ -54,15 +56,14 @@ ToastFuture showToast(
   textDirection ??= theme.textDirection;
 
   final Widget widget = Container(
-    margin: const EdgeInsets.all(50.0),
-    decoration: BoxDecoration(
-      color: backgroundColor,
-      borderRadius: BorderRadius.circular(radius),
-    ),
+    constraints: constraints,
+    margin: margin,
     padding: textPadding,
-    child: ClipRect(
-      child: Text(msg, style: textStyle, textAlign: textAlign),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(radius),
+      color: backgroundColor,
     ),
+    child: ClipRect(child: Text(msg, style: textStyle, textAlign: textAlign)),
   );
 
   return showToastWidget(
