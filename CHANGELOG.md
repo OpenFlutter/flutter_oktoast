@@ -1,5 +1,9 @@
 # Change log
 
+## 3.1.1
+
+- Expose `constraints` and `margin` for `showToast` method. (#84)
+
 ## 3.1.0
 
 - Support `copyWith` for `ToastPosition`. (#82)
