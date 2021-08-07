@@ -144,9 +144,11 @@ ToastFuture showToastWidget(
     animationDuration,
   );
 
-  future.timer = Timer(duration, () {
-    future.dismiss();
-  });
+  if (duration != Duration.zero) {
+    future.timer = Timer(duration, () {
+      future.dismiss();
+    });
+  }
 
   Overlay.of(context)?.insert(entry);
   ToastManager().addFuture(future);

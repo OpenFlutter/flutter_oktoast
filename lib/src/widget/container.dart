@@ -47,9 +47,11 @@ class __ToastContainerState extends State<_ToastContainer>
     Future<void>.delayed(const Duration(milliseconds: 30), () {
       _animateTo(1.0);
     });
-    Future<void>.delayed(widget.duration - animationDuration, () {
-      _animateTo(0.0);
-    });
+    if (widget.duration != Duration.zero) {
+      Future<void>.delayed(widget.duration - animationDuration, () {
+        _animateTo(0.0);
+      });
+    }
   }
 
   @override

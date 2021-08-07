@@ -14,7 +14,7 @@ class ToastFuture {
   final GlobalKey<__ToastContainerState> _containerKey;
   final Duration animationDuration;
 
-  late Timer timer;
+  Timer? timer;
   bool _isShow = true;
 
   void dismiss({bool showAnim = false}) {
@@ -32,6 +32,6 @@ class ToastFuture {
       _entry.remove();
     }
 
-    timer.cancel();
+    timer?.cancel();
   }
 }
