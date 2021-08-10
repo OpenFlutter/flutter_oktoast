@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _counter++;
-
     setState(() {});
   }
 
@@ -103,66 +102,72 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  ToastFuture? _persistToast;
+
+  void _showPersistToast() {
+    _persistToast = showToastWidget(
+      Center(
+        child: ElevatedButton(
+          onPressed: () => _persistToast?.dismiss(),
+          child: const Text('Click this button to dismiss'),
+        ),
+      ),
+      duration: Duration.zero,
+      handleTouch: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Example for OKToast')),
-      body: Stack(
-        children: <Widget>[
-          Center(
-            child: ListView(
-              children: <Widget>[
-                const Text('You have pushed the button this many times:'),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Tooltip(
-                    message: 'Toast status when using this to test routing.',
-                    child: ElevatedButton(
-                      child: const Text('New page'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (_) => const MyHomePage(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Tooltip(
-                    message: 'Add number.',
-                    child: ElevatedButton(
-                      onPressed: _incrementCounter,
-                      child: const Text('Add'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Tooltip(
-                    message: 'Show toast.',
-                    child: ElevatedButton(
-                      onPressed: _showToast,
-                      child: const Text('Toast'),
-                    ),
-                  ),
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Use TextField to test the toast of soft keys.',
-                  ),
-                ),
-              ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Center(
+              child: Text('You have pushed the button this many times:'),
             ),
-          ),
-        ],
+            Center(
+              child: Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: _showToast,
+                child: const Text('Show toast'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: _showPersistToast,
+                child: const Text('Show a persist toast'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                child: const Text('Toast during pushing to a new page'),
+                onPressed: () {
+                  _showToast();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(builder: (_) => const MyHomePage()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        child: const Icon(Icons.add),
+        tooltip: 'Add number',
       ),
     );
   }
