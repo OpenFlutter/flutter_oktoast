@@ -1,5 +1,9 @@
 # Change log
 
+## 3.1.2
+
+- Deliver overlay insertion into microtask.
+
 ## 3.1.1
 
 - Expose `constraints` and `margin` for `showToast` method. (#84)
