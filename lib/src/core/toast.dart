@@ -5,9 +5,9 @@ import 'dart:collection';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry;
-import 'package:oktoast/src/widget/overlay.dart';
-import 'package:oktoast/oktoast.dart';
 
+import '../widget/animation/animation_builder.dart';
+import '../widget/overlay.dart';
 import 'position.dart';
 import 'toast_manager.dart';
 
@@ -150,8 +150,10 @@ ToastFuture showToastWidget(
     });
   }
 
-  Overlay.of(context)?.insert(entry);
-  ToastManager().addFuture(future);
+  Future<void>.microtask(() {
+    Overlay.of(context!)?.insert(entry);
+    ToastManager().addFuture(future);
+  });
 
   return future;
 }
