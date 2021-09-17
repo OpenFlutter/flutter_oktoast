@@ -7,7 +7,9 @@ class ToastFuture {
     this._onDismiss,
     this._containerKey,
     this.animationDuration,
-  );
+  ) {
+    _entry.addListener(_mountedListener);
+  }
 
   final OverlayEntry _entry;
   final VoidCallback? _onDismiss;
@@ -15,10 +17,25 @@ class ToastFuture {
   final Duration animationDuration;
 
   Timer? timer;
-  bool _isShow = true;
+  bool _isShow = false;
+  bool _dismissed = false;
+
+  bool get mounted => _isShow;
+
+  bool get dismissed => _dismissed;
+
+  void _mountedListener() {
+    _isShow = _entry.mounted;
+  }
+
+  void _removeEntry() {
+    _entry.removeListener(_mountedListener);
+    _entry.remove();
+  }
 
   void dismiss({bool showAnim = false}) {
     if (!_isShow) {
+      _dismissed = true;
       return;
     }
     _isShow = false;
@@ -27,11 +44,12 @@ class ToastFuture {
 
     if (showAnim) {
       _containerKey.currentState?.showDismissAnim();
-      Future<void>.delayed(animationDuration, _entry.remove);
+      Future<void>.delayed(animationDuration, _removeEntry);
     } else {
-      _entry.remove();
+      _removeEntry();
     }
 
     timer?.cancel();
+    _dismissed = true;
   }
 }

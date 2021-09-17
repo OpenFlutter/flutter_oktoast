@@ -156,10 +156,21 @@ ToastFuture showToastWidget(
     });
   }
 
-  Future<void>.microtask(() {
+  ToastManager().addFuture(future);
+
+  void _insertOverlayEntry() {
     Overlay.of(context!)?.insert(entry);
-    ToastManager().addFuture(future);
-  });
+  }
+
+  if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
+    _insertOverlayEntry();
+  } else {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (!future.dismissed) {
+        _insertOverlayEntry();
+      }
+    });
+  }
 
   return future;
 }
