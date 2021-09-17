@@ -1,5 +1,10 @@
 # Change log
 
+## 3.1.3
+
+- Throw a more precise error if the `OKToast` widget is not wrapped correctly.
+- Bind `ToastFuture` with `OverlayEntry` mounted state.
+
 ## 3.1.2
 
 - Deliver overlay insertion into microtask.

@@ -44,6 +44,9 @@ ToastFuture showToast(
   BoxConstraints? constraints,
   EdgeInsetsGeometry? margin = const EdgeInsets.all(50),
 }) {
+  if (context == null) {
+    _throwIfNoContext(_contextMap.values, 'showToast');
+  }
   context ??= _contextMap.values.first;
 
   final _ToastTheme theme = _ToastTheme.of(context);
@@ -94,6 +97,9 @@ ToastFuture showToastWidget(
   Duration? animationDuration,
   Curve? animationCurve,
 }) {
+  if (context == null) {
+    _throwIfNoContext(_contextMap.values, 'showToastWidget');
+  }
   context ??= _contextMap.values.first;
   final _ToastTheme theme = _ToastTheme.of(context);
 
@@ -150,14 +156,40 @@ ToastFuture showToastWidget(
     });
   }
 
-  Future<void>.microtask(() {
+  ToastManager().addFuture(future);
+
+  void _insertOverlayEntry() {
     Overlay.of(context!)?.insert(entry);
-    ToastManager().addFuture(future);
-  });
+  }
+
+  if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
+    _insertOverlayEntry();
+  } else {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (!future.dismissed) {
+        _insertOverlayEntry();
+      }
+    });
+  }
 
   return future;
 }
 
 void dismissAllToast({bool showAnim = false}) {
   ToastManager().dismissAll(showAnim: showAnim);
+}
+
+void _throwIfNoContext(Iterable<BuildContext> contexts, String methodName) {
+  final List<DiagnosticsNode> information = <DiagnosticsNode>[
+    ErrorSummary('No OKToast widget found.'),
+    ErrorDescription(
+      '$methodName requires an OKToast widget ancestor '
+      'for correct operation.',
+    ),
+    ErrorHint(
+      'The most common way to add an OKToast to an application '
+      'is to wrap a OKToast upon a WidgetsApp(MaterialApp/CupertinoApp).',
+    ),
+  ];
+  throw FlutterError.fromParts(information);
 }
