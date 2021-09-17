@@ -23,7 +23,7 @@ You can completely customize the style of toast.
 
 ### 3.x.x
 
-Starting from the 3.x version, OkToast provides a null-safety version,
+Starting from the 3.x version, OKToast provides a null-safety version,
 the specific introduction of null-safety can be viewed in [dart][dart-safe] or [flutter][flutter-safe].
 
 [flutter-safe]: https://flutter.dev/docs/null-safety
@@ -33,7 +33,7 @@ The 2.3.2 version is the last version that does not support null-safety.
 
 ### About version 1.x
 
-if you use OkToast 1.x, Please use the 1.x branch, and read version readme.
+if you use OKToast 1.x, Please use the 1.x branch, and read version readme.
 
 Proposed migration to 2.x version. The new version does not require buildContext.
 
@@ -47,7 +47,7 @@ latest version: [![pub package](https://img.shields.io/pub/v/oktoast.svg)](https
 
 ```yaml
 dependencies:
-  oktoast: ^3.0.0 # such as version, you need use the latest version of pub.
+  oktoast: ^latest_version
 ```
 
 ### 2. Import library in dart file
@@ -65,23 +65,23 @@ OKToast(
 );
 ```
 
-tips:
-If you happened error like: `No MediaQuery widget found`
-
-you can try to use next [code](https://github.com/OpenFlutter/flutter_oktoast/issues/53#issuecomment-628431625) to include `oktoast` to your App.
+Tips:
+If you happened error like: `No MediaQuery widget found`,
+you can try to use this [code](https://github.com/OpenFlutter/flutter_oktoast/issues/53#issuecomment-628431625)
+to include `OKToast` to your App.
 
 ```dart
-MaterialApp(builder: (context, widget) {
-  return OKToast(
-    child: widget,
-  );
-});
+MaterialApp(
+  builder: (BuildContext context, Widget? widget) {
+    return OKToast(child: widget);
+  },
+);
 ```
 
 ### 4. Call method `showToast`
 
 ```dart
-showToast("content");
+showToast('content');
 
 // position and second have default value, is optional
 
@@ -99,7 +99,7 @@ There are two reasons why you need to wrap MaterialApp
 
 ### OKToast params
 
-oktoast have default style, and you also can custom style or other behavior.
+OKToast have default style, and you also can custom style or other behavior.
 
 |         name         |          type           |   need   |                             desc                              |
 | :------------------: | :---------------------: | :------: | :-----------------------------------------------------------: |
@@ -191,7 +191,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      //2. wrap your app with OKToast
+      // 2. wrap your app with OKToast
       child:  MaterialApp(
         title: 'Flutter Demo',
         theme:  ThemeData(
