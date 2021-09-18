@@ -180,6 +180,9 @@ void dismissAllToast({bool showAnim = false}) {
 }
 
 void _throwIfNoContext(Iterable<BuildContext> contexts, String methodName) {
+  if (contexts.isNotEmpty) {
+    return;
+  }
   final List<DiagnosticsNode> information = <DiagnosticsNode>[
     ErrorSummary('No OKToast widget found.'),
     ErrorDescription(
