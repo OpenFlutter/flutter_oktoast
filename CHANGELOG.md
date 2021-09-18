@@ -1,5 +1,9 @@
 # Change log
 
+## 3.1.3+1
+
+- Quick fix for the `_throwIfNoContext`.
+
 ## 3.1.3
 
 - Throw a more precise error if the `OKToast` widget is not wrapped correctly.
