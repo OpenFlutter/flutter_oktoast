@@ -1,11 +1,9 @@
 import 'dart:math' show min;
 
 import 'package:flutter/material.dart';
-import 'animation_builder.dart';
+import 'package:oktoast/oktoast.dart';
 
-@Deprecated('Please build animation builders outside the package.')
 class Miui10AnimBuilder extends BaseAnimationBuilder {
-  @Deprecated('Please build animation builders outside the package.')
   const Miui10AnimBuilder();
 
   @Deprecated('Please build animation builders outside the package.')
