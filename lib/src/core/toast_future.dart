@@ -35,9 +35,12 @@ class ToastFuture {
 
   void dismiss({bool showAnim = false}) {
     if (!_isShow) {
+      ToastManager().removeFuture(this);
+      _removeEntry();
       _dismissed = true;
       return;
     }
+
     _isShow = false;
     _onDismiss?.call();
     ToastManager().removeFuture(this);
