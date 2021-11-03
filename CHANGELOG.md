@@ -3,6 +3,7 @@
 ## 3.1.4
 
 - Fix dismiss is invalid when called synchronously. (#88)
+- Deprecated inner `Miui10AnimBuilder`.
 
 ## 3.1.3+1
 
