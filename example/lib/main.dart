@@ -119,6 +119,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _dismissToastSynchronously() {
+    final ToastFuture toast = showToast('Synchronously dismiss');
+    toast.dismiss();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,6 +166,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute<void>(builder: (_) => const MyHomePage()),
                   );
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: _dismissToastSynchronously,
+                child: const Text('Synchronously dismiss toast'),
               ),
             ),
           ],

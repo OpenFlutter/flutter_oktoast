@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart' hide Overlay, OverlayEntry;
+import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 
 import '../widget/animation/animation_builder.dart';
 import '../widget/overlay.dart';
@@ -159,16 +159,16 @@ ToastFuture showToastWidget(
   ToastManager().addFuture(future);
 
   void _insertOverlayEntry() {
-    Overlay.of(context!)?.insert(entry);
+    if (!future.dismissed) {
+      future._insertEntry(context!);
+    }
   }
 
   if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
     _insertOverlayEntry();
   } else {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      if (!future.dismissed) {
-        _insertOverlayEntry();
-      }
+      _insertOverlayEntry();
     });
   }
 

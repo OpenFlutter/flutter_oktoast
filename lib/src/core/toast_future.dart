@@ -19,6 +19,7 @@ class ToastFuture {
   Timer? timer;
   bool _isShow = false;
   bool _dismissed = false;
+  bool _isEntryInserted = false;
 
   bool get mounted => _isShow;
 
@@ -28,16 +29,28 @@ class ToastFuture {
     _isShow = _entry.mounted;
   }
 
+  void _insertEntry(BuildContext context) {
+    final OverlayState? state = Overlay.of(context);
+    _isEntryInserted = state != null;
+    state?.insert(_entry);
+  }
+
   void _removeEntry() {
     _entry.removeListener(_mountedListener);
-    _entry.remove();
+    if (_isEntryInserted) {
+      _entry.remove();
+    }
   }
 
   void dismiss({bool showAnim = false}) {
     if (!_isShow) {
+      ToastManager().removeFuture(this);
+      timer?.cancel();
       _dismissed = true;
+      _removeEntry();
       return;
     }
+
     _isShow = false;
     _onDismiss?.call();
     ToastManager().removeFuture(this);
