@@ -1,5 +1,9 @@
 # Change log
 
+## 3.1.4
+
+- Fix dismiss is invalid when called synchronously. (#88)
+
 ## 3.1.3+1
 
 - Quick fix for the `_throwIfNoContext`.
