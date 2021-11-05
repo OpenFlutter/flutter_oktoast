@@ -2,7 +2,7 @@ name: oktoast
 description: A pure flutter toast library, support custom style/widget, easy achieve the same effect with native toasts.
 email: cjl_spy@163.com
 homepage: https://github.com/OpenFlutter/flutter_oktoast
-version: 3.1.4
+version: 3.1.5
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

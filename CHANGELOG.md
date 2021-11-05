@@ -1,5 +1,10 @@
 # Change log
 
+## 3.1.5
+
+- `_ToastContainer` -> `ToastContainer`.
+- Add tests.
+
 ## 3.1.4
 
 - Fix dismiss is invalid when called synchronously. (#88)
