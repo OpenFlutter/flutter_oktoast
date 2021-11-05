@@ -13,7 +13,7 @@ class ToastFuture {
 
   final OverlayEntry _entry;
   final VoidCallback? _onDismiss;
-  final GlobalKey<__ToastContainerState> _containerKey;
+  final GlobalKey<_ToastContainerState> _containerKey;
   final Duration animationDuration;
 
   Timer? timer;

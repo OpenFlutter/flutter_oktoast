@@ -114,7 +114,7 @@ ToastFuture showToastWidget(
 
   final TextDirection direction = textDirection ?? theme.textDirection;
 
-  final GlobalKey<__ToastContainerState> key = GlobalKey();
+  final GlobalKey<_ToastContainerState> key = GlobalKey();
 
   widget = Align(child: widget, alignment: position.align);
 
@@ -123,7 +123,7 @@ ToastFuture showToastWidget(
       ignoring: !handleTouch!,
       child: Directionality(
         textDirection: direction,
-        child: _ToastContainer(
+        child: ToastContainer(
           key: key,
           duration: duration!,
           position: position!,

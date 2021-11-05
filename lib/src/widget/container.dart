@@ -1,7 +1,7 @@
 part of '../core/toast.dart';
 
-class _ToastContainer extends StatefulWidget {
-  const _ToastContainer({
+class ToastContainer extends StatefulWidget {
+  const ToastContainer({
     Key? key,
     required this.duration,
     required this.child,
@@ -22,10 +22,10 @@ class _ToastContainer extends StatefulWidget {
   final Curve animationCurve;
 
   @override
-  __ToastContainerState createState() => __ToastContainerState();
+  _ToastContainerState createState() => _ToastContainerState();
 }
 
-class __ToastContainerState extends State<_ToastContainer>
+class _ToastContainerState extends State<ToastContainer>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   bool get movingOnWindowChange => widget.movingOnWindowChange;
 
