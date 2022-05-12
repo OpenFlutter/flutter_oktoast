@@ -18,12 +18,12 @@ const TextStyle _defaultTextStyle = TextStyle(
   fontWeight: FontWeight.normal,
   color: Colors.white,
 );
-const _ToastTheme defaultTheme = _ToastTheme(
+const ToastTheme defaultTheme = ToastTheme(
   radius: 10,
   textStyle: _defaultTextStyle,
   position: ToastPosition.center,
   textDirection: TextDirection.ltr,
   handleTouch: false,
-  child: SizedBox(),
   animationBuilder: _defaultBuildAnimation,
+  child: SizedBox(),
 );

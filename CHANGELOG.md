@@ -1,5 +1,11 @@
 # Change log
 
+## 3.2.0
+
+Migrate to Flutter 3, drop supports for previous Flutter versions.
+
+- Remove deprecated `Miui10AnimBuilder`.
+
 ## 3.1.5
 
 - `_ToastContainer` -> `ToastContainer`.

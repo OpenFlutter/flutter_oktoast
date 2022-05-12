@@ -49,7 +49,7 @@ ToastFuture showToast(
   }
   context ??= _contextMap.values.first;
 
-  final _ToastTheme theme = _ToastTheme.of(context);
+  final ToastTheme theme = ToastTheme.of(context);
   textStyle ??= theme.textStyle;
   textAlign ??= theme.textAlign;
   textPadding ??= theme.textPadding;
@@ -101,7 +101,7 @@ ToastFuture showToastWidget(
     _throwIfNoContext(_contextMap.values, 'showToastWidget');
   }
   context ??= _contextMap.values.first;
-  final _ToastTheme theme = _ToastTheme.of(context);
+  final ToastTheme theme = ToastTheme.of(context);
 
   position ??= theme.position;
   handleTouch ??= theme.handleTouch;
@@ -116,7 +116,7 @@ ToastFuture showToastWidget(
 
   final GlobalKey<_ToastContainerState> key = GlobalKey();
 
-  widget = Align(child: widget, alignment: position.align);
+  widget = Align(alignment: position.align, child: widget);
 
   final OverlayEntry entry = OverlayEntry(builder: (BuildContext ctx) {
     return IgnorePointer(
@@ -128,10 +128,10 @@ ToastFuture showToastWidget(
           duration: duration!,
           position: position!,
           movingOnWindowChange: movingOnWindowChange,
-          child: widget,
           animationBuilder: animationBuilder!,
           animationDuration: animationDuration!,
           animationCurve: animationCurve!,
+          child: widget,
         ),
       ),
     );
@@ -167,7 +167,7 @@ ToastFuture showToastWidget(
   if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
     _insertOverlayEntry();
   } else {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _insertOverlayEntry();
     });
   }

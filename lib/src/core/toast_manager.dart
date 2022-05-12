@@ -5,7 +5,7 @@ class ToastManager {
 
   ToastManager._();
 
-  static late final ToastManager _instance = ToastManager._();
+  static final ToastManager _instance = ToastManager._();
 
   final Set<ToastFuture> toastSet = <ToastFuture>{};
 

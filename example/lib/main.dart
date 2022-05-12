@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart' hide Miui10AnimBuilder;
+import 'package:oktoast/oktoast.dart';
 
 import 'miui10_anim.dart';
 
@@ -39,10 +39,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
       duration: const Duration(seconds: 3),
       onDismiss: () {
         // The method will be called on toast dismiss.
-        print('Toast has been dismissed.');
+        debugPrint('Toast has been dismissed.');
       },
     );
 
