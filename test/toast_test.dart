@@ -4,7 +4,6 @@
 ///
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:oktoast/src/core/toast.dart';
 
 void main() {
@@ -52,8 +51,8 @@ Future<void> _pumpWidget(
           body: Center(
             child: ElevatedButton(
               key: _wButtonKey,
-              child: const Text('Button'),
               onPressed: onPressed,
+              child: const Text('Button'),
             ),
           ),
         ),

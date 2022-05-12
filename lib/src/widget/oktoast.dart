@@ -2,7 +2,7 @@ part of '../core/toast.dart';
 
 class OKToast extends StatefulWidget {
   const OKToast({
-    Key? key,
+    super.key,
     required this.child,
     this.textStyle,
     this.radius = 10.0,
@@ -18,8 +18,7 @@ class OKToast extends StatefulWidget {
     this.animationDuration = _defaultAnimDuration,
     this.animationCurve,
     this.duration,
-  })  : backgroundColor = backgroundColor ?? _defaultBackgroundColor,
-        super(key: key);
+  }) : backgroundColor = backgroundColor ?? _defaultBackgroundColor;
 
   /// Typically with a [WidgetsApp].
   final Widget child;
@@ -67,7 +66,7 @@ class OKToast extends StatefulWidget {
   final Curve? animationCurve;
 
   @override
-  _OKToastState createState() => _OKToastState();
+  State<OKToast> createState() => _OKToastState();
 }
 
 class _OKToastState extends State<OKToast> {
@@ -91,8 +90,8 @@ class _OKToastState extends State<OKToast> {
     );
 
     final Widget w = Directionality(
-      child: overlay,
       textDirection: widget.textDirection,
+      child: overlay,
     );
 
     final Typography typography = Typography.material2018(
@@ -115,8 +114,7 @@ class _OKToastState extends State<OKToast> {
     final OKToastAnimationBuilder animationBuilder =
         widget.animationBuilder ?? _defaultBuildAnimation;
 
-    return _ToastTheme(
-      child: w,
+    return ToastTheme(
       backgroundColor: widget.backgroundColor,
       radius: widget.radius,
       textStyle: textStyle,
@@ -131,6 +129,7 @@ class _OKToastState extends State<OKToast> {
       animationDuration: widget.animationDuration,
       animationCurve: widget.animationCurve ?? Curves.easeIn,
       duration: widget.duration ?? _defaultDuration,
+      child: w,
     );
   }
 }

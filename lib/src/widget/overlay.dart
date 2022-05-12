@@ -148,9 +148,9 @@ class OverlayEntry extends ChangeNotifier {
     }
 
     overlay._entries.remove(this);
-    if (SchedulerBinding.instance!.schedulerPhase ==
+    if (SchedulerBinding.instance.schedulerPhase ==
         SchedulerPhase.persistentCallbacks) {
-      SchedulerBinding.instance!.addPostFrameCallback((Duration duration) {
+      SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
         overlay._markDirty();
       });
     } else {
@@ -236,10 +236,10 @@ class Overlay extends StatefulWidget {
   /// Rather than creating an overlay, consider using the overlay that is
   /// created by the [Navigator] in a [WidgetsApp] or a [MaterialApp] for the application.
   const Overlay({
-    Key? key,
+    super.key,
     this.initialEntries = const <OverlayEntry>[],
     this.clipBehavior = Clip.hardEdge,
-  }) : super(key: key);
+  });
 
   /// The entries to include in the overlay initially.
   ///
@@ -521,10 +521,10 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
         ));
       }
     }
-    return _Theatre(
+    return Theatre(
       skipCount: children.length - onstageCount,
-      children: children.reversed.toList(growable: false),
       clipBehavior: widget.clipBehavior,
+      children: children.reversed.toList(growable: false),
     );
   }
 
@@ -532,8 +532,9 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     // provide a slightly more consistent string summary of the List.
-    properties
-        .add(DiagnosticsProperty<List<OverlayEntry>>('entries', _entries));
+    properties.add(
+      DiagnosticsProperty<List<OverlayEntry>>('entries', _entries),
+    );
   }
 }
 
@@ -541,26 +542,25 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
 /// [skipCount] children.
 ///
 /// The first [skipCount] children are considered "offstage".
-class _Theatre extends MultiChildRenderObjectWidget {
-  _Theatre({
-    Key? key,
+class Theatre extends MultiChildRenderObjectWidget {
+  Theatre({
+    super.key,
     this.skipCount = 0,
     this.clipBehavior = Clip.hardEdge,
-    List<Widget> children = const <Widget>[],
+    super.children,
   })  : assert(skipCount >= 0),
-        assert(children.length >= skipCount),
-        super(key: key, children: children);
+        assert(children.length >= skipCount);
 
   final int skipCount;
 
   final Clip clipBehavior;
 
   @override
-  _TheatreElement createElement() => _TheatreElement(this);
+  TheatreElement createElement() => TheatreElement(this);
 
   @override
-  _RenderTheatre createRenderObject(BuildContext context) {
-    return _RenderTheatre(
+  RenderTheatre createRenderObject(BuildContext context) {
+    return RenderTheatre(
       skipCount: skipCount,
       textDirection: Directionality.of(context),
       clipBehavior: clipBehavior,
@@ -568,7 +568,7 @@ class _Theatre extends MultiChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, _RenderTheatre renderObject) {
+  void updateRenderObject(BuildContext context, RenderTheatre renderObject) {
     renderObject
       ..skipCount = skipCount
       ..textDirection = Directionality.of(context)
@@ -582,14 +582,14 @@ class _Theatre extends MultiChildRenderObjectWidget {
   }
 }
 
-class _TheatreElement extends MultiChildRenderObjectElement {
-  _TheatreElement(_Theatre widget) : super(widget);
+class TheatreElement extends MultiChildRenderObjectElement {
+  TheatreElement(Theatre super.widget);
 
   @override
-  _Theatre get widget => super.widget as _Theatre;
+  Theatre get widget => super.widget as Theatre;
 
   @override
-  _RenderTheatre get renderObject => super.renderObject as _RenderTheatre;
+  RenderTheatre get renderObject => super.renderObject as RenderTheatre;
 
   @override
   void debugVisitOnstageChildren(ElementVisitor visitor) {
@@ -598,9 +598,9 @@ class _TheatreElement extends MultiChildRenderObjectElement {
   }
 }
 
-class _RenderTheatre extends RenderBox
+class RenderTheatre extends RenderBox
     with ContainerRenderObjectMixin<RenderBox, StackParentData> {
-  _RenderTheatre({
+  RenderTheatre({
     List<RenderBox>? children,
     required TextDirection textDirection,
     int skipCount = 0,
@@ -616,8 +616,9 @@ class _RenderTheatre extends RenderBox
 
   @override
   void setupParentData(RenderBox child) {
-    if (child.parentData is! StackParentData)
+    if (child.parentData is! StackParentData) {
       child.parentData = StackParentData();
+    }
   }
 
   Alignment? _resolvedAlignment;

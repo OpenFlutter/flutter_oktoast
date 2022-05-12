@@ -2,7 +2,7 @@ part of '../core/toast.dart';
 
 class ToastContainer extends StatefulWidget {
   const ToastContainer({
-    Key? key,
+    super.key,
     required this.duration,
     required this.child,
     required this.position,
@@ -10,7 +10,7 @@ class ToastContainer extends StatefulWidget {
     required this.animationDuration,
     required this.animationCurve,
     this.movingOnWindowChange = false,
-  }) : super(key: key);
+  });
 
   final Duration duration;
   final Widget child;
@@ -22,7 +22,7 @@ class ToastContainer extends StatefulWidget {
   final Curve animationCurve;
 
   @override
-  _ToastContainerState createState() => _ToastContainerState();
+  State<ToastContainer> createState() => _ToastContainerState();
 }
 
 class _ToastContainerState extends State<ToastContainer>
@@ -42,7 +42,7 @@ class _ToastContainerState extends State<ToastContainer>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     Future<void>.delayed(const Duration(milliseconds: 30), () {
       _animateTo(1.0);
@@ -65,7 +65,7 @@ class _ToastContainerState extends State<ToastContainer>
   @override
   void dispose() {
     _animationController.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -86,20 +86,20 @@ class _ToastContainerState extends State<ToastContainer>
       return w;
     }
 
-    final EdgeInsets? _offsetPadding;
+    final EdgeInsets? offsetPadding;
     if (offset > 0) {
-      _offsetPadding = EdgeInsets.only(top: offset);
+      offsetPadding = EdgeInsets.only(top: offset);
     } else if (offset < 0) {
-      _offsetPadding = EdgeInsets.only(bottom: offset.abs());
+      offsetPadding = EdgeInsets.only(bottom: offset.abs());
     } else {
-      _offsetPadding = null;
+      offsetPadding = null;
     }
     final EdgeInsets edgeInsets = EdgeInsets.only(
       bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
     );
 
     return AnimatedPadding(
-      padding: (_offsetPadding ?? EdgeInsets.zero) + edgeInsets,
+      padding: (offsetPadding ?? EdgeInsets.zero) + edgeInsets,
       duration: animationDuration,
       child: w,
     );

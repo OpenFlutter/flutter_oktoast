@@ -1,13 +1,14 @@
 part of '../core/toast.dart';
 
-class _ToastTheme extends InheritedWidget {
-  const _ToastTheme({
+class ToastTheme extends InheritedWidget {
+  const ToastTheme({
+    super.key,
     required this.textStyle,
     required this.textDirection,
     required this.handleTouch,
     required this.radius,
     required this.position,
-    required Widget child,
+    required super.child,
     this.backgroundColor = Colors.black,
     this.dismissOtherOnShow = true,
     this.movingOnWindowChange = true,
@@ -17,10 +18,10 @@ class _ToastTheme extends InheritedWidget {
     this.duration = _defaultDuration,
     this.textPadding,
     this.textAlign,
-  }) : super(child: child);
+  });
 
-  static _ToastTheme of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<_ToastTheme>() ?? defaultTheme;
+  static ToastTheme of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<ToastTheme>() ?? defaultTheme;
 
   final TextStyle textStyle;
   final Color backgroundColor;
