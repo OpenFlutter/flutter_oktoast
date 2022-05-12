@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart' hide Miui10AnimBuilder;
+import 'package:oktoast/oktoast.dart';
 
 import 'miui10_anim.dart';
 
