@@ -2,7 +2,7 @@ part of '../core/toast.dart';
 
 class OKToast extends StatefulWidget {
   const OKToast({
-    super.key,
+    Key? key,
     required this.child,
     this.textStyle,
     this.radius = 10.0,
@@ -18,7 +18,8 @@ class OKToast extends StatefulWidget {
     this.animationDuration = _defaultAnimDuration,
     this.animationCurve,
     this.duration,
-  }) : backgroundColor = backgroundColor ?? _defaultBackgroundColor;
+  })  : backgroundColor = backgroundColor ?? _defaultBackgroundColor,
+        super(key: key);
 
   /// Typically with a [WidgetsApp].
   final Widget child;

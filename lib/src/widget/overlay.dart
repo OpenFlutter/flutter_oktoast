@@ -5,6 +5,7 @@
 import 'dart:collection';
 import 'dart:math' as math;
 
+import 'package:bindings_compatible/bindings_compatible.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -79,6 +80,7 @@ class OverlayEntry extends ChangeNotifier {
   /// set.
   bool get opaque => _opaque;
   bool _opaque;
+
   set opaque(bool value) {
     if (_opaque == value) {
       return;
@@ -103,6 +105,7 @@ class OverlayEntry extends ChangeNotifier {
   /// from subsequent routes will be handled properly when they complete.
   bool get maintainState => _maintainState;
   bool _maintainState;
+
   set maintainState(bool value) {
     if (_maintainState == value) {
       return;
@@ -117,6 +120,7 @@ class OverlayEntry extends ChangeNotifier {
   /// The [OverlayEntry] notifies its listeners when this value changes.
   bool get mounted => _mounted;
   bool _mounted = false;
+
   void _updateMounted(bool value) {
     if (value == _mounted) {
       return;
@@ -148,9 +152,9 @@ class OverlayEntry extends ChangeNotifier {
     }
 
     overlay._entries.remove(this);
-    if (SchedulerBinding.instance.schedulerPhase ==
-        SchedulerPhase.persistentCallbacks) {
-      SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
+    final SchedulerBinding binding = useSchedulerBinding();
+    if (binding.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+      binding.addPostFrameCallback((Duration duration) {
         overlay._markDirty();
       });
     } else {
@@ -206,7 +210,9 @@ class _OverlayEntryWidgetState extends State<_OverlayEntryWidget> {
   }
 
   void _markNeedsBuild() {
-    setState(() {/* the state that changed is in the builder */});
+    setState(() {
+      /* the state that changed is in the builder */
+    });
   }
 }
 
@@ -236,10 +242,10 @@ class Overlay extends StatefulWidget {
   /// Rather than creating an overlay, consider using the overlay that is
   /// created by the [Navigator] in a [WidgetsApp] or a [MaterialApp] for the application.
   const Overlay({
-    super.key,
+    Key? key,
     this.initialEntries = const <OverlayEntry>[],
     this.clipBehavior = Clip.hardEdge,
-  });
+  }) : super(key: key);
 
   /// The entries to include in the overlay initially.
   ///
@@ -544,12 +550,13 @@ class OverlayState extends State<Overlay> with TickerProviderStateMixin {
 /// The first [skipCount] children are considered "offstage".
 class Theatre extends MultiChildRenderObjectWidget {
   Theatre({
-    super.key,
+    Key? key,
     this.skipCount = 0,
     this.clipBehavior = Clip.hardEdge,
-    super.children,
+    List<Widget> children = const <Widget>[],
   })  : assert(skipCount >= 0),
-        assert(children.length >= skipCount);
+        assert(children.length >= skipCount),
+        super(key: key, children: children);
 
   final int skipCount;
 
@@ -583,7 +590,7 @@ class Theatre extends MultiChildRenderObjectWidget {
 }
 
 class TheatreElement extends MultiChildRenderObjectElement {
-  TheatreElement(Theatre super.widget);
+  TheatreElement(Theatre widget) : super(widget);
 
   @override
   Theatre get widget => super.widget as Theatre;
@@ -637,6 +644,7 @@ class RenderTheatre extends RenderBox
 
   TextDirection get textDirection => _textDirection;
   TextDirection _textDirection;
+
   set textDirection(TextDirection value) {
     if (_textDirection == value) {
       return;
@@ -647,6 +655,7 @@ class RenderTheatre extends RenderBox
 
   int get skipCount => _skipCount;
   int _skipCount;
+
   set skipCount(int value) {
     if (_skipCount != value) {
       _skipCount = value;
@@ -659,6 +668,7 @@ class RenderTheatre extends RenderBox
   /// Defaults to [Clip.hardEdge], and must not be null.
   Clip get clipBehavior => _clipBehavior;
   Clip _clipBehavior = Clip.hardEdge;
+
   set clipBehavior(Clip value) {
     if (value != _clipBehavior) {
       _clipBehavior = value;

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:ui' as ui;
 
+import 'package:bindings_compatible/bindings_compatible.dart';
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 
 import '../widget/animation/animation_builder.dart';
@@ -167,7 +168,7 @@ ToastFuture showToastWidget(
   if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
     _insertOverlayEntry();
   } else {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    useWidgetsBinding().addPostFrameCallback((_) {
       _insertOverlayEntry();
     });
   }

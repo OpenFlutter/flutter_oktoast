@@ -1,11 +1,11 @@
 name: example_for_oktoast
 description: A new Flutter project.
-version: 3.2.0+2
+version: 3.2.0+3
 publish_to: none
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
@@ -13,6 +13,9 @@ dependencies:
 
   oktoast:
     path: ../
+
+dev_dependencies:
+  flutter_lints: any
 
 flutter:
   uses-material-design: true

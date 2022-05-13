@@ -22,9 +22,5 @@ class OffsetAnimationBuilder extends BaseAnimationBuilder {
       offset: Offset(maxOffsetX * percent, maxOffsetY * (1 - percent)),
       child: child,
     );
-//    return FractionalTranslation(
-//      translation: Offset(0, -1 * percent),
-//      child: child,
-//    );
   }
 }

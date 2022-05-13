@@ -6,7 +6,6 @@ import 'package:oktoast/oktoast.dart';
 class Miui10AnimBuilder extends BaseAnimationBuilder {
   const Miui10AnimBuilder();
 
-  @Deprecated('Please build animation builders outside the package.')
   @override
   Widget buildWidget(
     BuildContext context,

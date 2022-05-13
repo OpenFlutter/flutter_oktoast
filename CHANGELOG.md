@@ -1,9 +1,8 @@
 # Change log
 
-## 3.2.0
+## 3.2.0+1
 
-Migrate to Flutter 3, drop supports for previous Flutter versions.
-
+- Support Flutter 3.
 - Remove deprecated `Miui10AnimBuilder`.
 
 ## 3.1.5
