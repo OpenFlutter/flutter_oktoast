@@ -24,10 +24,19 @@ part '../widget/container.dart';
 final LinkedHashMap<_OKToastState, BuildContext> _contextMap =
     LinkedHashMap<_OKToastState, BuildContext>();
 
+typedef BuildContextPredicate = BuildContext Function(
+  Iterable<BuildContext> list,
+);
+
+BuildContext _defaultContextPredicate(Iterable<BuildContext> list) {
+  return list.first;
+}
+
 /// Show toast with [msg],
 ToastFuture showToast(
   String msg, {
   BuildContext? context,
+  BuildContextPredicate buildContextPredicate = _defaultContextPredicate,
   Duration? duration,
   ToastPosition? position,
   TextStyle? textStyle,
@@ -47,7 +56,7 @@ ToastFuture showToast(
   if (context == null) {
     _throwIfNoContext(_contextMap.values, 'showToast');
   }
-  context ??= _contextMap.values.first;
+  context ??= buildContextPredicate(_contextMap.values);
 
   final ToastTheme theme = ToastTheme.of(context);
   textStyle ??= theme.textStyle;
@@ -71,14 +80,15 @@ ToastFuture showToast(
 
   return showToastWidget(
     widget,
-    animationBuilder: animationBuilder,
-    animationDuration: animationDuration,
     context: context,
+    buildContextPredicate: buildContextPredicate,
     duration: duration,
     onDismiss: onDismiss,
     position: position,
     dismissOtherToast: dismissOtherToast,
     textDirection: textDirection,
+    animationBuilder: animationBuilder,
+    animationDuration: animationDuration,
     animationCurve: animationCurve,
   );
 }
@@ -87,6 +97,7 @@ ToastFuture showToast(
 ToastFuture showToastWidget(
   Widget widget, {
   BuildContext? context,
+  BuildContextPredicate buildContextPredicate = _defaultContextPredicate,
   Duration? duration,
   ToastPosition? position,
   VoidCallback? onDismiss,
@@ -100,9 +111,9 @@ ToastFuture showToastWidget(
   if (context == null) {
     _throwIfNoContext(_contextMap.values, 'showToastWidget');
   }
-  context ??= _contextMap.values.first;
-  final ToastTheme theme = ToastTheme.of(context);
+  context ??= buildContextPredicate(_contextMap.values);
 
+  final ToastTheme theme = ToastTheme.of(context);
   position ??= theme.position;
   handleTouch ??= theme.handleTouch;
   animationBuilder ??= theme.animationBuilder;
