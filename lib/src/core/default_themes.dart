@@ -24,6 +24,5 @@ const ToastTheme defaultTheme = ToastTheme(
   position: ToastPosition.center,
   textDirection: TextDirection.ltr,
   handleTouch: false,
-  animationBuilder: _defaultBuildAnimation,
   child: SizedBox(),
 );

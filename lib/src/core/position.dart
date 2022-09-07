@@ -6,8 +6,7 @@ class ToastPosition {
   final AlignmentGeometry align;
   final double offset;
 
-  static const ToastPosition center =
-      ToastPosition(align: Alignment.center, offset: 0.0);
+  static const ToastPosition center = ToastPosition();
 
   static const ToastPosition bottom =
       ToastPosition(align: Alignment.bottomCenter, offset: -30.0);

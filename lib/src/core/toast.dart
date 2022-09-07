@@ -118,24 +118,26 @@ ToastFuture showToastWidget(
 
   widget = Align(alignment: position.align, child: widget);
 
-  final OverlayEntry entry = OverlayEntry(builder: (BuildContext ctx) {
-    return IgnorePointer(
-      ignoring: !handleTouch!,
-      child: Directionality(
-        textDirection: direction,
-        child: ToastContainer(
-          key: key,
-          duration: duration!,
-          position: position!,
-          movingOnWindowChange: movingOnWindowChange,
-          animationBuilder: animationBuilder!,
-          animationDuration: animationDuration!,
-          animationCurve: animationCurve!,
-          child: widget,
+  final OverlayEntry entry = OverlayEntry(
+    builder: (BuildContext ctx) {
+      return IgnorePointer(
+        ignoring: !handleTouch!,
+        child: Directionality(
+          textDirection: direction,
+          child: ToastContainer(
+            key: key,
+            duration: duration!,
+            position: position!,
+            movingOnWindowChange: movingOnWindowChange,
+            animationBuilder: animationBuilder!,
+            animationDuration: animationDuration!,
+            animationCurve: animationCurve!,
+            child: widget,
+          ),
         ),
-      ),
-    );
-  });
+      );
+    },
+  );
 
   dismissOtherToast ??= theme.dismissOtherOnShow;
 
@@ -158,17 +160,17 @@ ToastFuture showToastWidget(
 
   ToastManager().addFuture(future);
 
-  void _insertOverlayEntry() {
+  void insertOverlayEntry() {
     if (!future.dismissed) {
       future._insertEntry(context!);
     }
   }
 
   if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
-    _insertOverlayEntry();
+    insertOverlayEntry();
   } else {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _insertOverlayEntry();
+      insertOverlayEntry();
     });
   }
 

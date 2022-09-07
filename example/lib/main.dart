@@ -5,16 +5,21 @@ import 'package:oktoast/oktoast.dart';
 
 import 'miui10_anim.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return OKToast(
       // 2-A: wrap your app with OKToast
       textStyle: const TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
-      radius: 10.0,
+      animationCurve: Curves.easeIn,
+      animationBuilder: const Miui10AnimBuilder(),
+      animationDuration: const Duration(milliseconds: 200),
+      duration: const Duration(seconds: 3),
       child: MaterialApp(
         title: 'Demo for OKToast',
         theme: ThemeData(
@@ -22,10 +27,6 @@ class MyApp extends StatelessWidget {
         ),
         home: const MyHomePage(),
       ),
-      animationCurve: Curves.easeIn,
-      animationBuilder: const Miui10AnimBuilder(),
-      animationDuration: const Duration(milliseconds: 200),
-      duration: const Duration(seconds: 3),
     );
   }
 
@@ -180,8 +181,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        child: const Icon(Icons.add),
         tooltip: 'Add number',
+        child: const Icon(Icons.add),
       ),
     );
   }

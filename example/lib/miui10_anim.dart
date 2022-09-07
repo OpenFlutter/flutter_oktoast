@@ -6,7 +6,7 @@ import 'package:oktoast/oktoast.dart';
 class Miui10AnimBuilder extends BaseAnimationBuilder {
   const Miui10AnimBuilder();
 
-  @Deprecated('Please build animation builders outside the package.')
+  @Deprecated('Please build animation builders outside the package')
   @override
   Widget buildWidget(
     BuildContext context,
@@ -19,7 +19,7 @@ class Miui10AnimBuilder extends BaseAnimationBuilder {
 
     return Opacity(
       opacity: opacity,
-      child: Transform.translate(child: child, offset: Offset(0, offset)),
+      child: Transform.translate(offset: Offset(0, offset), child: child),
     );
   }
 }

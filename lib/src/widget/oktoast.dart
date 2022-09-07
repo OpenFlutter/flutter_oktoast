@@ -94,9 +94,7 @@ class _OKToastState extends State<OKToast> {
       child: overlay,
     );
 
-    final Typography typography = Typography.material2018(
-      platform: TargetPlatform.android,
-    );
+    final Typography typography = Typography.material2018();
     final TextTheme defaultTextTheme = typography.white;
 
     final TextStyle textStyle = widget.textStyle ??

@@ -8,9 +8,12 @@ import 'package:oktoast/src/core/toast.dart';
 
 void main() {
   testWidgets('Show toast test', (WidgetTester tester) async {
-    await _pumpWidget(tester, onPressed: () {
-      showToast('Test toast');
-    });
+    await _pumpWidget(
+      tester,
+      onPressed: () {
+        showToast('Test toast');
+      },
+    );
     await tester.tap(find.byKey(_wButtonKey));
     await tester.pumpAndSettle();
     expect(find.byType(ToastContainer), findsOneWidget);
@@ -21,10 +24,13 @@ void main() {
   });
 
   testWidgets('Dismiss synchronously', (WidgetTester tester) async {
-    await _pumpWidget(tester, onPressed: () {
-      final ToastFuture future = showToast('Test toast');
-      future.dismiss();
-    });
+    await _pumpWidget(
+      tester,
+      onPressed: () {
+        final ToastFuture future = showToast('Test toast');
+        future.dismiss();
+      },
+    );
     await tester.tap(find.byKey(_wButtonKey));
     expect(find.byType(ToastContainer), findsNothing);
     await tester.pumpAndSettle(_defaultAnimDuration);
@@ -44,7 +50,6 @@ Future<void> _pumpWidget(
 }) async {
   await tester.pumpWidget(
     OKToast(
-      animationDuration: _defaultAnimDuration,
       child: MaterialApp(
         home: Scaffold(
           appBar: AppBar(title: const Text(_wTitle)),
