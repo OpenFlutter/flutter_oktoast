@@ -1,5 +1,9 @@
 # Change log
 
+## 3.3.0
+
+- Abstract `BuildContextPredicate`. (#95)
+
 ## 3.2.0
 
 Migrate to Flutter 3, drop supports for previous Flutter versions.
