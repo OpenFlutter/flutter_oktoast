@@ -3,6 +3,7 @@
 ## 3.3.0
 
 - Abstract `BuildContextPredicate`. (#95)
+- More text fields for `showToast`. (#96)
 
 ## 3.2.0
 

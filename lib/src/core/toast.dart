@@ -39,19 +39,21 @@ ToastFuture showToast(
   BuildContextPredicate buildContextPredicate = _defaultContextPredicate,
   Duration? duration,
   ToastPosition? position,
-  TextStyle? textStyle,
-  EdgeInsetsGeometry? textPadding,
   Color? backgroundColor,
   double? radius,
   VoidCallback? onDismiss,
-  TextDirection? textDirection,
   bool? dismissOtherToast,
-  TextAlign? textAlign,
   OKToastAnimationBuilder? animationBuilder,
   Duration? animationDuration,
   Curve? animationCurve,
   BoxConstraints? constraints,
   EdgeInsetsGeometry? margin = const EdgeInsets.all(50),
+  TextDirection? textDirection,
+  EdgeInsetsGeometry? textPadding,
+  TextAlign? textAlign,
+  TextStyle? textStyle,
+  int? textMaxLines,
+  TextOverflow? textOverflow,
 }) {
   if (context == null) {
     _throwIfNoContext(_contextMap.values, 'showToast');
@@ -59,13 +61,15 @@ ToastFuture showToast(
   context ??= buildContextPredicate(_contextMap.values);
 
   final ToastTheme theme = ToastTheme.of(context);
-  textStyle ??= theme.textStyle;
-  textAlign ??= theme.textAlign;
-  textPadding ??= theme.textPadding;
   position ??= theme.position;
   backgroundColor ??= theme.backgroundColor;
   radius ??= theme.radius;
   textDirection ??= theme.textDirection;
+  textPadding ??= theme.textPadding;
+  textAlign ??= theme.textAlign;
+  textStyle ??= theme.textStyle;
+  textMaxLines ??= theme.textMaxLines;
+  textOverflow ??= theme.textOverflow;
 
   final Widget widget = Container(
     constraints: constraints,
@@ -75,7 +79,15 @@ ToastFuture showToast(
       borderRadius: BorderRadius.circular(radius),
       color: backgroundColor,
     ),
-    child: ClipRect(child: Text(msg, style: textStyle, textAlign: textAlign)),
+    child: ClipRect(
+      child: Text(
+        msg,
+        style: textStyle,
+        textAlign: textAlign,
+        maxLines: textMaxLines,
+        overflow: textOverflow,
+      ),
+    ),
   );
 
   return showToastWidget(
@@ -93,7 +105,7 @@ ToastFuture showToast(
   );
 }
 
-/// Show [widget] with oktoast.
+/// Show a [widget] and returns a [ToastFuture].
 ToastFuture showToastWidget(
   Widget widget, {
   BuildContext? context,
