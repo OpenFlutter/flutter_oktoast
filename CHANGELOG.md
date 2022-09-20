@@ -1,5 +1,9 @@
 # Change log
 
+## 3.3.1
+
+- Replace `context.debugDoingBuild` flag with `SchedulerBinding.instance.schedulerPhase`. (#97)
+
 ## 3.3.0
 
 - Abstract `BuildContextPredicate`. (#95)
