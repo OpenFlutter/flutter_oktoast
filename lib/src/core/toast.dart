@@ -5,6 +5,7 @@ import 'dart:collection';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
+import 'package:flutter/scheduler.dart';
 
 import '../widget/animation/animation_builder.dart';
 import '../widget/overlay.dart';
@@ -189,7 +190,7 @@ ToastFuture showToastWidget(
     }
   }
 
-  if (!context.debugDoingBuild && context.owner?.debugBuilding != true) {
+  if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.persistentCallbacks) {
     insertOverlayEntry();
   } else {
     WidgetsBinding.instance.addPostFrameCallback((_) {
