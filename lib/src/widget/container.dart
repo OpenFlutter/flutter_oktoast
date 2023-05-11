@@ -82,10 +82,6 @@ class _ToastContainerState extends State<ToastContainer>
       child: widget.child,
     );
 
-    if (movingOnWindowChange != true) {
-      return w;
-    }
-
     final EdgeInsets? offsetPadding;
     if (offset > 0) {
       offsetPadding = EdgeInsets.only(top: offset);
@@ -94,6 +90,14 @@ class _ToastContainerState extends State<ToastContainer>
     } else {
       offsetPadding = null;
     }
+
+    if (movingOnWindowChange != true) {
+      return Padding(
+        padding: offsetPadding ?? EdgeInsets.zero,
+        child: w,
+      );
+    }
+
     final EdgeInsets edgeInsets = EdgeInsets.only(
       bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
     );
