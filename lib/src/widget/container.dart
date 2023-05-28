@@ -82,28 +82,22 @@ class _ToastContainerState extends State<ToastContainer>
       child: widget.child,
     );
 
-    final EdgeInsets? offsetPadding;
+    EdgeInsets offsetPadding = EdgeInsets.zero;
+
     if (offset > 0) {
       offsetPadding = EdgeInsets.only(top: offset);
     } else if (offset < 0) {
       offsetPadding = EdgeInsets.only(bottom: offset.abs());
-    } else {
-      offsetPadding = null;
     }
 
-    if (movingOnWindowChange != true) {
-      return Padding(
-        padding: offsetPadding ?? EdgeInsets.zero,
-        child: w,
+    if (movingOnWindowChange) {
+      offsetPadding += EdgeInsets.only(
+        bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
       );
     }
 
-    final EdgeInsets edgeInsets = EdgeInsets.only(
-      bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
-    );
-
     return AnimatedPadding(
-      padding: (offsetPadding ?? EdgeInsets.zero) + edgeInsets,
+      padding: offsetPadding,
       duration: animationDuration,
       child: w,
     );
