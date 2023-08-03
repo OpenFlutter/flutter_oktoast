@@ -91,8 +91,9 @@ class _ToastContainerState extends State<ToastContainer>
 
     final EdgeInsets windowInsets;
     if (movingOnWindowChange) {
+      final currentView = View.of(context);
       windowInsets = EdgeInsets.only(
-        bottom: MediaQueryData.fromWindow(ui.window).viewInsets.bottom,
+        bottom: MediaQueryData.fromView(currentView).viewInsets.bottom,
       );
     } else {
       windowInsets = EdgeInsets.zero;
