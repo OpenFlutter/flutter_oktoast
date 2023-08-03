@@ -4,6 +4,7 @@
 ///
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:oktoast/src/core/position.dart';
 import 'package:oktoast/src/core/toast.dart';
 
 void main() {
@@ -36,6 +37,58 @@ void main() {
     await tester.pumpAndSettle(_defaultAnimDuration);
     expect(find.byType(ToastContainer), findsNothing);
   });
+
+  testWidgets('Offset test when movingOnWindowChange is true',
+      (WidgetTester tester) async {
+    const double verticalOffset = 400.0;
+
+    await _pumpWidget(
+      tester,
+      onPressed: () {
+        showToast(
+          'Test toast',
+          position: const ToastPosition(offset: verticalOffset),
+        );
+      },
+    );
+
+    await tester.tap(find.byKey(_wButtonKey));
+    await tester.pumpAndSettle();
+    final AnimatedPadding widget =
+        tester.firstWidget(find.byType(AnimatedPadding)) as AnimatedPadding;
+    final view = tester.viewOf(find.byType(AnimatedPadding));
+    final windowInsets = EdgeInsets.only(bottom: view.viewInsets.bottom);
+    expect(
+      const EdgeInsets.only(top: verticalOffset) + windowInsets,
+      widget.padding,
+    );
+    await tester.pumpAndSettle(_defaultDuration);
+    expect(find.byType(ToastContainer), findsNothing);
+  });
+
+  testWidgets('Offset test when movingOnWindowChange is false',
+      (WidgetTester tester) async {
+    const double verticalOffset = 400.0;
+
+    await _pumpWidget(
+      tester,
+      movingOnWindowChange: false,
+      onPressed: () {
+        showToast(
+          'Test toast',
+          position: const ToastPosition(offset: verticalOffset),
+        );
+      },
+    );
+
+    await tester.tap(find.byKey(_wButtonKey));
+    await tester.pumpAndSettle();
+    final AnimatedPadding widget =
+        tester.firstWidget(find.byType(AnimatedPadding)) as AnimatedPadding;
+    expect(const EdgeInsets.only(top: verticalOffset), widget.padding);
+    await tester.pumpAndSettle(_defaultDuration);
+    expect(find.byType(ToastContainer), findsNothing);
+  });
 }
 
 const Duration _defaultDuration = Duration(milliseconds: 2300);
@@ -46,10 +99,12 @@ final GlobalKey _wButtonKey = GlobalKey();
 
 Future<void> _pumpWidget(
   WidgetTester tester, {
+  bool movingOnWindowChange = true,
   VoidCallback? onPressed,
 }) async {
   await tester.pumpWidget(
     OKToast(
+      movingOnWindowChange: movingOnWindowChange,
       child: MaterialApp(
         home: Scaffold(
           appBar: AppBar(title: const Text(_wTitle)),
