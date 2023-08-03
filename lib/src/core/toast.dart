@@ -2,7 +2,6 @@ library oktoast;
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 import 'package:flutter/scheduler.dart';
@@ -190,7 +189,8 @@ ToastFuture showToastWidget(
     }
   }
 
-  if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.persistentCallbacks) {
+  if (SchedulerBinding.instance.schedulerPhase !=
+      SchedulerPhase.persistentCallbacks) {
     insertOverlayEntry();
   } else {
     WidgetsBinding.instance.addPostFrameCallback((_) {
