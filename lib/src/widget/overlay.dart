@@ -305,7 +305,7 @@ class Overlay extends StatefulWidget {
             if (context.widget != debugRequiredFor)
               context.describeElement(
                 'The context from which that widget was searching for an overlay was',
-              )
+              ),
           ];
 
           throw FlutterError.fromParts(information);
