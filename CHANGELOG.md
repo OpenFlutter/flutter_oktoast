@@ -1,5 +1,9 @@
 # Change log
 
+## 3.3.2
+
+- Fix position offset do not work when `movingOnWindowChange` is false. (#100)
+
 ## 3.3.1
 
 - Replace `context.debugDoingBuild` flag with `SchedulerBinding.instance.schedulerPhase`. (#97)

@@ -15,8 +15,8 @@ You can completely customize the style of toast.
 
 ## Screenshot
 
-| Default | Custom | GIF |
-| ------- | ------ | --- |
+| Default                                                                                | Custom                                                                                 | GIF                                                                                 |
+|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
 | ![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161700.png) | ![pic](https://raw.githubusercontent.com/CccFans/images/master/img/20181207161742.png) | ![pic](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/ktoast2.gif) |
 
 ## Versions
@@ -43,11 +43,8 @@ And you can completely customize the style of toast, because now you can use `sh
 
 ### 1. Add library to your pubspec.yaml
 
-latest version: [![pub package](https://img.shields.io/pub/v/oktoast.svg)](https://pub.dartlang.org/packages/oktoast)
-
-```yaml
-dependencies:
-  oktoast: ^latest_version
+```shell
+flutter pub add oktoast
 ```
 
 ### 2. Import library in dart file
@@ -84,7 +81,6 @@ MaterialApp(
 showToast('content');
 
 // position and second have default value, is optional
-
 showToastWidget(Text('hello oktoast'));
 ```
 
@@ -102,7 +98,7 @@ There are two reasons why you need to wrap MaterialApp
 OKToast have default style, and you also can custom style or other behavior.
 
 |         name         |          type           |   need   |                             desc                              |
-| :------------------: | :---------------------: | :------: | :-----------------------------------------------------------: |
+|:--------------------:|:-----------------------:|:--------:|:-------------------------------------------------------------:|
 |        child         |         Widget          | required |                     Usually Material App                      |
 |      textStyle       |        TextStyle        | optional |                                                               |
 |        radius        |         double          | optional |                                                               |
@@ -126,7 +122,7 @@ Display text on toast.
 Description of params see `OKToast`.
 
 |       name        |          type           |   need   |      desc      |
-| :---------------: | :---------------------: | :------: | :------------: |
+|:-----------------:|:-----------------------:|:--------:|:--------------:|
 |        msg        |         String          | required | Text of toast. |
 |      context      |      BuildContext       | optional |                |
 |     duration      |        Duration         | optional |                |
@@ -150,7 +146,7 @@ Display custom widgets on toast
 Description of params see `showToast`.
 
 |       name        |          type           |   need   |              desc               |
-| :---------------: | :---------------------: | :------: | :-----------------------------: |
+|:-----------------:|:-----------------------:|:--------:|:-------------------------------:|
 |      widget       |         Widget          | required | The widget you want to display. |
 |      context      |      BuildContext       | optional |                                 |
 |     duration      |        Duration         | optional |                                 |
