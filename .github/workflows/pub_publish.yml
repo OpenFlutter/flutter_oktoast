@@ -1,4 +1,4 @@
-name: Pub Publish plugin
+name: Publish
 
 on:
   release:
@@ -7,16 +7,15 @@ on:
 
 jobs:
   publish:
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Publish
-        uses: sakebook/actions-flutter-pub-publisher@v1.3.0
+        uses: k-paxian/dart-package-publisher@master
         with:
-          credential: ${{ secrets.CREDENTIAL_JSON }}
-          flutter_package: true
-          skip_test: true
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+          flutter: true
           dry_run: false
+          skipTests: true
+          force: true
