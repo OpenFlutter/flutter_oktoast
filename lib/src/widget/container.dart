@@ -91,10 +91,10 @@ class _ToastContainerState extends State<ToastContainer>
 
     final EdgeInsets windowInsets;
     if (movingOnWindowChange) {
-      final currentView = View.of(context);
-      windowInsets = EdgeInsets.only(
-        bottom: MediaQueryData.fromView(currentView).viewInsets.bottom,
-      );
+      // ignore: deprecated_member_use
+      final mediaQuery = MediaQueryData.fromWindow(ui.window);
+      // final mediaQuery = MediaQueryData.fromView(currentView);
+      windowInsets = EdgeInsets.only(bottom: mediaQuery.viewInsets.bottom);
     } else {
       windowInsets = EdgeInsets.zero;
     }

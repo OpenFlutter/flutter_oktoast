@@ -2,6 +2,7 @@ library oktoast;
 
 import 'dart:async';
 import 'dart:collection';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart' hide Overlay, OverlayEntry, OverlayState;
 import 'package:flutter/scheduler.dart';
