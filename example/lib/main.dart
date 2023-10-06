@@ -139,7 +139,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: Text(
                 '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             Padding(

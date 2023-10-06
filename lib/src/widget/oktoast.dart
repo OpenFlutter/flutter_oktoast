@@ -94,17 +94,7 @@ class _OKToastState extends State<OKToast> {
       child: overlay,
     );
 
-    final Typography typography = Typography.material2018();
-    final TextTheme defaultTextTheme = typography.white;
-
-    final TextStyle textStyle = widget.textStyle ??
-        defaultTextTheme.bodyMedium?.copyWith(
-          fontSize: 15.0,
-          fontWeight: FontWeight.normal,
-          color: Colors.white,
-        ) ??
-        _defaultTextStyle;
-
+    final TextStyle textStyle = widget.textStyle ?? _defaultTextStyle;
     final TextAlign textAlign = widget.textAlign ?? TextAlign.center;
     final EdgeInsets textPadding = widget.textPadding ??
         const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0);
