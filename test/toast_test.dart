@@ -56,8 +56,15 @@ void main() {
     await tester.pumpAndSettle();
     final AnimatedPadding widget =
         tester.firstWidget(find.byType(AnimatedPadding)) as AnimatedPadding;
-    final view = tester.viewOf(find.byType(AnimatedPadding));
-    final windowInsets = EdgeInsets.only(bottom: view.viewInsets.bottom);
+    final MediaQuery mediaQueryWidget = tester.widget(
+      find.ancestor(
+        of: find.byType(AnimatedPadding),
+        matching: find.byType(MediaQuery),
+      ),
+    );
+    final windowInsets = EdgeInsets.only(
+      bottom: mediaQueryWidget.data.viewInsets.bottom,
+    );
     expect(
       const EdgeInsets.only(top: verticalOffset) + windowInsets,
       widget.padding,
