@@ -54,16 +54,25 @@ void main() {
 
     await tester.tap(find.byKey(_wButtonKey));
     await tester.pumpAndSettle();
-    final AnimatedPadding widget =
-        tester.firstWidget(find.byType(AnimatedPadding)) as AnimatedPadding;
-    final MediaQuery mediaQueryWidget = tester.widget(
-      find.ancestor(
-        of: find.byType(AnimatedPadding),
-        matching: find.byType(MediaQuery),
-      ),
+    final AnimatedPadding widget = tester.firstWidget(
+      find.byType(AnimatedPadding),
+    ) as AnimatedPadding;
+    final findMediaQuery = find.ancestor(
+      of: find.byType(AnimatedPadding),
+      matching: find.byType(MediaQuery),
     );
+    final MediaQueryData mediaQueryData;
+    if (tester.any(findMediaQuery)) {
+      mediaQueryData = tester.widget<MediaQuery>(findMediaQuery).data;
+    } else {
+      // ignore: deprecated_member_use
+      mediaQueryData = MediaQueryData.fromWindow(
+        // ignore: deprecated_member_use
+        TestWidgetsFlutterBinding.instance.window,
+      );
+    }
     final windowInsets = EdgeInsets.only(
-      bottom: mediaQueryWidget.data.viewInsets.bottom,
+      bottom: mediaQueryData.viewInsets.bottom,
     );
     expect(
       const EdgeInsets.only(top: verticalOffset) + windowInsets,
