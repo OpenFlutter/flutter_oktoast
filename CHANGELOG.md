@@ -1,5 +1,9 @@
 # Change log
 
+## 3.3.2+1
+
+- Fix `Theatre` constructor and get rid of `View` for compatibilities. (#103)
+
 ## 3.3.2
 
 - Fix position offset do not work when `movingOnWindowChange` is false. (#100)
