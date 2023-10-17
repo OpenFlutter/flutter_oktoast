@@ -15,6 +15,10 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
+        version: [
+          '', # Stable
+          '3.0.0' # Minimum
+        ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -23,6 +27,8 @@ jobs:
           java-version: '11.x'
       - uses: subosito/flutter-action@v2
         with:
+          cache: true
+          flutter-version: ${{ matrix.version }}
           channel: 'stable'
       - name: Log Dart/Flutter versions
         run: |
