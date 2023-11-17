@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       textStyle: const TextStyle(fontSize: 19.0, color: Colors.white),
       backgroundColor: Colors.grey,
       animationCurve: Curves.easeIn,
-      animationBuilder: const Miui10AnimBuilder(),
+      animationBuilder: const Miui10AnimBuilder().call,
       animationDuration: const Duration(milliseconds: 200),
       duration: const Duration(seconds: 3),
       child: MaterialApp(
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 13.0,
       textStyle: const TextStyle(fontSize: 18.0),
-      animationBuilder: const Miui10AnimBuilder(),
+      animationBuilder: const Miui10AnimBuilder().call,
     );
 
     showToast(
