@@ -12,14 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return buildApp();
+  }
+
+  // 2-A: Wrap MaterialApp with OKToast.
+  Widget buildWrapperApp() {
     return OKToast(
       // 2-A: wrap your app with OKToast
-      textStyle: const TextStyle(fontSize: 19.0, color: Colors.white),
-      backgroundColor: Colors.grey,
-      animationCurve: Curves.easeIn,
-      animationBuilder: const Miui10AnimBuilder().call,
-      animationDuration: const Duration(milliseconds: 200),
-      duration: const Duration(seconds: 3),
       child: MaterialApp(
         title: 'Demo for OKToast',
         theme: ThemeData(
@@ -34,7 +33,15 @@ class MyApp extends StatelessWidget {
   Widget buildApp() {
     return MaterialApp(
       home: const MyHomePage(),
-      builder: (_, Widget? child) => OKToast(child: child!),
+      builder: (_, Widget? child) => OKToast(
+        textStyle: const TextStyle(fontSize: 19.0, color: Colors.white),
+        backgroundColor: Colors.grey,
+        animationCurve: Curves.easeIn,
+        animationBuilder: const Miui10AnimBuilder().call,
+        animationDuration: const Duration(milliseconds: 200),
+        duration: const Duration(seconds: 3),
+        child: child!,
+      ),
     );
   }
 }
@@ -61,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       position: ToastPosition.bottom,
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 13.0,
-      textStyle: const TextStyle(fontSize: 18.0),
+      textStyle: const TextStyle(fontSize: 18.0, color: Colors.white),
       animationBuilder: const Miui10AnimBuilder().call,
     );
 
@@ -71,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
       position: ToastPosition.top,
       backgroundColor: Colors.black.withOpacity(0.8),
       radius: 3.0,
-      textStyle: const TextStyle(fontSize: 30.0),
+      textStyle: const TextStyle(fontSize: 30.0, color: Colors.white),
     );
 
     // 3-B use showToastWidget method
