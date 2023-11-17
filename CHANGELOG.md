@@ -5,6 +5,7 @@
 Feat:
 
 - Wrapper a `Material` widget when the `OKToast` widget is not wrapped with `Material`.
+- The min support of flutter SDK version to 3.7.0.
 
 ## 3.3.2+1
 
