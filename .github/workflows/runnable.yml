@@ -10,7 +10,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze on ${{ matrix.os }}
+    name: Analyze on ${{ matrix.os }} with flutter ${{ matrix.version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
