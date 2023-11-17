@@ -1,11 +1,11 @@
 name: oktoast
 description: A pure flutter toast library, support custom style/widget, easy achieve the same effect with native toasts.
 repository: https://github.com/OpenFlutter/flutter_oktoast
-version: 3.3.2+1
+version: 3.4.0
 
 environment:
   sdk: '>=2.17.0 <4.0.0'
-  flutter: '>=3.0.0'
+  flutter: '>=3.7.0'
 
 dependencies:
   flutter:
