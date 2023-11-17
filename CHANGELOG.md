@@ -1,5 +1,11 @@
 # Change log
 
+## 3.4.0
+
+Feat:
+
+- Wrapper a `Material` widget when the `OKToast` widget is not wrapped with `Material`.
+
 ## 3.3.2+1
 
 - Fix `Theatre` constructor and get rid of `View` for compatibilities. (#103)
