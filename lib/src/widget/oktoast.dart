@@ -89,7 +89,7 @@ class _OKToastState extends State<OKToast> {
       ],
     );
 
-    final Widget w = Directionality(
+    Widget w = Directionality(
       textDirection: widget.textDirection,
       child: overlay,
     );
@@ -101,6 +101,15 @@ class _OKToastState extends State<OKToast> {
 
     final OKToastAnimationBuilder animationBuilder =
         widget.animationBuilder ?? _defaultBuildAnimation;
+
+    final haveMaterialParent = Material.maybeOf(context) != null;
+
+    if (!haveMaterialParent) {
+      w = Material(
+        color: Colors.transparent,
+        child: w,
+      );
+    }
 
     return ToastTheme(
       backgroundColor: widget.backgroundColor,
