@@ -137,7 +137,7 @@ ToastFuture showToastWidget(
   animationDuration ??= theme.animationDuration;
   animationCurve ??= theme.animationCurve;
   duration ??= theme.duration;
-  movingOnWindowChange = theme.movingOnWindowChange;
+  movingOnWindowChange ??= theme.movingOnWindowChange;
 
   final TextDirection direction = textDirection ?? theme.textDirection;
 
