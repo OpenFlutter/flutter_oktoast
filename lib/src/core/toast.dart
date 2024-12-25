@@ -44,6 +44,7 @@ ToastFuture showToast(
   double? radius,
   VoidCallback? onDismiss,
   bool? dismissOtherToast,
+  bool? movingOnWindowChange,
   OKToastAnimationBuilder? animationBuilder,
   Duration? animationDuration,
   Curve? animationCurve,
@@ -71,6 +72,7 @@ ToastFuture showToast(
   textStyle ??= theme.textStyle;
   textMaxLines ??= theme.textMaxLines;
   textOverflow ??= theme.textOverflow;
+  movingOnWindowChange ??= theme.movingOnWindowChange;
 
   final Widget widget = Container(
     constraints: constraints,
@@ -99,6 +101,7 @@ ToastFuture showToast(
     onDismiss: onDismiss,
     position: position,
     dismissOtherToast: dismissOtherToast,
+    movingOnWindowChange: movingOnWindowChange,
     textDirection: textDirection,
     animationBuilder: animationBuilder,
     animationDuration: animationDuration,
@@ -115,6 +118,7 @@ ToastFuture showToastWidget(
   ToastPosition? position,
   VoidCallback? onDismiss,
   bool? dismissOtherToast,
+  bool? movingOnWindowChange,
   TextDirection? textDirection,
   bool? handleTouch,
   OKToastAnimationBuilder? animationBuilder,
@@ -133,8 +137,7 @@ ToastFuture showToastWidget(
   animationDuration ??= theme.animationDuration;
   animationCurve ??= theme.animationCurve;
   duration ??= theme.duration;
-
-  final bool movingOnWindowChange = theme.movingOnWindowChange;
+  movingOnWindowChange ??= theme.movingOnWindowChange;
 
   final TextDirection direction = textDirection ?? theme.textDirection;
 
@@ -152,7 +155,7 @@ ToastFuture showToastWidget(
             key: key,
             duration: duration!,
             position: position!,
-            movingOnWindowChange: movingOnWindowChange,
+            movingOnWindowChange: movingOnWindowChange!,
             animationBuilder: animationBuilder!,
             animationDuration: animationDuration!,
             animationCurve: animationCurve!,
