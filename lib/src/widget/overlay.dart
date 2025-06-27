@@ -194,6 +194,7 @@ class _OverlayEntryWidgetState extends State<_OverlayEntryWidget> {
   @override
   void dispose() {
     widget.entry._updateMounted(false);
+    widget.entry.dispose();
     super.dispose();
   }
 
